@@ -5,7 +5,7 @@ import { migrate } from 'drizzle-orm/neon-http/migrator';
 import { db } from './drizzle';
 
 
-dotenv.config({ path: '.env.local' });
+dotenv.config({ path: '.env' });
 
 async function main() {
   console.log('Migrating database');

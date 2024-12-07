@@ -1,6 +1,7 @@
 import React from 'react'
 import { Sidebar } from './_components/sidebar'
 import { Navbar } from './_components/navbar'
+import MobileBottombar from './_components/mobile-bottombar'
 
 interface DashboardLayoutProps {
     children: React.ReactNode
@@ -13,11 +14,13 @@ const DashboardLayout = ({ children }: Readonly<DashboardLayoutProps>) => {
                 <Sidebar />
                 <div className='flex-1 flex flex-col '>
                     <Navbar />
-                    <main className=' min-h-[calc(100vh-64px)] shadow-xl shadow-[#6b63631a]'>
+                    <main className='shadow-xl shadow-[#6b63631a]'>
                         {children}
                     </main>
                 </div>
+                <MobileBottombar />
             </div>
+
         </main>
     )
 }

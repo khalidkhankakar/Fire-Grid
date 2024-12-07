@@ -1,20 +1,24 @@
-'use client'
+'use client';
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import { CircleChevronLeft, CircleChevronRight, Star, UserRound, UserRoundPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import MobileSidebar from './mobile-sidebar';
 import { cn } from '@/lib/utils';
 import { useTheme } from 'next-themes';
+import { useSearchParams } from 'next/navigation';
 
 export const Sidebar = () => {
-    const { theme } = useTheme()
-
     const [toggleSidebar, setToggleSidebar] = useState<boolean>(false)
+
+    const { theme } = useTheme()
+    const searchParams = useSearchParams()
+    const type = searchParams.get('type')
+
+
     return (
-        <aside className={cn('relative transition-all duration-300 h-screen border-red-500', toggleSidebar ? 'w-[80px]' : 'w-[250px]')}>
+        <aside className={cn('relative hidden md:block transition-all duration-300 h-screen border-red-500', toggleSidebar ? 'w-[80px]' : 'w-[250px]')}>
             <div className='h-full w-full'>
                 <div className='relative flex items-center pl-4 h-16 ' style={{ boxShadow: "0 4px 2px -2px #3b82f6" }}>
                     <Link href="/" className={cn('', toggleSidebar ? 'hidden' : 'block')}>
@@ -44,36 +48,50 @@ export const Sidebar = () => {
 
                 {
                     toggleSidebar ? (
-                        <MobileSidebar />
+                        <div className='flex flex-col items-center gap-y-2 mt-3'>
+                            <Button variant={type == null ? 'icon-active' : 'icon'} size={'icon'} asChild>
+                                <Link href={{ pathname: '/dashboard' }}>
+                                    <UserRound />
+                                </Link>
+                            </Button>
+                            <Button variant={type == 'team' ? 'icon-active' : 'icon'} size={'icon'} asChild>
+                                <Link href={{ pathname: '/dashboard', query: { type: 'team' } }}>
+                                    <UserRoundPlus />
+                                </Link>
+                            </Button>
+                            <Button variant={type == 'favorite' ? 'icon-active' : 'icon'} size={'icon'} asChild>
+                                <Link href={{ pathname: '/dashboard', query: { type: 'favorite' } }}>
+                                    <Star />
+                                </Link>
+                            </Button>
+                        </div>
                     ) : (
                         <div className='flex flex-col items-center gap-y-4 mt-3  '>
                             <div className='flex   flex-col py-1 cursor-pointer justify-center  w-full'>
                                 <p className='text-lg px-5 mb-2'>Menu</p>
                                 {
-                                    theme === 'light' ?
-                                        <div className="h-[2px] bg-gradient-to-r from-white  via-blue-600 to-white  z-50" /> :
-                                        <div className="h-[2px] bg-gradient-to-r from-dark-1 dark:to via-blue-600  to-dark-1 z-50" />
+                                    theme == 'light' ? <div className="h-[2px] bg-gradient-to-r from-white  via-blue-600 to-white  z-50" /> : <div className="h-[2px] bg-gradient-to-r from-dark-1 dark:to via-blue-600  to-dark-1 z-50" />
                                 }
                             </div>
 
-                            <div className='flex items-center  py-1 cursor-pointer justify-center gap-x-2 border-l-[6px] border-blue-600 w-full text-blue-600 rounded-md '>
-                                <UserRound className='w-7 h-7' />
-                                <span className='text-lg '>Personnel</span>
-                            </div>
-
-                            <div className='flex items-center  py-1 cursor-pointer justify-center gap-x-2 border-l-4  w-full'>
-                                <UserRoundPlus className='w-7 h-7' />
-                                <span className='text-lg '>Teammates</span>
-                            </div>
-
-                            <div className='flex items-center  py-1 cursor-pointer justify-center gap-x-2 border-l-4  w-full'>
-                                <Star className='w-7 h-7' />
-                                <span className='text-lg '>Favorites</span>
-                            </div>
-
-
-
-
+                            <Link href={'/dashboard'} className={cn('py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md', type == null && 'border-blue-600 text-blue-600 ')}>
+                                <div className='flex items-center gap-x-2 justify-center'>
+                                    <UserRound className='w-7 h-7' />
+                                    <span className='text-lg '>Personnel</span>
+                                </div>
+                            </Link>
+                            <Link href={{ pathname: '/dashboard', query: { type: 'team' } }} className={cn('py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md' , type == 'team' && 'border-blue-600 text-blue-600 '  )}>
+                                <div className='flex items-center gap-x-2 justify-center'>
+                                    <UserRoundPlus className='w-7 h-7' />
+                                    <span className='text-lg '>Teammates</span>
+                                </div>
+                            </Link>
+                            <Link href={{ pathname: '/dashboard', query: { type: 'favorite' } }} className={cn('py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md' , type == 'favorite' && 'border-blue-600 text-blue-600 '  )}>
+                                <div className='flex items-center gap-x-2 justify-center'>
+                                    <Star className='w-7 h-7' />
+                                    <span className='text-lg '>Favorites</span>
+                                </div>
+                            </Link>
                         </div>
                     )
                 }
