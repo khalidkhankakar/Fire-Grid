@@ -5,6 +5,7 @@ import BoardsFilter from './boards-filter'
 import SearchBar from './search-bar'
 import { SearchParams } from '../dashboard/page'
 import { CATEGORY_FILTER, DATETIME_FILTER, ORDER_FILTER } from '@/contants'
+import { CreateBoardButton } from './create-board-button'
 
 
 interface BoardsDataProps {
@@ -29,7 +30,10 @@ const BoardsData = ( {searchParams} : BoardsDataProps) => {
                     <BoardsFilter filter={DATETIME_FILTER}/>
                     <BoardsFilter filter={ORDER_FILTER}/>
                 </div>
+            </div>
 
+            <div className='my-5 flex flex-wrap gap-y-3'>
+                <CreateBoardButton />
             </div>
         </div>
     )

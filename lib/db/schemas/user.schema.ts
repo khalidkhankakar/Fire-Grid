@@ -8,10 +8,6 @@ import {
 import { relations } from "drizzle-orm";
 
 import board from "./board.schema";
-
-
-
-
  
 const user = pgTable(
   "user",

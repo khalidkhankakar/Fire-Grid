@@ -1,11 +1,20 @@
+'use client';
 import { ToggleMode } from '@/components/shared/toggle-mode'
 import { Button } from '@/components/ui/button'
-import { LogOutIcon, Settings } from 'lucide-react'
+import { useClerk, UserButton } from '@clerk/nextjs';
+import { LogOutIcon } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import Image from 'next/image'
 import Link from 'next/link'
+import { dark } from '@clerk/themes'
+
 import React from 'react'
 
+
 export const Navbar = () => {
+    const {theme} = useTheme();
+    const {signOut} = useClerk();
+
     return (
         <header className='flex items-center justify-between bg-white dark:bg-dark-1  h-16 px-6 ' style={{ boxShadow: "0 4px 2px -2px #3b82f6" }}>
             <div >
@@ -29,10 +38,15 @@ export const Navbar = () => {
                 <Button
                     variant={'icon'}
                     size={'icon'}
+                    
                     asChild
                 >
                     <div>
-                        <Settings className='w-6 h-6' />
+                        <UserButton 
+                       appearance={{
+                        baseTheme: theme === 'dark' ? dark : undefined ,
+                       }}
+                        />
                     </div>
                 </Button>
 
@@ -40,6 +54,7 @@ export const Navbar = () => {
                     variant={'icon'}
                     size={'icon'}
                     asChild
+                    onClick={() => signOut({redirectUrl: '/sign-in'})}
                 >
                     <div>
                         <LogOutIcon className='w-6 h-6' />
