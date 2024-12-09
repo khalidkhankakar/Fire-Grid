@@ -1,5 +1,5 @@
 import {  relations, sql } from "drizzle-orm";
-import { index, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { index, integer, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 
 import user from "./user.schema";
 import favorite from "./favorite.schema";
@@ -13,8 +13,12 @@ const board = pgTable(
     {
         id: uuid("id").defaultRandom().unique().notNull(),
         title: varchar("name").notNull(),
-        createdBy: uuid("created_by").notNull().references(() => user.id),
-        description: varchar("description").notNull(),
+        createdBy: varchar("created_by").notNull().references(() => user.clerkId),
+        image: varchar("image").notNull(),
+        category: varchar("category").notNull(),
+        visibility: varchar("visibility").notNull(),
+        orgId: varchar("org_id"),
+        position: integer("position").notNull(),
         createdAt: timestamp("created_at").defaultNow(),
         updatedAt: timestamp("updated_at").defaultNow(),
     },
@@ -35,7 +39,7 @@ export const boardRelations = relations(board, ({ many,one }) => ({
     boardTables: many(table),
     boardCreator: one(user,{
         fields: [board.createdBy],
-        references: [user.id],
+        references: [user.clerkId],
     } )
 }))
 

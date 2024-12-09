@@ -6,6 +6,10 @@ export const CATEGORY_FILTER = {
             value: 'scholl'
         },
         {
+            Text: 'Work',
+            value: 'work'
+        },
+        {
             Text: 'College',
             value: 'college'
         },
@@ -52,3 +56,11 @@ export const ORDER_FILTER = {
 
     ]
 }
+
+
+
+export const backgroundArray = [
+    "/assets/img1.jpg",
+    "/assets/img2.jpg",
+    "/assets/img3.jpg",
+];

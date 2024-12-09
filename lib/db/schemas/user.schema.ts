@@ -2,7 +2,6 @@ import {
   index,
   pgTable,
   timestamp,
-  uuid,
   varchar,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
@@ -12,7 +11,6 @@ import board from "./board.schema";
 const user = pgTable(
   "user",
   {
-    id: uuid("id").defaultRandom().unique().notNull(),
     clerkId: varchar("clerk_id").notNull().unique(),
     name: varchar("name").notNull(),
     email: varchar("email").unique().notNull(),

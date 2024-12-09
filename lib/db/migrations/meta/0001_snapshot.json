@@ -1,6 +1,6 @@
 {
-  "id": "c30f77d7-145c-4d6c-8342-6815b3fdfe65",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "6e846706-e738-427b-b85c-e067a147e927",
+  "prevId": "c30f77d7-145c-4d6c-8342-6815b3fdfe65",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
@@ -27,9 +27,33 @@
           "primaryKey": false,
           "notNull": true
         },
-        "description": {
-          "name": "description",
+        "image": {
+          "name": "image",
           "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "visibility": {
+          "name": "visibility",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "position": {
+          "name": "position",
+          "type": "integer",
           "primaryKey": false,
           "notNull": true
         },

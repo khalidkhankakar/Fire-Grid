@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS "board" (
 	"id" uuid DEFAULT gen_random_uuid() NOT NULL,
 	"name" varchar NOT NULL,
-	"created_by" uuid NOT NULL,
+	"created_by" varchar NOT NULL,
 	"description" varchar NOT NULL,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp DEFAULT now(),
@@ -42,7 +42,6 @@ CREATE TABLE IF NOT EXISTS "table" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "user" (
-	"id" uuid DEFAULT gen_random_uuid() NOT NULL,
 	"clerk_id" varchar NOT NULL,
 	"name" varchar NOT NULL,
 	"email" varchar NOT NULL,
@@ -50,13 +49,12 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"password" varchar,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp DEFAULT now(),
-	CONSTRAINT "user_id_unique" UNIQUE("id"),
 	CONSTRAINT "user_clerk_id_unique" UNIQUE("clerk_id"),
 	CONSTRAINT "user_email_unique" UNIQUE("email")
 );
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "board" ADD CONSTRAINT "board_created_by_user_id_fk" FOREIGN KEY ("created_by") REFERENCES "public"."user"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "board" ADD CONSTRAINT "board_created_by_user_clerk_id_fk" FOREIGN KEY ("created_by") REFERENCES "public"."user"("clerk_id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

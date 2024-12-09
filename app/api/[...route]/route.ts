@@ -80,14 +80,14 @@ app.post('/webhook', async (c) => {
         name: `${first_name}${last_name ? ` ${last_name}` : ''}`,
         email: email_addresses[0].email_address,
         image: image_url
-      }).where(eq(user.clerkId, id)).returning({ id: user.id });
+      }).where(eq(user.clerkId, id)).returning({ id: user.clerkId });
     console.log({ Updated: evt.data })
     return NextResponse.json({ message: 'OK', userId })
   }
 
   if (eventType === 'user.deleted') {
     const { id } = evt.data;
-    const [userId] = await db.delete(user).where(eq(user.clerkId, id as string)).returning({ id: user.id });
+    const [userId] = await db.delete(user).where(eq(user.clerkId, id as string)).returning({ id: user.clerkId });
     return NextResponse.json({ message: 'OK', userId: userId })
   }
 
