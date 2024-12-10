@@ -36,7 +36,7 @@ export const getBoards = async (searchParams: SearchParams) => {
             limit: BOARDS_PER_PAGE,
             offset,
             with: {
-                boardFavorites: true
+                boardFavorites: true,
             }
         })
     }
@@ -53,7 +53,7 @@ export const getBoards = async (searchParams: SearchParams) => {
             limit: BOARDS_PER_PAGE,
             offset,
             with: {
-                boardFavorites: true
+                boardFavorites: true,
             }
         })
     }
@@ -71,7 +71,8 @@ export const getBoards = async (searchParams: SearchParams) => {
         })
         return results.filter(board => board.boardFavorites.some(favorite => favorite.userId === userId)).map((board)=>({
             ...board,
-            isFavorite: true
+            isFavorite: true,
+            
         })); 
     }
 
@@ -79,7 +80,8 @@ export const getBoards = async (searchParams: SearchParams) => {
         const isFavorite = board.boardFavorites.some((favorite) => favorite.userId === userId)
         return {
             ...board,
-            isFavorite
+            isFavorite,
+            
         }
     })
 }

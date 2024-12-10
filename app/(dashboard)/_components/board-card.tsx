@@ -29,7 +29,7 @@ const BoardCard = ({
 }: BoardCardProps) => {
     return (
         <Link
-            href={`/boards/${id}`}
+            href={`/board/${id}`}
             className='bg-slate-400 dark:bg-gray-700 rounded-lg flex flex-col gap-y-1 p-1 h-44 w-56 cursor-pointer'
         >
             <Image src={image} width={100} height={100} alt={'coverimg'} className='rounded-lg p-0.5 w-full h-2/3 object-cover' />

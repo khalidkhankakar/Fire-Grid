@@ -76,3 +76,42 @@ export const backgroundArray = [
 
 export const BOARDS_PER_PAGE = 10
 
+
+
+export const dummyColumns = [
+    {
+      title: "Concept",
+      items: [
+        { title: "Huddle Template - [Presenter(s)] - [Project]", content: "" },
+        { title: "Video Call Link", content: "Link: zoom.us/" },
+        { title: "Design Prototype Link", content: "Link: www.figma.com/" }
+      ]
+    },
+    {
+      title: "Notes",
+      items: [
+        { title: "General Notes:", content: "--" },
+        { title: "--", content: "" }
+      ]
+    },
+    {
+      title: "Potential Blockers",
+      items: [
+        { title: "Blocker", content: "" }
+      ]
+    },
+    {
+      title: "Positives",
+      items: [
+        { title: "👍 Positive [I really liked...]", content: "This card is a template." },
+        { title: "Action Items", content: "" },
+        { title: "👍 Positive [I really liked...]", content: "" }
+      ]
+    },
+    {
+      title: "Negatives",
+      items: [
+        { title: "👎 Negative [I'm not sure about...]", content: "This card is a template." }
+      ]
+    }
+  ]

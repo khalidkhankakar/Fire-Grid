@@ -9,6 +9,9 @@ export default {
   ],
   theme: {
   	extend: {
+		writingMode: {
+			'vertical-rl': 'vertical-rl',
+		  },
   		fontFamily: {
   			poppins: ["var(--font-poppins)"],
   			roboto: ["var(--font-roboto)"]

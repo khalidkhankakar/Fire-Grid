@@ -13,7 +13,7 @@ const DashboardLayout = ({ children }: Readonly<DashboardLayoutProps>) => {
             <div className='flex'>
                 <Sidebar />
                 <div className='flex-1 flex flex-col '>
-                    <Navbar />
+                    <Navbar isShowLogo={false} />
                     <main className='shadow-xl shadow-[#6b63631a]'>
                         {children}
                     </main>

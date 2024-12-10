@@ -3,8 +3,9 @@
 import { db } from "@/lib/db/drizzle";
 import { board } from "@/lib/db/schemas";
 import { boardFormSchema } from "@/lib/utils";
-import { formResponseStatus, boardFromState } from "@/types";
+import { formResponseStatus, boardFromState, getBoardType } from "@/types";
 import { auth } from "@clerk/nextjs/server";
+import { eq } from "drizzle-orm";
 import { z } from "zod";
 
 export const createBoard = async (values: z.infer<typeof boardFormSchema>): Promise<boardFromState> => {
@@ -32,6 +33,25 @@ export const createBoard = async (values: z.infer<typeof boardFormSchema>): Prom
 
     } catch (error) {
         console.error(error);
-        return { success: false, status: formResponseStatus.BOARD_ERROR };
+        return { success: false, status: formResponseStatus.ERROR };
     }
 };
+
+
+export const getBoard = async (boardId:string) =>{
+    try {
+        const myBoard = await db.query.board.findFirst({
+            where: eq(board.id, boardId),
+            with: {
+                boardTables: true
+            }
+        })
+
+        const sortedByPosition = myBoard?.boardTables.sort((a, b) => a.position - b.position);
+
+
+        return {...myBoard, boardTables:sortedByPosition};
+    } catch (error) {
+        console.error(error);
+    }
+}
