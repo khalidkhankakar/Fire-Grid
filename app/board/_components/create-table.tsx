@@ -46,14 +46,17 @@ const CreateTable = (
     })
 
     function onSubmit(values: z.infer<typeof createTableSchema>) {
-        if (!boardId || !tableCount || !values.title) return
+        if (!boardId  || !values.title) return
         startTransition(() => {
             createTable(boardId, tableCount, values.title).then((res) => {
+                setIsShowForm(false)
+                form.reset()
                 if (res.success) toast({ title: res.status })
                 if (!res.success) toast({ title: res.status, variant: 'destructive' })
             }).catch((err) => {
                 toast({ title: err.status, variant: 'destructive' })
             }).finally(() => {
+                form.reset()
                 setIsShowForm(false)
             })
         })

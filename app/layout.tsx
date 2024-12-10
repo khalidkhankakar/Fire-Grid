@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/providers/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
+import ReactQueryProvider from "@/providers/react-query-provider";
 
 export const metadata: Metadata = {
   title: "FireGrid",
@@ -31,20 +32,22 @@ export default function RootLayout({
   return (
     <ClerkProvider
 
-    
+
     >
       <html lang="en" suppressHydrationWarning>
         <body
           className={`${poppins.className}`}
         >
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-          </ThemeProvider>
+          <ReactQueryProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+            </ThemeProvider>
+          </ReactQueryProvider>
           <Toaster />
         </body>
       </html>

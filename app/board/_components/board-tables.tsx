@@ -26,9 +26,7 @@ interface BoardTablesProps {
 const BoardTables = ({
     id,
     title,
-    visibility,
     image,
-    category,
     boardTables
 }: BoardTablesProps) => {
     return (
@@ -40,7 +38,6 @@ const BoardTables = ({
 
             }}
             className='w-[100vw] md:w-[calc(100vw-200px)]  overflow-x-auto overscroll-y-none  h-[calc(100vh-64px)] flex items-center flex-col'>
-
             <header className='py-3 px-4 bg-slate-900/15 w-full flex-wrap flex items-center'>
                 <h1 className='text-sm font-bold'>{title}</h1>
             </header>

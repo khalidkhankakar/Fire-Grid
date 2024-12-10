@@ -1,8 +1,11 @@
 'use client';
-import { ChevronsLeftRight, ChevronsRightLeft, Ellipsis } from 'lucide-react'
-import React, { useState } from 'react'
+import { Ellipsis } from 'lucide-react'
+import React from 'react'
 import CreateCardButton from './create-card-button';
-import CreateTable from './create-table';
+import { useQuery } from '@tanstack/react-query';
+import { getTable } from '@/actions/table.actions';
+import TaskCard from './task-card';
+import { TableSkeleton } from './table-skeleton';
 
 interface TableCardProps {
     id: string,
@@ -15,45 +18,42 @@ interface TableCardProps {
 const TableCard = ({
     id,
     title,
-    backgroundColor,
-    boardId,
-    position
+    backgroundColor,      
 }: TableCardProps) => {
+    const { data,error, isLoading } = useQuery({
+        queryKey: ['table', id],
+        queryFn: () => getTable(id),
+    })
 
-    const [cardCollapse, setCardCollapse] = useState<boolean>(false)
-    // TODO: Fetching the tables cards using swr or tanstack query
 
-    if (cardCollapse) {
-        return (
-            <div className='h-fit max-h-52 py-3   rounded-lg overflow-y-auto ' style={{ backgroundColor: backgroundColor || '#000' }}>
-                <div className='flex flex-col gap-y-3 items-center justify-between ' >
-                    <div className='px-2 flex items-center space-x-2'>
-                        <ChevronsLeftRight className='hover:cursor-pointer hover:p-1 rounded-md hover:bg-gray-400' onClick={() => setCardCollapse(false)} />
-                    </div>
-                    <p className='text-sm tb-text'>{title}</p>
-                </div>
-
-            </div>
-        )
+    if (isLoading) {
+        return <TableSkeleton />
+    }
+    if(error) {
+       return <p>Oops! Something went wrong. Please return back</p>
     }
 
+    console.log({tabledata:data})
     return (
-        <div className='h-fit max-h-52 w-64 rounded-lg overflow-y-auto flex-shrink-0 p-2' style={{ backgroundColor: backgroundColor || '#000' }}>
+        <div className='h-fit max-h-2/3 w-64 rounded-lg overflow-y-auto flex-shrink-0 p-2' style={{ backgroundColor: backgroundColor || '#000' }}>
             <div className='flex items-center justify-between ' >
                 <p className='text-sm'>{title}</p>
                 <div className='flex items-center space-x-2'>
-
-                    <ChevronsRightLeft className='hover:cursor-pointer rounded-md hover:p-1 hover:bg-gray-400' onClick={() => setCardCollapse(true)} />
                     <Ellipsis />
                 </div>
             </div>
 
-            <div>
+            <div className='flex flex-col gap-y-2 my-2'>
                 {/* list cards here */}
+                {
+                    data?.tableCards.map((card) => (
+                        <TaskCard key={card.id} title={card.title} backgroundColor={card?.backgroundColor || '#9ca3af' } />
+                    ))
+                }
             </div>
             <div>
                 {/* card button */}
-               <CreateCardButton tableId={id} cardCount={0} />
+                <CreateCardButton tableId={id} cardCount={data?.tableCards.length || 0} />
             </div>
 
         </div>

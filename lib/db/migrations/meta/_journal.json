@@ -15,6 +15,13 @@
       "when": 1733734065897,
       "tag": "0001_mushy_namor",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1733848414619,
+      "tag": "0002_mute_scrambler",
+      "breakpoints": true
     }
   ]
 }

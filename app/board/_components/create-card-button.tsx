@@ -2,7 +2,7 @@
 
 import { z } from "zod"
 import { Plus, X } from 'lucide-react'
-import React, { useState, useTransition } from 'react'
+import React, { useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
@@ -16,6 +16,8 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { useToast } from "@/hooks/use-toast"
+import { createCard } from "@/actions/card.actions"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 
 
@@ -36,7 +38,8 @@ const CreateCardButton = (
 ) => {
     const [isShowForm, setIsShowForm] = useState(false)
     const { toast } = useToast();
-    const [isPending, startTransition] = useTransition()
+    const queryClient = useQueryClient();
+
     const form = useForm<z.infer<typeof createCardSchema>>({
         resolver: zodResolver(createCardSchema),
         defaultValues: {
@@ -44,14 +47,33 @@ const CreateCardButton = (
         },
     })
 
+    const {isPending, mutate} = useMutation({
+        mutationFn: createCard,
+        onSuccess: (data) => {
+            queryClient.invalidateQueries({ queryKey: ['table', tableId]})
+            setIsShowForm(false)
+            form.reset()
+            if (data.success) toast({ title: data.status })
+            if (!data.success) toast({ title: data.status, variant: 'destructive' })
+
+        },
+        onError: (err) => {
+            form.reset()
+            toast({ title: err.message, variant: 'destructive' })
+            setIsShowForm(false)
+        }
+    })
+
     function onSubmit(values: z.infer<typeof createCardSchema>) {
-        console.log(values)
+        console.log('INSIDE')
+        console.log({values, tableId, cardCount})
+        // if (!tableId || !cardCount || !values.title) return
+        mutate({ tableId, title: values.title, position: cardCount })
     }
     return (
-
         <Form {...form}>
-            <div 
-            className={`py-2 px-3 bg-gray-800 flex items-center gap-x-2 cursor-pointer hover:bg-gray-600/20 rounded-lg  transition-all duration-300`}>
+            <div
+                className={`py-2 px-3 bg-slate-500 hover:bg-slate-600 dark:bg-gray-800 flex items-center gap-x-2 cursor-pointer dark:hover:bg-gray-600/20 rounded-lg  transition-all duration-300`}>
                 {
                     isShowForm ?
                         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-1 w-full">
@@ -81,9 +103,7 @@ const CreateCardButton = (
                             <Plus className="w-4 h-4" />
                             <span className='text-xs'>Add Card</span>
                         </div>
-
                 }
-
             </div>
         </Form>
     )

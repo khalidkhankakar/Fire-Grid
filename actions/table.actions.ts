@@ -27,3 +27,20 @@ export const createTable = async (boardId: string, position: number, title: stri
     }
 
 }
+
+
+export const getTable = async (tableId: string) => {
+    try {
+        const result = await db.query.table.findFirst({
+            where: eq(table.id, tableId)
+            ,
+            with: {
+                tableCards: true
+            }
+        })
+        return result
+    } catch (error) {
+        console.log(error)
+        throw error
+    }
+}
