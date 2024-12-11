@@ -19,3 +19,20 @@ export const boardFormSchema = z.object({
       message: "Background is required.",
   })
 })
+
+
+
+export const taskSchema = z.object({
+  id: z.string(),
+  title: z.string().min(2).max(50).optional(),
+  description: z.string().min(2).max(500).optional(),
+  deadline: z.string().optional(),
+  labels: z.array(z.object({
+      title: z.string().min(2).max(50),
+      color: z.string().min(2).max(50),
+  })).optional(),
+  position: z.number().optional(),
+  cardColor: z.string().min(2).max(50).optional(),
+  coverImage: z.string().min(2).max(50).optional(),
+  category: z.string().min(2).max(50).optional()
+})

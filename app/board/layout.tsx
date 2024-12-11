@@ -1,6 +1,8 @@
 import React from 'react'
-import { Navbar } from '../(dashboard)/_components/navbar'
-import { BoardSidebar } from './_components/board-sidebar'
+
+import { Navbar } from '@/components/shared/navbar'
+import { BoardSidebar } from './_components/board/board-sidebar'
+
 
 interface BoardLayoutProps {
     children: React.ReactNode

@@ -3,7 +3,8 @@ import { relations, sql } from "drizzle-orm";
 
 import table from "./table.schema";
 
-type LabelType = { data: [{ title: string; color: string }] }
+export type LabelType = { data: { title: string; color: string }[] };
+
 
 const card = pgTable(
     "card",
@@ -15,7 +16,7 @@ const card = pgTable(
         tableId: uuid("table_id").references(() => table.id).notNull(),
         label:json("label").$type<LabelType>(),
         backgroundColor: varchar("background_color"),
-        taskDeadline: timestamp("card_deadline"),
+        taskDeadline: varchar("card_deadline"),
         position: integer("position").notNull(),
         createdAt: timestamp("created_at").defaultNow().notNull(),
         updatedAt: timestamp("updated_at").defaultNow().notNull(),

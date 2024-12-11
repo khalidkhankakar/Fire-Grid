@@ -115,3 +115,20 @@ export const dummyColumns = [
       ]
     }
   ]
+
+
+  export const COLORS = [
+    "#000000", // Black
+    "#ffffff", // White
+    "#FF5733", // Vibrant Orange-Red
+    "#33C3FF", // Bright Sky Blue
+    "#FFC300", // Bold Yellow
+    "#28A745", // Fresh Green
+    "#6C63FF", // Dynamic Purple
+    "#FF33A1", // Hot Pink
+    "#17A2B8", // Cool Teal
+    "#F39C12", // Warm Amber
+    "#E74C3C", // Energetic Red
+    "#1ABC9C"  // Refreshing Mint Green
+  ];
+  

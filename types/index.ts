@@ -7,6 +7,7 @@ export enum formResponseStatus {
     CARD_UPDATED= 'card updated',
     CARD_DELETED= 'card deleted',
     CARD_NOT_EXISTS = 'card not exists',
+    CARD_INVALID_FIELDS = 'card invalid fields',
 
     TABLE_INVALID_FIELDS = 'table invalid fields',
     TABLE_CREATED = 'table created',
@@ -25,7 +26,16 @@ export enum formResponseStatus {
 
 export interface boardFromState {
     success: boolean,
-    status: formResponseStatus.BOARD_INVALID_FIELDS | formResponseStatus.BOARD_CREATED | formResponseStatus.BOARD_UPDATED | formResponseStatus.BOARD_DELETED | formResponseStatus.BOARD_FETCHED | formResponseStatus.ERROR | formResponseStatus.USER_NOT_EXISTS | formResponseStatus.ORG_NOT_EXISTS | formResponseStatus.TABLE_INVALID_FIELDS | formResponseStatus.TABLE_CREATED | formResponseStatus.TABLE_UPDATED | formResponseStatus.TABLE_DELETED | formResponseStatus.BOARD_NOT_EXISTS | formResponseStatus.TABLE_NOT_EXISTS | formResponseStatus.CARD_CREATED | formResponseStatus.CARD_UPDATED | formResponseStatus.CARD_DELETED | formResponseStatus.CARD_NOT_EXISTS
+    status: formResponseStatus.BOARD_INVALID_FIELDS | formResponseStatus.BOARD_CREATED | formResponseStatus.BOARD_UPDATED | formResponseStatus.BOARD_DELETED | formResponseStatus.BOARD_FETCHED | formResponseStatus.ERROR | formResponseStatus.USER_NOT_EXISTS | formResponseStatus.ORG_NOT_EXISTS | formResponseStatus.TABLE_INVALID_FIELDS | formResponseStatus.TABLE_CREATED | formResponseStatus.TABLE_UPDATED | formResponseStatus.TABLE_DELETED | formResponseStatus.BOARD_NOT_EXISTS | formResponseStatus.TABLE_NOT_EXISTS | formResponseStatus.CARD_CREATED | formResponseStatus.CARD_UPDATED | formResponseStatus.CARD_DELETED | formResponseStatus.CARD_NOT_EXISTS | formResponseStatus.CARD_INVALID_FIELDS
 }
 
 
+export type Table = {
+    id: string;
+    title: string;
+    backgroundColor: string | null;
+    createdAt: Date | null;
+    updatedAt: Date | null;
+    position: number;
+    boardId: string;
+}

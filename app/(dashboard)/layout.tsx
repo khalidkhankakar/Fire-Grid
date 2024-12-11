@@ -1,6 +1,7 @@
 import React from 'react'
+
 import { Sidebar } from './_components/sidebar'
-import { Navbar } from './_components/navbar'
+import { Navbar } from '@/components/shared/navbar'
 import MobileBottombar from './_components/mobile-bottombar'
 
 interface DashboardLayoutProps {

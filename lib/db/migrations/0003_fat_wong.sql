@@ -1,0 +1,1 @@
+ALTER TABLE "card" ALTER COLUMN "card_deadline" SET DATA TYPE varchar;

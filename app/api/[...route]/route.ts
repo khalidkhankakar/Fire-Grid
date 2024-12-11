@@ -81,7 +81,7 @@ app.post('/webhook', async (c) => {
         email: email_addresses[0].email_address,
         image: image_url
       }).where(eq(user.clerkId, id)).returning({ id: user.clerkId });
-    console.log({ Updated: evt.data })
+
     return NextResponse.json({ message: 'OK', userId })
   }
 
