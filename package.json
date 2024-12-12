@@ -14,6 +14,7 @@
   "dependencies": {
     "@clerk/nextjs": "^6.8.0",
     "@clerk/themes": "^2.1.53",
+    "@hello-pangea/dnd": "^17.0.0",
     "@hookform/resolvers": "^3.9.1",
     "@neondatabase/serverless": "^0.10.4",
     "@radix-ui/react-dialog": "^1.1.2",

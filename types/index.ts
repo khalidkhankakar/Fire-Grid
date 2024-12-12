@@ -1,3 +1,5 @@
+import { CardType } from "@/lib/db/schemas/card.schema";
+
 export enum formResponseStatus {
 
     USER_NOT_EXISTS = 'user not exists',
@@ -32,6 +34,7 @@ export interface boardFromState {
 
 export type Table = {
     id: string;
+    tableCards: CardType[];
     title: string;
     backgroundColor: string | null;
     createdAt: Date | null;

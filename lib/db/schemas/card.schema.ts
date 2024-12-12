@@ -1,5 +1,5 @@
 import { index, integer, json, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
-import { relations, sql } from "drizzle-orm";
+import { InferSelectModel, relations, sql } from "drizzle-orm";
 
 import table from "./table.schema";
 
@@ -29,6 +29,7 @@ const card = pgTable(
     })
 );
 
+export type CardType = InferSelectModel<typeof card>
 
 export const cardRelations = relations(card, ({ one }) => ({
     tableCard: one(table,{

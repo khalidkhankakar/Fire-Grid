@@ -24,7 +24,8 @@ export const getBoards = async (searchParams: SearchParams) => {
 
 
 
-    let results = [];
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    let results:any[] = [];
 
     if (!searchParams?.type) {
         results = await db.query.board.findMany({
@@ -69,7 +70,7 @@ export const getBoards = async (searchParams: SearchParams) => {
                 boardFavorites: true
             }
         })
-        return results.filter(board => board.boardFavorites.some(favorite => favorite.userId === userId)).map((board)=>({
+        return results.filter(board => board.boardFavorites.some((favorite: { userId: string | null; }) => favorite.userId === userId)).map((board)=>({
             ...board,
             isFavorite: true,
             
@@ -77,7 +78,7 @@ export const getBoards = async (searchParams: SearchParams) => {
     }
 
     return results.map((board) => {
-        const isFavorite = board.boardFavorites.some((favorite) => favorite.userId === userId)
+        const isFavorite = board.boardFavorites.some((favorite: { userId: string | null; }) => favorite.userId === userId)
         return {
             ...board,
             isFavorite,
