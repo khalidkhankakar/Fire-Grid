@@ -52,3 +52,14 @@ export const updatedCard = async (values: z.infer<typeof taskSchema>): Promise<b
 
 // TODO : Delete card
 // export const deleteCard = async (value: { cardId: string }): Promise<boardFromState> => {}
+
+export const updateCardPosition = async (values: { cardId: string, tableId: string, position: number }): Promise<boardFromState> => {
+    try {
+        const { cardId,tableId, position } = values
+        await db.update(card).set({tableId, position }).where(eq(card.id, cardId))
+        return { status: formResponseStatus.CARD_UPDATED, success: true }
+    } catch (error) {
+        console.log(error)
+        return { status: formResponseStatus.ERROR, success: false }
+    }
+}

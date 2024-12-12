@@ -6,13 +6,13 @@ import Link from 'next/link'
 import { CircleChevronLeft, CircleChevronRight, Star, UserRound, UserRoundPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { useTheme } from 'next-themes';
+// import { useTheme } from 'next-themes';
 import { useSearchParams } from 'next/navigation';
 
 export const Sidebar = () => {
     const [toggleSidebar, setToggleSidebar] = useState<boolean>(false)
 
-    const { theme } = useTheme()
+    // const { theme } = useTheme()
     const searchParams = useSearchParams()
     const type = searchParams.get('type')
 
@@ -54,24 +54,24 @@ export const Sidebar = () => {
                                     <UserRound />
                                 </Link>
                             </Button>
-                            <Button variant={type == 'team' ? 'icon-active' : 'icon'} size={'icon'} asChild>
+                            <Button  variant={type == 'team' ? 'icon-active' : 'icon'} size={'icon'} asChild>
                                 <Link href={{ pathname: '/dashboard', query: { type: 'team' } }}>
                                     <UserRoundPlus />
                                 </Link>
                             </Button>
-                            <Button variant={type == 'favorite' ? 'icon-active' : 'icon'} size={'icon'} asChild>
+                            <Button  variant={type == 'favorite' ? 'icon-active' : 'icon'} size={'icon'} asChild>
                                 <Link href={{ pathname: '/dashboard', query: { type: 'favorite' } }}>
                                     <Star />
                                 </Link>
                             </Button>
                         </div>
                     ) : (
-                        <div className='flex flex-col items-center gap-y-4 mt-3  '>
+                        <div className='sidebar flex flex-col items-center gap-y-4 mt-3  '>
                             <div className='flex   flex-col py-1 cursor-pointer justify-center  w-full'>
                                 <p className='text-lg px-5 mb-2'>Menu</p>
-                                {
+                                {/* {
                                     theme == 'light' ? <div className="h-[2px] bg-gradient-to-r from-white  via-blue-600 to-white  z-50" /> : <div className="h-[2px] bg-gradient-to-r from-dark-1 dark:to via-blue-600  to-dark-1 z-50" />
-                                }
+                                } */}
                             </div>
 
                             <Link href={'/dashboard'} className={cn('py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md', type == null && 'border-blue-600 text-blue-600 ')}>
@@ -80,13 +80,13 @@ export const Sidebar = () => {
                                     <span className='text-lg '>Personnel</span>
                                 </div>
                             </Link>
-                            <Link href={{ pathname: '/dashboard', query: { type: 'team' } }} className={cn('py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md' , type == 'team' && 'border-blue-600 text-blue-600 '  )}>
+                            <Link href={{ pathname: '/dashboard', query: { type: 'team' } }} className={cn('team-tab py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md' , type == 'team' && 'border-blue-600 text-blue-600 '  )}>
                                 <div className='flex items-center gap-x-2 justify-center'>
                                     <UserRoundPlus className='w-7 h-7' />
                                     <span className='text-lg '>Teammates</span>
                                 </div>
                             </Link>
-                            <Link href={{ pathname: '/dashboard', query: { type: 'favorite' } }} className={cn('py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md' , type == 'favorite' && 'border-blue-600 text-blue-600 '  )}>
+                            <Link  href={{ pathname: '/dashboard', query: { type: 'favorite' } }} className={cn(' fav-tab py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md' , type == 'favorite' && 'border-blue-600 text-blue-600 '  )}>
                                 <div className='flex items-center gap-x-2 justify-center'>
                                     <Star className='w-7 h-7' />
                                     <span className='text-lg '>Favorites</span>

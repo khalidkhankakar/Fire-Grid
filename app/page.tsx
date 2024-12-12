@@ -1,11 +1,13 @@
+'use client'
 import Image from 'next/image'
 import { Button } from "@/components/ui/button"
 import Link from 'next/link'
+
 export default function Home() {
   return (
     <div className="h-screen relative ">
       {/* Navigation */}
-      <header className='relative bg-gray-300'>
+      <header className='  relative bg-gray-300'>
         <nav className="bg-gray-200 fixed top-0 w-full px-4 py-3 flex justify-between items-center">
           <Link href="/" className="flex items-center">
             <Image
@@ -31,7 +33,7 @@ export default function Home() {
         <div className="relative flex flex-col md:flex-row items-center justify-center  h-full w-full">
 
           {/* Content */}
-          <div className="max-w-4xl space-y-3 z-10 ">
+          <div className="my-first-step max-w-4xl space-y-3 z-10 ">
             <Image
               src="/logo.svg"
               alt="Trello"
@@ -52,7 +54,7 @@ export default function Home() {
 
           {/* Decorative Images */}
 
-          <div className=''>
+          <div className=' my-other-step'>
             <div className="">
               <Image
                 src="/assets/hero.svg"

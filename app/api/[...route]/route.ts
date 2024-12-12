@@ -3,7 +3,7 @@ import { handle } from 'hono/vercel'
 
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
-import { WebhookEvent } from '@clerk/nextjs/server'
+import { auth, clerkClient, WebhookEvent } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import { db } from '@/lib/db/drizzle'
 import { user } from '@/lib/db/schemas'
@@ -15,6 +15,21 @@ import { eq } from 'drizzle-orm'
 
 const app = new Hono().basePath('/api')
 
+// todo : remove just for testing
+app.get('/clerk', async (c) => {
+  const user = await clerkClient();
+  const { userId } = await auth()
+  if (!userId) return
+  await user.users.updateUserMetadata(userId, {
+    publicMetadata: {
+      dashboardTour: false,
+      boardTour: false
+    }
+  })
+
+  return NextResponse.json({ message: 'OK', userId })
+}
+)
 
 app.post('/webhook', async (c) => {
 

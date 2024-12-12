@@ -4,6 +4,9 @@ import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
 import CreateTable from '../table/create-table';
 import TableCard from '../table/table-card';
 import { Table } from '@/types';
+import { updateTablePosition } from '@/actions/table.actions';
+import { useToast } from '@/hooks/use-toast';
+import { updateCardPosition } from '@/actions/card.actions';
 
 interface BoardTablesProps {
   id: string;
@@ -12,98 +15,106 @@ interface BoardTablesProps {
   boardTables: Table[];
 }
 
-function reorder<T>(list: T[], startIndex: number, endIndex: number) {
+const reorder = <T,>(
+  list: T[],
+  startIndex: number,
+  endIndex: number
+): { updatedList: T[]; changedItem: T } => {
   const result = Array.from(list);
   const [removed] = result.splice(startIndex, 1);
   result.splice(endIndex, 0, removed);
-  return result;
-
-}
+  return { updatedList: result, changedItem: removed };
+};
 
 const BoardTables = ({ id, title, image, boardTables: initialTables }: BoardTablesProps) => {
   const [boardTables, setBoardTables] = useState(initialTables);
+  const { toast } = useToast();
 
-  const handleDragEnd = (result: any ) => {
+  const handleDragEnd = async (result: any) => {
     const { source, destination, type } = result;
     if (!destination) return;
 
-    // if dropped in same position
-    if (
-      source.droppableId === destination.droppableId &&
-      source.index === destination.index
-    ) return;
+    const isSamePosition =
+      source.droppableId === destination.droppableId && source.index === destination.index;
 
-    if (type === 'TABLE') {
-      const items = reorder(
-        boardTables,
-        source.index,
-        destination.index).map((table, index) => ({ ...table, position: index }))
-        setBoardTables(items)
-        // Todo api call
-        
-    }
-
-    if (type === 'CARD') {
-      console.log(source?.droppableId, destination?.droppableId)
-      const newOrder = [...boardTables];
-      const sourceList = newOrder.find((table) => table.id === source.droppableId);
-      const destList = newOrder.find((table) => table.id === destination.droppableId);
+    if (isSamePosition) return;
 
 
-      console.log({sourceList, destList})
-
-      if (!sourceList || !destList) return; 
-
-      if(!sourceList.tableCards) {
-        sourceList.tableCards = []
-      };
-
-      if(!destList.tableCards) {
-        destList.tableCards = []
-      };
-
-      // moving card in same list
-      if (sourceList.id === destList.id) {
-        const items = reorder(
-          sourceList.tableCards,
+      if (type === 'TABLE') {
+        // Only update the positions if they change
+        const { updatedList, changedItem } = reorder(
+          boardTables,
           source.index,
           destination.index
-        ).map((card, index) => ({ ...card, position: index }));
+        );
 
-        sourceList.tableCards = items;
-        setBoardTables(newOrder);
-        // todo make api call
-      }
-      // moving card to another list
-      else {
-        const [removed] = sourceList.tableCards.splice(source.index, 1);
+        setBoardTables(updatedList);
+        
+        await updateTablePosition({
+          tableId: changedItem.id,
+          position: destination.index,
+        });
 
-        // assign removed card to the new table
-        removed.tableId = destination.droppableId;
-
-        // add card to destination table
-        destList.tableCards.splice(destination.index, 0, removed);
-
-        // update position of all cards in source table
-        sourceList.tableCards.forEach((card, index) => {
-          card.position = index
-        })
-
-        // update the position of all cards in destination table
-        destList.tableCards.forEach((card, index) => {
-          card.position = index
-        })
-
-        setBoardTables(newOrder)
-        // todo make api call
-
-
+        toast({ title: 'Table position updated successfully.' });
       }
 
-    }
+      if (type === 'CARD') {
+        const newOrder = [...boardTables];
+        const sourceList = newOrder.find((table) => table.id === source.droppableId);
+        const destList = newOrder.find((table) => table.id === destination.droppableId);
+
+        if (!sourceList || !destList) return;
+
+        if (sourceList.id === destList.id) {
+          const { updatedList, changedItem } = reorder(
+            sourceList.tableCards || [],
+            source.index,
+            destination.index
+          );
+
+          sourceList.tableCards = updatedList;
+          setBoardTables(newOrder);
+
+          await updateCardPosition({
+            cardId: changedItem.id,
+            tableId: sourceList.id,
+            position: destination.index,
+          });
+
+          toast({ title: 'Card position updated successfully.' });
+        } else {
+          // Moving between lists
+          const [removed] = sourceList.tableCards.splice(source.index, 1);
+          removed.tableId = destination.droppableId;
+
+          destList.tableCards.splice(destination.index, 0, removed);
+
+          sourceList.tableCards.forEach((card, index) => {
+            card.position = index;
+          });
+
+          destList.tableCards.forEach((card, index) => {
+            card.position = index;
+          });
+
+          setBoardTables(newOrder);
+
+          // Batch API calls
+          await Promise.all([
+            ...sourceList.tableCards.map((card) =>
+              updateCardPosition({ cardId: card.id, tableId: sourceList.id, position: card.position })
+            ),
+            ...destList.tableCards.map((card) =>
+              updateCardPosition({ cardId: card.id, tableId: destList.id, position: card.position })
+            ),
+          ]);
+
+          toast({ title: 'Card moved successfully.' });
+        }
+      }
+
   };
 
-  console.log({ boardTables });
   return (
     <div
       style={{

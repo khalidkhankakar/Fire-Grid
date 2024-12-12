@@ -131,4 +131,26 @@ export const dummyColumns = [
     "#E74C3C", // Energetic Red
     "#1ABC9C"  // Refreshing Mint Green
   ];
-  
+
+export const JOYRIDE_STEPS_DASHBOARD = [
+  {
+    target: '.sidebar',
+    content: 'This is your sidebar, where you can navigate between boards and tasks.',
+  },
+  {
+    target: '.navbar',
+    content: 'This is your dashboard, where you can manage your tasks!',
+  },
+    {
+      target: '.dashboard-section',
+      content: 'This is your dashboard, where you can manage your tasks!',
+    },
+    {
+      target: '.team-tab',
+      content: 'Here you can collaborate with your team.',
+    },
+    {
+      target: '.fav-tab',
+      content: 'Access your favorite boards quickly here.',
+    }
+  ]

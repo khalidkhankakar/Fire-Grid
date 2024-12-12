@@ -63,3 +63,14 @@ export const deleteTable = async (value: { tableId: string }): Promise<boardFrom
         return { success: false, status: formResponseStatus.ERROR };
     }
 }
+
+export const updateTablePosition = async (values: { tableId: string, position: number }): Promise<boardFromState> => {
+    try {
+        const { tableId, position } = values
+        await db.update(table).set({ position }).where(eq(table.id, tableId))
+        return { success: true, status: formResponseStatus.TABLE_UPDATED };
+    } catch (error) {
+        console.log(error)
+        return { success: false, status: formResponseStatus.ERROR };
+    }
+}

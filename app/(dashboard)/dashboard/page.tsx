@@ -39,7 +39,7 @@ const renderNoResult = (type: string | undefined, noBoardsFound: boolean, search
         : (
           <NoResult imgSrc='/personal.svg' title='No boards found in Personal workspace' description='Try to create something'>
             <CreateBoardButton>
-              <Button>Create Board</Button>
+              <Button className='create-board'>Create Board</Button>
             </CreateBoardButton>
           </NoResult>
         )
@@ -75,7 +75,7 @@ const Page = async ({ searchParams }: { searchParams?: Promise<SearchParams> }) 
 
 
   return (
-    <div className='w-full border min-h-[calc(100vh-64px)] p-4'>
+    <div className='w-full dashboard-section border min-h-[calc(100vh-64px)] p-4'>
       <div className='flex flex-col md:flex-row justify-between'>
         <h1 className='text-xl md:text-3xl'>
           {type === "team" ? "Team Workspace" : type === "favorite" ? "Favorite Workspace" : "Personal Workspace"}

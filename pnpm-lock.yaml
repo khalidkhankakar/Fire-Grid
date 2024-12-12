@@ -89,6 +89,9 @@ importers:
       react-hook-form:
         specifier: ^7.54.0
         version: 7.54.0(react@19.0.0)
+      react-joyride:
+        specifier: ^2.9.3
+        version: 2.9.3(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       svix:
         specifier: ^1.43.0
         version: 1.43.0
@@ -498,6 +501,12 @@ packages:
 
   '@floating-ui/utils@0.2.8':
     resolution: {integrity: sha512-kym7SodPp8/wloecOpcmSnWJsK7M0E5Wg8UcFA+uO4B9s5d0ywXOEro/8HM9x0rW+TljRzul/14UYz3TleT3ig==}
+
+  '@gilbarbara/deep-equal@0.1.2':
+    resolution: {integrity: sha512-jk+qzItoEb0D0xSSmrKDDzf9sheQj/BAPxlgNxgmOaA3mxpUa6ndJLYGZKsJnIVEQSD8zcTbyILz7I0HcnBCRA==}
+
+  '@gilbarbara/deep-equal@0.3.1':
+    resolution: {integrity: sha512-I7xWjLs2YSVMc5gGx1Z3ZG1lgFpITPndpi8Ku55GeEIKpACCPQNS/OTqQbxgTCfq0Ncvcc+CrFov96itVh6Qvw==}
 
   '@hello-pangea/dnd@17.0.0':
     resolution: {integrity: sha512-LDDPOix/5N0j5QZxubiW9T0M0+1PR0rTDWeZF5pu1Tz91UQnuVK4qQ/EjY83Qm2QeX0eM8qDXANfDh3VVqtR4Q==}
@@ -1459,8 +1468,15 @@ packages:
     resolution: {integrity: sha512-+8VxcR21HhTy8nOt6jf20w0c9CADrw1O8d+VZ/YzzCt4bJ3uBjw+D1q2osAB8RnpwwaeYBxy0HyKQxD5JBMuuQ==}
     engines: {node: '>=14.16'}
 
+  deep-diff@1.0.2:
+    resolution: {integrity: sha512-aWS3UIVH+NPGCD1kki+DCU9Dua032iSsO43LqQpcs4R3+dVv7tX0qBGjiVHJHjplsoUM2XRO/KB92glqc68awg==}
+
   deep-is@0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
+
+  deepmerge@4.3.1:
+    resolution: {integrity: sha512-3sUqbMEc77XqpdNO7FRyRog+eW3ph+GYCbj+rK+uYyRMuwsVy0rMiVtPn+QJlKFvWP/1PYpapqYn0Me2knFn+A==}
+    engines: {node: '>=0.10.0'}
 
   define-data-property@1.1.4:
     resolution: {integrity: sha512-rBMvIzlpA8v6E+SJZoo++HAYqsLrkg7MSfIinMPFhmkorw7X+dOXVJQs+QT69zGkzMyfDnIMN2Wid1+NbL3T+A==}
@@ -2017,6 +2033,12 @@ packages:
     resolution: {integrity: sha512-xelSayHH36ZgE7ZWhli7pW34hNbNl8Ojv5KVmkJD4hBdD3th8Tfk9vYasLM+mXWOZhFkgZfxhLSnrwRr4elSSg==}
     engines: {node: '>=0.10.0'}
 
+  is-lite@0.8.2:
+    resolution: {integrity: sha512-JZfH47qTsslwaAsqbMI3Q6HNNjUuq6Cmzzww50TdP5Esb6e1y2sK2UAaZZuzfAzpoI2AkxoPQapZdlDuP6Vlsw==}
+
+  is-lite@1.2.1:
+    resolution: {integrity: sha512-pgF+L5bxC+10hLBgf6R2P4ZZUBOQIIacbdo8YvuCP8/JvsWxG7aZ9p10DYuLtifFci4l3VITphhMlMV4Y+urPw==}
+
   is-map@2.0.3:
     resolution: {integrity: sha512-1Qed0/Hr2m+YqxnM09CjA2d/i6YZNfF6R2oRAOj36eUdS6qIV/huPJNSEpKbupewFs+ZsJlxsjjPbc0/afW6Lw==}
     engines: {node: '>= 0.4'}
@@ -2356,6 +2378,10 @@ packages:
     resolution: {integrity: sha512-saLsH7WeYYPiD25LDuLRRY/i+6HaPYr6G1OUlN39otzkSTxKnubR9RTxS3/Kk50s1g2JTgFwWQDQyplC5/SHZg==}
     engines: {node: '>= 6'}
 
+  popper.js@1.16.1:
+    resolution: {integrity: sha512-Wb4p1J4zyFTbM+u6WuO4XstYx4Ky9Cewe4DWrel7B0w6VVICvPwdOpotjzcf6eD8TsckVnIMNONQyPIUFOUbCQ==}
+    deprecated: You can find the new Popper v2 at @popperjs/core, this package is dedicated to the legacy v1
+
   possible-typed-array-names@1.0.0:
     resolution: {integrity: sha512-d7Uw+eZoloe0EHDIYoe+bQ5WXnGMOpmiZFTuMWCwpjzzkL2nTjcKiAk4hh8TjnGye2TwWOk3UXucZ+3rbmBa8Q==}
     engines: {node: '>= 0.4'}
@@ -2453,14 +2479,32 @@ packages:
     peerDependencies:
       react: ^19.0.0
 
+  react-floater@0.7.9:
+    resolution: {integrity: sha512-NXqyp9o8FAXOATOEo0ZpyaQ2KPb4cmPMXGWkx377QtJkIXHlHRAGer7ai0r0C1kG5gf+KJ6Gy+gdNIiosvSicg==}
+    peerDependencies:
+      react: 15 - 18
+      react-dom: 15 - 18
+
   react-hook-form@7.54.0:
     resolution: {integrity: sha512-PS05+UQy/IdSbJNojBypxAo9wllhHgGmyr8/dyGQcPoiMf3e7Dfb9PWYVRco55bLbxH9S+1yDDJeTdlYCSxO3A==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
       react: ^16.8.0 || ^17 || ^18 || ^19
 
+  react-innertext@1.1.5:
+    resolution: {integrity: sha512-PWAqdqhxhHIv80dT9znP2KvS+hfkbRovFp4zFYHFFlOoQLRiawIic81gKb3U1wEyJZgMwgs3JoLtwryASRWP3Q==}
+    peerDependencies:
+      '@types/react': '>=0.0.0 <=99'
+      react: '>=0.0.0 <=99'
+
   react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
+
+  react-joyride@2.9.3:
+    resolution: {integrity: sha512-1+Mg34XK5zaqJ63eeBhqdbk7dlGCFp36FXwsEvgpjqrtyywX2C6h9vr3jgxP0bGHCw8Ilsp/nRDzNVq6HJ3rNw==}
+    peerDependencies:
+      react: 15 - 18
+      react-dom: 15 - 18
 
   react-redux@9.2.0:
     resolution: {integrity: sha512-ROY9fvHhwOD9ySfrF0wmvu//bKCQ6AeZZq1nJNtbDC+kk5DuSuNX/n6YWYF/SYy7bSba4D4FSz8DJeKY/S/r+g==}
@@ -2569,6 +2613,12 @@ packages:
 
   scheduler@0.25.0:
     resolution: {integrity: sha512-xFVuu11jh+xcO7JOAGJNOXld8/TcEHK/4CituBUeUb5hqxJLj9YuemAEuvm9gQ/+pgXYfbQuqAkiYu+u7YEsNA==}
+
+  scroll@3.0.1:
+    resolution: {integrity: sha512-pz7y517OVls1maEzlirKO5nPYle9AXsFzTMNJrRGmT951mzpIBy7sNHOg5o/0MQd/NqliCiWnAi0kZneMPFLcg==}
+
+  scrollparent@2.1.0:
+    resolution: {integrity: sha512-bnnvJL28/Rtz/kz2+4wpBjHzWoEzXhVg/TE8BeVGJHUqE8THNIRnDxDWMktwM+qahvlRdvlLdsQfYe+cuqfZeA==}
 
   semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -2765,6 +2815,12 @@ packages:
   tr46@0.0.3:
     resolution: {integrity: sha512-N3WMsuqV66lT30CrXNbEjx4GEwlow3v6rr4mCcv6prnfwhS01rkgyFdjPNBYd9br7LpXV1+Emh01fHnq2Gdgrw==}
 
+  tree-changes@0.11.2:
+    resolution: {integrity: sha512-4gXlUthrl+RabZw6lLvcCDl6KfJOCmrC16BC5CRdut1EAH509Omgg0BfKLY+ViRlzrvYOTWR0FMS2SQTwzumrw==}
+
+  tree-changes@0.9.3:
+    resolution: {integrity: sha512-vvvS+O6kEeGRzMglTKbc19ltLWNtmNt1cpBoSYLj/iEcPVvpJasemKOlxBrmZaCtDJoF+4bwv3m01UKYi8mukQ==}
+
   ts-api-utils@1.4.3:
     resolution: {integrity: sha512-i3eMG77UTMD0hZhgRS562pv83RC6ukSAC2GMNWc+9dieh/+jDM5u5YG+NHX6VNDRHQcHwmsTHctP9LhbC3WxVw==}
     engines: {node: '>=16'}
@@ -2794,6 +2850,10 @@ packages:
   type-fest@2.19.0:
     resolution: {integrity: sha512-RAH822pAdBgcNMAfWnCBU3CFZcfZ/i1eZjwFU/dsLKumyuuP3niueg2UAukXYF0E2AAoc82ZSSf9J0WQBinzHA==}
     engines: {node: '>=12.20'}
+
+  type-fest@4.30.0:
+    resolution: {integrity: sha512-G6zXWS1dLj6eagy6sVhOMQiLtJdxQBHIA9Z6HFUNLOlr6MFOgzV8wvmidtPONfPtEUv0uZsy77XJNzTAfwPDaA==}
+    engines: {node: '>=16'}
 
   typed-array-buffer@1.0.2:
     resolution: {integrity: sha512-gEymJYKZtKXzzBzM4jqa9w6Q1Jjm7x2d+sh19AdsD4wqnMPDYyvwpsIc2Q/835kHuo3BEQ7CjelGhfTsoBb2MQ==}
@@ -3173,6 +3233,10 @@ snapshots:
       react-dom: 19.0.0(react@19.0.0)
 
   '@floating-ui/utils@0.2.8': {}
+
+  '@gilbarbara/deep-equal@0.1.2': {}
+
+  '@gilbarbara/deep-equal@0.3.1': {}
 
   '@hello-pangea/dnd@17.0.0(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)':
     dependencies:
@@ -4126,7 +4190,11 @@ snapshots:
 
   decode-uri-component@0.4.1: {}
 
+  deep-diff@1.0.2: {}
+
   deep-is@0.1.4: {}
+
+  deepmerge@4.3.1: {}
 
   define-data-property@1.1.4:
     dependencies:
@@ -4795,6 +4863,10 @@ snapshots:
     dependencies:
       is-extglob: 2.1.1
 
+  is-lite@0.8.2: {}
+
+  is-lite@1.2.1: {}
+
   is-map@2.0.3: {}
 
   is-negative-zero@2.0.3: {}
@@ -5113,6 +5185,8 @@ snapshots:
 
   pirates@4.0.6: {}
 
+  popper.js@1.16.1: {}
+
   possible-typed-array-names@1.0.0: {}
 
   postcss-import@15.1.0(postcss@8.4.49):
@@ -5197,11 +5271,44 @@ snapshots:
       react: 19.0.0
       scheduler: 0.25.0
 
+  react-floater@0.7.9(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      deepmerge: 4.3.1
+      is-lite: 0.8.2
+      popper.js: 1.16.1
+      prop-types: 15.8.1
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+      tree-changes: 0.9.3
+
   react-hook-form@7.54.0(react@19.0.0):
     dependencies:
       react: 19.0.0
 
+  react-innertext@1.1.5(@types/react@19.0.1)(react@19.0.0):
+    dependencies:
+      '@types/react': 19.0.1
+      react: 19.0.0
+
   react-is@16.13.1: {}
+
+  react-joyride@2.9.3(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+    dependencies:
+      '@gilbarbara/deep-equal': 0.3.1
+      deep-diff: 1.0.2
+      deepmerge: 4.3.1
+      is-lite: 1.2.1
+      react: 19.0.0
+      react-dom: 19.0.0(react@19.0.0)
+      react-floater: 0.7.9(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      react-innertext: 1.1.5(@types/react@19.0.1)(react@19.0.0)
+      react-is: 16.13.1
+      scroll: 3.0.1
+      scrollparent: 2.1.0
+      tree-changes: 0.11.2
+      type-fest: 4.30.0
+    transitivePeerDependencies:
+      - '@types/react'
 
   react-redux@9.2.0(@types/react@19.0.1)(react@19.0.0)(redux@5.0.1):
     dependencies:
@@ -5313,6 +5420,10 @@ snapshots:
       is-regex: 1.2.0
 
   scheduler@0.25.0: {}
+
+  scroll@3.0.1: {}
+
+  scrollparent@2.1.0: {}
 
   semver@6.3.1: {}
 
@@ -5578,6 +5689,16 @@ snapshots:
 
   tr46@0.0.3: {}
 
+  tree-changes@0.11.2:
+    dependencies:
+      '@gilbarbara/deep-equal': 0.3.1
+      is-lite: 1.2.1
+
+  tree-changes@0.9.3:
+    dependencies:
+      '@gilbarbara/deep-equal': 0.1.2
+      is-lite: 0.8.2
+
   ts-api-utils@1.4.3(typescript@5.7.2):
     dependencies:
       typescript: 5.7.2
@@ -5602,6 +5723,8 @@ snapshots:
   type-fest@0.20.2: {}
 
   type-fest@2.19.0: {}
+
+  type-fest@4.30.0: {}
 
   typed-array-buffer@1.0.2:
     dependencies:
