@@ -19,7 +19,7 @@ export function CreateBoardButton({ children }: Readonly<{ children: React.React
       <DialogTrigger asChild>
         {children}
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] max-h-96 overflow-y-auto bg-white dark:bg-dark-1">
+      <DialogContent className="max-h-[90vh] md:w-[80%] max-w-xl  overflow-y-auto bg-white dark:bg-dark-1">
         <DialogHeader>
           <DialogTitle className="text-xl font-normal">Create Board</DialogTitle>
         </DialogHeader>

@@ -8,6 +8,7 @@ import { CreateBoardButton } from '../_components/create-board-button'
 import NoResult from '../_components/no-result'
 import { Button } from '@/components/ui/button'
 import BoardCard from '../_components/board-card'
+import OrgBoardButton from '../_components/org-board-button'
 
 
 export type SearchParams = {
@@ -24,7 +25,9 @@ const renderNoResult = (type: string | undefined, noBoardsFound: boolean, search
     if (type === 'team') {
       return search || category || datetime
         ? <NoResult imgSrc='/nosearch.svg' title='No searched boards found in team' description='No team boards found with the applied filters' />
-        : <NoResult imgSrc='/team.svg' title='No boards found in Team Workspace' description='Try to create something' />
+        : <NoResult imgSrc='/team.svg' title='No boards found in Team Workspace' description='Try to create something'> 
+          <OrgBoardButton />
+        </NoResult>
     }
 
     if (type === 'favorite') {

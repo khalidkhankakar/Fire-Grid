@@ -14,6 +14,7 @@ export const boardFormSchema = z.object({
   category: z.string().min(2, {
       message: "Category is required.",
   }),
+  orgId: z.string().optional(),
   visibility: z.string(),
   background: z.string().min(2, {
       message: "Background is required.",

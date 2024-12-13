@@ -13,10 +13,10 @@ export const createBoard = async (values: z.infer<typeof boardFormSchema>): Prom
     const parse = boardFormSchema.safeParse(values);
     if (!parse.success) return { success: false, status: formResponseStatus.BOARD_INVALID_FIELDS };
 
-    const { background, category, title, visibility } = parse.data;
+    const { background, category, orgId,title, visibility } = parse.data;
     
     try {
-        const { userId, orgId } = await auth();
+        const { userId } = await auth();
         if (!userId) return { success: false, status: formResponseStatus.USER_NOT_EXISTS };
         if (visibility === 'team' && !orgId) return { success: false, status: formResponseStatus.ORG_NOT_EXISTS };
 

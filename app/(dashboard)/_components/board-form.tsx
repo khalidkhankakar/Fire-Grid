@@ -24,6 +24,7 @@ import { useSearchParams } from "next/navigation"
 import { boardFormSchema } from "@/lib/utils"
 import { createBoard } from "@/actions/board.actions"
 import { useToast } from "@/hooks/use-toast"
+import { useOrganization } from "@clerk/nextjs"
 
 export function BoardForm() {
     const [selectedBackground, setSelectedBackground] = useState<string>(backgroundArray[0]);
@@ -31,20 +32,26 @@ export function BoardForm() {
     const [isPending, startTransition] = useTransition()
     const { toast } = useToast()
 
+    const {organization} = useOrganization()
     // TODO: Also add functionaly to edit board making value dynamic
     const form = useForm<z.infer<typeof boardFormSchema>>({
         resolver: zodResolver(boardFormSchema),
         defaultValues: {
             title: "",
             category: "",
+            orgId: "",
             visibility: searchParams?.get('type') === "team" ? "team" : "personal",
             background: selectedBackground,
         },
     })
 
+
     function onSubmit(values: z.infer<typeof boardFormSchema>) {
+        if (searchParams?.get('type') === "team" && !organization) {
+            return toast({ title: "Please select or create an organization to create a team board" })
+        }
         startTransition(() => {
-            createBoard(values).then((res) => {
+            createBoard({...values,orgId: organization?.id}).then((res) => {
                 if (res.success) toast({ title: res.status })
                 else toast({ title: res.status, variant: "destructive" })
             }
@@ -60,14 +67,14 @@ export function BoardForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-y-4">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-y-3">
                 <div className=" w-full rounded-lg">
                     <Image
                         src={selectedBackground}
                         width={100}
                         height={100}
                         alt="Selected background"
-                        className="w-full h-32 object-contain"
+                        className="w-full h-40 object-cover rounded-lg"
                     />
                 </div>
 
@@ -155,8 +162,8 @@ export function BoardForm() {
                             <FormControl>
                                 <Input disabled {...field} />
                             </FormControl>
-                            <FormDescription>
-                                <div className="text-xs text-amber-500 mt-1">If you want to Visibilty mode {searchParams?.get('type') === "team" ? "Personal" : "Team"} <Link href={`${searchParams?.get('type') === "team" ? "/dashboard" : "/dashboard?type=team"}`} className="underline text-blue-600" >click here</Link></div>
+                            <FormDescription >
+                                <p className=" my-2 text-center  text-xs text-amber-700">If you want to Visibilty mode {searchParams?.get('type') === "team" ? "Personal" : "Team"} <Link href={`${searchParams?.get('type') === "team" ? "/dashboard" : "/dashboard?type=team"}`} className="underline text-blue-600" >click here</Link></p>
                             </FormDescription>
                             <FormMessage />
                         </FormItem>

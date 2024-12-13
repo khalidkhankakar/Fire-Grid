@@ -22,8 +22,8 @@ const NoResult = ({
                 height={200}
                 alt='no result'
             />
-            <p className='text-xl font-semibold'>{title}</p>
-            <p className='text-sm text-muted-foreground'>{description}</p>
+            <p className='text-xl text-center font-semibold'>{title}</p>
+            <p className='text-sm text-center text-muted-foreground'>{description}</p>
             <div>
                 {children}
             </div>

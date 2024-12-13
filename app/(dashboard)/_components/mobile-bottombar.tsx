@@ -2,12 +2,17 @@
 import React from 'react'
 
 import { Button } from '@/components/ui/button'
-import { Home, Plus, Star, UserRound, UserRoundPlus } from 'lucide-react'
+import { Earth, Plus, Star, UserRound, UserRoundPlus } from 'lucide-react'
 import { useSearchParams } from 'next/navigation';
 import Link from 'next/link';
+import { useOrganization } from '@clerk/nextjs';
+import OrgSwticherModel from './org-switcher-model';
+import Image from 'next/image';
+import { CreateBoardButton } from './create-board-button';
 
 const MobileBottombar = () => {
 
+  const { organization } = useOrganization()
   const searchParams = useSearchParams()
   const type = searchParams.get('type')
 
@@ -17,35 +22,48 @@ const MobileBottombar = () => {
       <div className='flex gap-x-2 w-full justify-evenly items-center'>
         <Button variant={type == null ? 'icon-active' : 'icon'} size={'icon'} asChild>
           <Link href={{ pathname: '/dashboard' }}>
-            <Home />
-          </Link>
-        </Button>
-        <Button variant={type == null ? 'icon-active' : 'icon'} size={'icon'} asChild>
-          <Link href={{ pathname: '/dashboard' }}>
             <UserRound />
           </Link>
-        </Button>
-
-        <Button
-          variant={'icon'}
-
-          className='h-12 w-12'
-          asChild
-        >
-          <div>
-            <Plus className='w-8 h-8' />
-          </div>
         </Button>
         <Button variant={type == 'team' ? 'icon-active' : 'icon'} size={'icon'} asChild>
           <Link href={{ pathname: '/dashboard', query: { type: 'team' } }}>
             <UserRoundPlus />
           </Link>
         </Button>
+
+        <CreateBoardButton>
+          <Button
+            variant={'icon'}
+            className='h-12 w-12'
+            asChild
+          >
+            <div>
+              <Plus className='w-8 h-8' />
+            </div>
+          </Button>
+        </CreateBoardButton>
+
         <Button variant={type == 'favorite' ? 'icon-active' : 'icon'} size={'icon'} asChild>
           <Link href={{ pathname: '/dashboard', query: { type: 'favorite' } }}>
             <Star />
           </Link>
         </Button>
+
+
+
+        <OrgSwticherModel>
+          {
+            organization ?
+              <div>
+                <Image src={organization.imageUrl} width={100} height={100} alt={'orgimage'} className='rounded-lg w-9 h-9 object-cover' />
+              </div>
+              :
+              <Button variant={'icon'} size={'icon'}>
+                <Earth />
+              </Button>
+          }
+        </OrgSwticherModel>
+
       </div>
     </nav>
   )
