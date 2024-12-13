@@ -48,7 +48,7 @@ const BoardsFilter = ({filter}: BoardsFilterProps) => {
 
   return (
     <Select value={value || ''} onValueChange={(value) => setValue(value)}>
-      <SelectTrigger className="w-fit space-x-2 rounded-xl bg-white dark:bg-dark-1">
+      <SelectTrigger className="w-fit space-x-1 text-xs md:text-sm md:space-x-2 rounded-xl bg-white dark:bg-dark-1">
         <SelectValue placeholder={filter.type.charAt(0).toUpperCase() + filter.type.slice(1)} />
       </SelectTrigger>
       <SelectContent className="bg-white dark:bg-dark-1">

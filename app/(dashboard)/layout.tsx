@@ -18,11 +18,11 @@ const DashboardLayout = ({ children }: Readonly<DashboardLayoutProps>) => {
                 <Sidebar />
                 <div className='flex-1 flex flex-col '>
                     <Navbar isShowLogo={false} />
-                    <main className='shadow-xl shadow-[#6b63631a]'>
+                    <main className='shadow-xl w-full  shadow-[#6b63631a]'>
                         {children}
                     </main>
-                </div>
                 <MobileBottombar />
+                </div>
             </div>
         </main>
     )

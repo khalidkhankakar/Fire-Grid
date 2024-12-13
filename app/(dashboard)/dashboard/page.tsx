@@ -78,7 +78,7 @@ const Page = async ({ searchParams }: { searchParams?: Promise<SearchParams> }) 
 
 
   return (
-    <div className='w-full dashboard-section border min-h-[calc(100vh-64px)] p-4'>
+    <div className='w-[100vw] md:w-full overflow-x-none pb-12 dashboard-section overflow-y-scroll   h-[calc(100vh-64px)] p-4'>
       <div className='flex flex-col md:flex-row justify-between'>
         <h1 className='text-xl md:text-3xl'>
           {type === "team" ? "Team Workspace" : type === "favorite" ? "Favorite Workspace" : "Personal Workspace"}
@@ -98,7 +98,7 @@ const Page = async ({ searchParams }: { searchParams?: Promise<SearchParams> }) 
         </div>
       </div>
 
-      <div className='my-5 flex flex-wrap gap-3'>
+      <div className='my-5 flex flex-wrap items-center w-full '>
       <Suspense fallback={<p>Loading feed...</p>}>
         {renderNoResult(type, noBoardsFound, search, category, datetime)}
         {renderBoards(boards, noBoardsFound)}
