@@ -1,9 +1,10 @@
+import { Liveblocks } from "@liveblocks/node";
 import { Hono } from 'hono'
 import { handle } from 'hono/vercel'
 
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
-import { auth, clerkClient, WebhookEvent } from '@clerk/nextjs/server'
+import { auth, clerkClient, currentUser, WebhookEvent } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import { db } from '@/lib/db/drizzle'
 import { user } from '@/lib/db/schemas'
@@ -110,6 +111,51 @@ app.post('/webhook', async (c) => {
 
 })
 
-const handler = handle(app)
 
+const liveblocks = new Liveblocks({
+  secret: "sk_dev_0omeO4tgGiT0cnWo5O9BKCEZItSWnr8BRceYZBu3LYtb7nM77xc680rgcIvbB8vX",
+});
+
+app.post('/liveblocks-auth', async (c) => {
+
+  const authorization = await auth();
+  const user = await currentUser();
+
+
+  if (!user || !authorization) {
+    return NextResponse.json({ message: 'Unauthorized' }, { status: 403 })
+  }
+
+  const { room } = await c.req.json();
+
+  // const singleBoard = await getBoard(room)
+
+  // if (!singleBoard || singleBoard.orgId !== authorization.orgId) {
+  //   return NextResponse.json({ message: 'Unauthorized' }, { status: 403 })
+  // }
+
+  
+
+  const userInfo = {
+    name: user.firstName || 'Teammate',
+    picture: user.imageUrl
+  }
+
+  const session = liveblocks.prepareSession(
+    user.id,
+    { userInfo },
+  );
+
+
+  if (room) {
+    session.allow(room, session.FULL_ACCESS)
+  }
+
+  const { status, body } = await session.authorize();
+  return new Response(body, { status })
+
+})
+
+
+const handler = handle(app)
 export { handler as GET, handler as POST }

@@ -1,5 +1,6 @@
 import { getBoard } from "@/actions/board.actions"
 import BoardTables from "../_components/board/board-tables"
+import { Room } from "@/components/shared/liveblocks-room"
 
 interface BoardPageProps {
   params: Promise<{ boardId: string }>
@@ -14,14 +15,16 @@ const BoardPage = async ({
   if (!fetchBoard) return null
 
   return (
+    <Room roomId={boardId} >
     <BoardTables
       id={fetchBoard?.id || ""}
       title={fetchBoard?.title || ""}
-      visibility={fetchBoard?.visibility || ""}
       image={fetchBoard?.image || ""}
-      category={fetchBoard?.category || ""}
       boardTables={fetchBoard?.boardTables || []}
+      // visibility={fetchBoard?.visibility || ""}
+      // category={fetchBoard?.category || ""}
     />
+    </Room>
   )
 }
 

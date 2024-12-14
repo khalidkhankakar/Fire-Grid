@@ -117,7 +117,7 @@ export const dummyColumns = [
   ]
 
 
-  export const COLORS = [
+export const CURSOR_COLORS:string[] = [
     "#000000", // Black
     "#ffffff", // White
     "#FF5733", // Vibrant Orange-Red
@@ -154,3 +154,14 @@ export const JOYRIDE_STEPS_DASHBOARD = [
       content: 'Access your favorite boards quickly here.',
     }
   ]
+
+export const COLORS = [
+    "#E57373",
+    "#9575CD",
+    "#4FC3F7",
+    "#81C784",
+    "#FFF176",
+    "#FF8A65",
+    "#F06292",
+    "#7986CB",
+  ];

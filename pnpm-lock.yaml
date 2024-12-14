@@ -20,6 +20,15 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.9.1
         version: 3.9.1(react-hook-form@7.54.0(react@19.0.0))
+      '@liveblocks/client':
+        specifier: ^2.14.0
+        version: 2.14.0
+      '@liveblocks/node':
+        specifier: ^2.14.0
+        version: 2.14.0
+      '@liveblocks/react':
+        specifier: ^2.14.0
+        version: 2.14.0(react@19.0.0)
       '@neondatabase/serverless':
         specifier: ^0.10.4
         version: 0.10.4
@@ -658,6 +667,20 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.25':
     resolution: {integrity: sha512-vNk6aEwybGtawWmy/PzwnGDOjCkLWSD2wqvjGGAgOAwCGWySYXfYoxt00IJkTF+8Lb57DwOb3Aa0o9CApepiYQ==}
+
+  '@liveblocks/client@2.14.0':
+    resolution: {integrity: sha512-XSsZpHVYTUSHFt0nPh7JRIpALBSU7rY1BSUCanvDyDbfArg7b9BXb/tojhB8UNvdYMU1UVSCD/syDco/2R3BCw==}
+
+  '@liveblocks/core@2.14.0':
+    resolution: {integrity: sha512-MbciLE8HprTaYxY5H0jq3VbUS1qLno8oEYvP63y/S3IWsSe0l61VlkDQdHcyhPzpjmYNSpN2rr5VhPDADsIRaA==}
+
+  '@liveblocks/node@2.14.0':
+    resolution: {integrity: sha512-bUg1ekCBLlu2AFd4yzNuyCJSIcdIqmuaLDnTyspUhdJMoBiS8xyhk7fICsEFNyywcIXVERPiII0ngaFp9Uff6A==}
+
+  '@liveblocks/react@2.14.0':
+    resolution: {integrity: sha512-bY25dZqMzCwp99Q4RjYc52uX86shu4qjuYTEX42awu/pwlM7gSgBczzh7iMp4TGwmy+iAU1bp2xREAkWGrxlIQ==}
+    peerDependencies:
+      react: ^16.14.0 || ^17 || ^18 || ^19 || ^19.0.0-rc
 
   '@neondatabase/serverless@0.10.4':
     resolution: {integrity: sha512-2nZuh3VUO9voBauuh+IGYRhGU/MskWHt1IuZvHcJw6GLjDgtqj/KViKo7SIrLdGLdot7vFbiRRw+BgEy3wT9HA==}
@@ -3368,6 +3391,28 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
+
+  '@liveblocks/client@2.14.0':
+    dependencies:
+      '@liveblocks/core': 2.14.0
+
+  '@liveblocks/core@2.14.0': {}
+
+  '@liveblocks/node@2.14.0':
+    dependencies:
+      '@liveblocks/core': 2.14.0
+      '@stablelib/base64': 1.0.1
+      fast-sha256: 1.3.0
+      node-fetch: 2.7.0
+    transitivePeerDependencies:
+      - encoding
+
+  '@liveblocks/react@2.14.0(react@19.0.0)':
+    dependencies:
+      '@liveblocks/client': 2.14.0
+      '@liveblocks/core': 2.14.0
+      react: 19.0.0
+      use-sync-external-store: 1.4.0(react@19.0.0)
 
   '@neondatabase/serverless@0.10.4':
     dependencies:

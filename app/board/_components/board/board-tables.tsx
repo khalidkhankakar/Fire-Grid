@@ -7,12 +7,14 @@ import { Table } from '@/types';
 import { updateTablePosition } from '@/actions/table.actions';
 import { useToast } from '@/hooks/use-toast';
 import { updateCardPosition } from '@/actions/card.actions';
-
+import { CursorPresence } from '@/components/shared/cursor-presence';
+import { useMutation } from '@liveblocks/react';
 interface BoardTablesProps {
   id: string;
   title: string;
   image: string;
   boardTables: Table[];
+
 }
 
 const reorder = <T,>(
@@ -40,83 +42,94 @@ const BoardTables = ({ id, title, image, boardTables: initialTables }: BoardTabl
     if (isSamePosition) return;
 
 
-      if (type === 'TABLE') {
-        // Only update the positions if they change
+    if (type === 'TABLE') {
+      // Only update the positions if they change
+      const { updatedList, changedItem } = reorder(
+        boardTables,
+        source.index,
+        destination.index
+      );
+
+      setBoardTables(updatedList);
+
+      await updateTablePosition({
+        tableId: changedItem.id,
+        position: destination.index,
+      });
+
+      toast({ title: 'Table position updated successfully.' });
+    }
+
+    if (type === 'CARD') {
+      const newOrder = [...boardTables];
+      const sourceList = newOrder.find((table) => table.id === source.droppableId);
+      const destList = newOrder.find((table) => table.id === destination.droppableId);
+
+      if (!sourceList || !destList) return;
+
+      if (sourceList.id === destList.id) {
         const { updatedList, changedItem } = reorder(
-          boardTables,
+          sourceList.tableCards || [],
           source.index,
           destination.index
         );
 
-        setBoardTables(updatedList);
-        
-        await updateTablePosition({
-          tableId: changedItem.id,
+        sourceList.tableCards = updatedList;
+        setBoardTables(newOrder);
+
+        await updateCardPosition({
+          cardId: changedItem.id,
+          tableId: sourceList.id,
           position: destination.index,
         });
 
-        toast({ title: 'Table position updated successfully.' });
+        toast({ title: 'Card position updated successfully.' });
+      } else {
+        // Moving between lists
+        const [removed] = sourceList.tableCards.splice(source.index, 1);
+        removed.tableId = destination.droppableId;
+
+        destList.tableCards.splice(destination.index, 0, removed);
+
+        sourceList.tableCards.forEach((card, index) => {
+          card.position = index;
+        });
+
+        destList.tableCards.forEach((card, index) => {
+          card.position = index;
+        });
+
+        setBoardTables(newOrder);
+
+        // Batch API calls
+        await Promise.all([
+          ...sourceList.tableCards.map((card) =>
+            updateCardPosition({ cardId: card.id, tableId: sourceList.id, position: card.position })
+          ),
+          ...destList.tableCards.map((card) =>
+            updateCardPosition({ cardId: card.id, tableId: destList.id, position: card.position })
+          ),
+        ]);
+
+        toast({ title: 'Card moved successfully.' });
       }
-
-      if (type === 'CARD') {
-        const newOrder = [...boardTables];
-        const sourceList = newOrder.find((table) => table.id === source.droppableId);
-        const destList = newOrder.find((table) => table.id === destination.droppableId);
-
-        if (!sourceList || !destList) return;
-
-        if (sourceList.id === destList.id) {
-          const { updatedList, changedItem } = reorder(
-            sourceList.tableCards || [],
-            source.index,
-            destination.index
-          );
-
-          sourceList.tableCards = updatedList;
-          setBoardTables(newOrder);
-
-          await updateCardPosition({
-            cardId: changedItem.id,
-            tableId: sourceList.id,
-            position: destination.index,
-          });
-
-          toast({ title: 'Card position updated successfully.' });
-        } else {
-          // Moving between lists
-          const [removed] = sourceList.tableCards.splice(source.index, 1);
-          removed.tableId = destination.droppableId;
-
-          destList.tableCards.splice(destination.index, 0, removed);
-
-          sourceList.tableCards.forEach((card, index) => {
-            card.position = index;
-          });
-
-          destList.tableCards.forEach((card, index) => {
-            card.position = index;
-          });
-
-          setBoardTables(newOrder);
-
-          // Batch API calls
-          await Promise.all([
-            ...sourceList.tableCards.map((card) =>
-              updateCardPosition({ cardId: card.id, tableId: sourceList.id, position: card.position })
-            ),
-            ...destList.tableCards.map((card) =>
-              updateCardPosition({ cardId: card.id, tableId: destList.id, position: card.position })
-            ),
-          ]);
-
-          toast({ title: 'Card moved successfully.' });
-        }
-      }
+    }
 
   };
 
+  const onPointerMove = useMutation((
+    { setMyPresence },
+    e: React.PointerEvent
+  ) => {
+    e.preventDefault();
+    const current = { x: e.clientX, y: e.clientY };
+    setMyPresence({ cursor: current })
+  }, [])
+
   return (
+
     <div
+      onPointerMove={onPointerMove}
       style={{
         backgroundImage: `url(${image})`,
         backgroundSize: 'cover',
@@ -127,6 +140,7 @@ const BoardTables = ({ id, title, image, boardTables: initialTables }: BoardTabl
       <header className="py-3 px-4 bg-slate-900/15 w-full flex-wrap flex items-center">
         <h1 className="text-sm font-bold">{title}</h1>
       </header>
+      <CursorPresence />
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="tables" direction="horizontal" type="TABLE">
           {(provided) => (
