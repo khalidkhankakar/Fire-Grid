@@ -45,8 +45,8 @@ export const getTable = async (tableId: string) => {
 
 export const updateTable = async (values: { tableId: string, title?: string, position?: number,backgroundColor?: string,  }): Promise<boardFromState> => {
     try {
-        const { tableId, title, position, backgroundColor } = values
-        await db.update(table).set({ title, position, backgroundColor }).where(eq(table.id, tableId))
+        const { tableId, title, backgroundColor } = values
+        await db.update(table).set({ title, backgroundColor }).where(eq(table.id, tableId))
         return { success: true, status: formResponseStatus.TABLE_UPDATED };
     } catch (error) {
         console.log(error)

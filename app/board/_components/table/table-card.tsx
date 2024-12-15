@@ -27,7 +27,7 @@ const TableCard = ({ tableCards,provided: tableProvided, id, title, backgroundCo
           {...provided.droppableProps}
           ref={provided.innerRef}
           className="h-fit max-h-2/3 w-64 rounded-lg overflow-y-auto flex-shrink-0 p-2"
-          style={{ backgroundColor: backgroundColor || '#000' }}
+          style={{ backgroundColor: backgroundColor || '#01183d' }}
         >
           <div {...tableProvided.dragHandleProps} className="flex items-center justify-between">
             <p className="text-sm">{title}</p>

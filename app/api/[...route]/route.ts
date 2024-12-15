@@ -9,6 +9,7 @@ import { NextResponse } from 'next/server'
 import { db } from '@/lib/db/drizzle'
 import { user } from '@/lib/db/schemas'
 import { eq } from 'drizzle-orm'
+import { getSingleBoard } from "@/actions/board.actions";
 
 // export const runtime = 'edge'
 
@@ -113,48 +114,66 @@ app.post('/webhook', async (c) => {
 
 
 const liveblocks = new Liveblocks({
-  secret: "sk_dev_0omeO4tgGiT0cnWo5O9BKCEZItSWnr8BRceYZBu3LYtb7nM77xc680rgcIvbB8vX",
+  secret: "sk_prod_R1ErF4F78Kr6HoWlbm7DT4ktBlTRjVwQAfksWGew_MJ2NX_-XtVWE75vspZ0vQTE",
 });
 
 app.post('/liveblocks-auth', async (c) => {
+  try {
+    // Get authorization and current user
+    const authorization = await auth();
+    const user = await currentUser();
 
-  const authorization = await auth();
-  const user = await currentUser();
+    if (!user || !authorization) {
+      console.log('Unauthorized: Missing user or authorization');
+      return new Response(JSON.stringify({ message: 'Unauthorized' }), { status: 403 });
+    }
 
+    // Extract room from request body
+    const { room } = await c.req.json();
+    if (!room) {
+      console.log('Unauthorized: Missing room in request');
+      return new Response(JSON.stringify({ message: 'Unauthorized' }), { status: 403 });
+    }
 
-  if (!user || !authorization) {
-    return NextResponse.json({ message: 'Unauthorized' }, { status: 403 })
+    // Get single board information
+    const singleBoard = await getSingleBoard(room);
+    if (!singleBoard) {
+      console.log('Unauthorized: Board not found');
+      return new Response(JSON.stringify({ message: 'Unauthorized' }), { status: 403 });
+    }
+
+    // Authorization checks
+    if (
+      (singleBoard.visibility === 'personal' && singleBoard.createdBy !== user.id) ||
+      (singleBoard.visibility === 'team' && singleBoard.orgId !== authorization.orgId)
+    ) {
+      console.log('Unauthorized: User not authorized for this board');
+      return new Response(JSON.stringify({ message: 'Unauthorized' }), { status: 403 });
+    }
+
+    console.log('Authorized: User is authorized for this board');
+
+    // Prepare user info for Liveblocks
+    const userInfo = {
+      id: user.id,
+      name: user.firstName || 'Anonymous',
+      picture: user.imageUrl ,
+    };
+
+    // Prepare Liveblocks session
+    const session = liveblocks.prepareSession(user.id, { userInfo });
+
+    // Allow full access for the room
+    session.allow(room, session.FULL_ACCESS);
+    // Authorize the session
+    const { status, body } = await session.authorize();
+    return new Response(body, { status });
+  } catch (error) {
+    console.error('Error in /liveblocks-auth:', error);
+    return new Response(JSON.stringify({ message: 'Internal Server Error' }), { status: 500 });
   }
+});
 
-  const { room } = await c.req.json();
-
-  // const singleBoard = await getBoard(room)
-
-  // if (!singleBoard || singleBoard.orgId !== authorization.orgId) {
-  //   return NextResponse.json({ message: 'Unauthorized' }, { status: 403 })
-  // }
-
-  
-
-  const userInfo = {
-    name: user.firstName || 'Teammate',
-    picture: user.imageUrl
-  }
-
-  const session = liveblocks.prepareSession(
-    user.id,
-    { userInfo },
-  );
-
-
-  if (room) {
-    session.allow(room, session.FULL_ACCESS)
-  }
-
-  const { status, body } = await session.authorize();
-  return new Response(body, { status })
-
-})
 
 
 const handler = handle(app)

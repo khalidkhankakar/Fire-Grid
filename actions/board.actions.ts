@@ -59,3 +59,38 @@ export const getBoard = async (boardId:string) =>{
         console.error(error);
     }
 }
+
+export const getSingleBoard = async (id:string) => {
+    try {
+        const myBoard = await db.query.board.findFirst({
+            where: eq(board.id, id)
+        })
+        return myBoard;
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+export const deleteBoard = async (value: { boardId: string }): Promise<boardFromState> => {
+    try {
+        await db.delete(board).where(eq(board.id, value.boardId))
+        revalidatePath('/dashboard')
+        return { success: true, status: formResponseStatus.BOARD_DELETED };
+    } catch (error) {
+        console.log(error)
+        return { success: false, status: formResponseStatus.ERROR };
+    }
+
+}
+
+export const renameBoard = async (value: { title:string,boardId: string }): Promise<boardFromState> => {
+    try {
+        await db.update(board).set({ title: value.title }).where(eq(board.id, value.boardId))
+        revalidatePath('/dashboard')
+        return { success: true, status: formResponseStatus.BOARD_DELETED };
+    } catch (error) {
+        console.log(error)
+        return { success: false, status: formResponseStatus.ERROR };
+    }
+
+}

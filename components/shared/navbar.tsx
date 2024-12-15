@@ -1,14 +1,16 @@
 'use client';
 import { ToggleMode } from '@/components/shared/toggle-mode'
 import { Button } from '@/components/ui/button'
-import { useClerk, UserButton } from '@clerk/nextjs';
-import { LogOutIcon } from 'lucide-react';
+import { OrganizationSwitcher, useClerk, UserButton } from '@clerk/nextjs';
+import { LogOutIcon, Plus } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image'
 import Link from 'next/link'
 import { dark } from '@clerk/themes'
 
 import React from 'react'
+import InviteUser from '@/app/(dashboard)/_components/invite-user';
+import Tip from './tip';
 
 interface NavbarProps {
     isShowLogo: boolean
@@ -40,11 +42,32 @@ export const Navbar = ({ isShowLogo }: Readonly<NavbarProps>) => {
                 </Link>
                 <div className='hidden md:block'>
                     <p className='font-semibold text-sm md:text-lg'>Hi, {user?.firstName} {'...!'} </p>
-                    <p className='text-[10px] md:text-sm text-gray-600 tracking-wide'>Loggin to FireGrid</p>
+                    <p className='text-[10px] md:text-sm text-gray-600 tracking-wide'>Logged into FireGrid</p>
                 </div>
             </div>)}
 
             <div className='flex items-center gap-x-2 '>
+            <Tip label={'Change organization'} side='bottom' align='center'>
+
+                <div className='hidden md:block'>
+                <OrganizationSwitcher
+                appearance={{
+                    baseTheme: theme === 'dark' ? dark : undefined,
+                    variables: {
+                        fontSize: '16px',
+                    },
+                    elements: {
+                        organizationSwitcherTrigger: {
+                            padding: '8px',
+                            backgroundColor: theme === 'dark' ? '#828282' : '#d4d4d4'
+                        }
+                    }
+                }}
+                />
+                </div>
+                </Tip>
+                <Tip label={'Profile'} side='bottom' align='center'>
+
                 <Button
                     variant={'icon'}
                     size={'icon'}
@@ -59,10 +82,20 @@ export const Navbar = ({ isShowLogo }: Readonly<NavbarProps>) => {
                         />
                     </div>
                 </Button>
+                </Tip>
 
+                <InviteUser>
+                <Tip label={'Invite user'} side='bottom' align='center'>
+                    <Button size={'icon'} variant={'icon-active'}  >
+                        <Plus className='w-6 h-6' />
+                    </Button>
+                </Tip>
+                </InviteUser>
+                <Tip label={'Logout'} side='bottom' align='center'>
                 <Button
                     variant={'icon'}
                     size={'icon'}
+                    className='cursor-pointer'
                     asChild
                     onClick={() => signOut({ redirectUrl: '/sign-in' })}
                 >
@@ -70,6 +103,8 @@ export const Navbar = ({ isShowLogo }: Readonly<NavbarProps>) => {
                         <LogOutIcon className='w-6 h-6' />
                     </div>
                 </Button>
+                </Tip>
+
                 <ToggleMode />
             </div>
 

@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import MDEditor from '@uiw/react-md-editor';
 import { backgroundArray } from "@/contants"
 import { useToast } from "@/hooks/use-toast"
 import { taskSchema } from "@/lib/utils"
@@ -22,6 +22,7 @@ import Image from "next/image"
 import { useState, useTransition } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
+import rehypeSanitize from "rehype-sanitize";
 
 interface Label {
     title: string;
@@ -51,7 +52,7 @@ export function TaskCardEditForm({
 }: TaskEditFormProps) {
 
     const [isPending, startTransition] = useTransition();
-    const {toast} = useToast();
+    const { toast } = useToast();
     const [selectedBackground, setSelectedBackground] = useState<string>(coverImage || '');
     const form = useForm<z.infer<typeof taskSchema>>({
         resolver: zodResolver(taskSchema),
@@ -67,12 +68,12 @@ export function TaskCardEditForm({
     })
 
     function onSubmit(values: z.infer<typeof taskSchema>) {
-        if(!id) return
-        console.log({id})
+        if (!id) return
+        console.log({ id })
         startTransition(() => {
             updatedCard(values).then((res) => {
-                if(res.success) toast({ title: res.status });
-                if(!res.success) toast({ title: res.status, variant: 'destructive' })
+                if (res.success) toast({ title: res.status });
+                if (!res.success) toast({ title: res.status, variant: 'destructive' })
             }).catch((err) => toast({ title: err.status, variant: 'destructive' }));
         })
 
@@ -104,7 +105,7 @@ export function TaskCardEditForm({
             <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-4">
 
                 <div className="relative h-40">
-                   {( selectedBackground || coverImage) && <Image
+                    {(selectedBackground || coverImage) && <Image
                         src={selectedBackground || coverImage}
                         alt={title}
                         layout="fill"
@@ -199,8 +200,12 @@ export function TaskCardEditForm({
                         <FormItem>
                             <FormLabel>Description</FormLabel>
                             <FormControl>
-                                <Textarea
-                                    {...field}
+                                <MDEditor
+                                    value={field.value}
+                                    onChange={field.onChange}
+                                    previewOptions={{
+                                        rehypePlugins: [[rehypeSanitize]],
+                                      }}
                                 />
                             </FormControl>
                             <FormMessage />
@@ -218,14 +223,14 @@ export function TaskCardEditForm({
 
                             {labels.map((label, index) => (
                                 <Badge key={index} style={{ backgroundColor: label.color }} className="flex rounded-full gap-x-2 items-center">
-                                        <p className="text-xs">{label.title}</p>
+                                    <p className="text-xs">{label.title}</p>
                                     <Button
                                         variant="icon-normal"
                                         size="icon"
                                         onClick={() => handleRemoveLabel(index)}
-                                        asChild 
+                                        asChild
                                     >
-                                        <X  className="h-4 w-4"/>
+                                        <X className="h-4 w-4" />
                                     </Button>
                                 </Badge>
                             ))}

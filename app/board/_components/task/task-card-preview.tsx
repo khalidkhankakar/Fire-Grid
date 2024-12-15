@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
 import { Calendar, Edit } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-
+import MDEditor from '@uiw/react-md-editor';
 interface Label {
     title: string
     color: string
@@ -55,7 +55,7 @@ export function TaskCardPreview({
                         <Badge key={index} style={{ backgroundColor: label.color }}>{label.title}</Badge>
                     ))}
                 </div>}
-                {description && <p className="text-sm text-gray-600 mb-4">{description}</p>}
+                {description &&  <MDEditor.Markdown className='p-3 bg-white dark:bg-dark-1 rounded-lg my-3' source={description} />}
 
                 { deadline && <div className="flex w-fit rounded-md bg-slate-300 items-center text-sm text-gray-600 py-1 px-2">
                     <Calendar className="w-4 h-4 mr-1" />

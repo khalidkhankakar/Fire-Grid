@@ -135,7 +135,7 @@ const BoardTables = ({ id, title, image, boardTables: initialTables }: BoardTabl
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
-      className="w-[100vw] md:w-[calc(100vw-200px)] overflow-x-auto h-[calc(100vh-64px)] flex flex-col items-center"
+      className="w-[100vw] overflow-x-auto h-[calc(100vh-64px)] flex flex-col items-center"
     >
       <header className="py-3 px-4 bg-slate-900/15 w-full flex-wrap flex items-center">
         <h1 className="text-sm font-bold">{title}</h1>

@@ -9,6 +9,7 @@ import NoResult from '../_components/no-result'
 import { Button } from '@/components/ui/button'
 import BoardCard from '../_components/board-card'
 import OrgBoardButton from '../_components/org-board-button'
+import OrgSwitcher from '../_components/org-switcher'
 
 
 export type SearchParams = {
@@ -25,7 +26,7 @@ const renderNoResult = (type: string | undefined, noBoardsFound: boolean, search
     if (type === 'team') {
       return search || category || datetime
         ? <NoResult imgSrc='/nosearch.svg' title='No searched boards found in team' description='No team boards found with the applied filters' />
-        : <NoResult imgSrc='/team.svg' title='No boards found in Team Workspace' description='Try to create something'> 
+        : <NoResult imgSrc='/team.svg' title='No boards found in Team Workspace' description='Try to create something'>
           <OrgBoardButton />
         </NoResult>
     }
@@ -62,7 +63,6 @@ const renderBoards = (boards: any[], noBoardsFound: boolean) => {
       createdAt={board.createdAt}
       visibility={board.visibility}
       image={board.image}
-      category={board.category}
       orgId={board.orgId || ""}
       isFavorite={board.isFavorite}
       createdBy={board.createdBy}
@@ -80,13 +80,21 @@ const Page = async ({ searchParams }: { searchParams?: Promise<SearchParams> }) 
   return (
     <div className='w-[100vw] md:w-full overflow-x-none pb-12 dashboard-section overflow-y-scroll   h-[calc(100vh-64px)] p-4'>
       <div className='flex flex-col md:flex-row justify-between'>
-        <h1 className='text-xl md:text-3xl'>
-          {type === "team" ? "Team Workspace" : type === "favorite" ? "Favorite Workspace" : "Personal Workspace"}
-        </h1>
+        <div className='flex items-center justify-between gap-x-2'>
+
+          <h1 className='text-xl md:text-3xl'>
+            {type === "team" ? "Team Workspace" : type === "favorite" ? "Favorite Workspace" : "Personal Workspace"}
+          </h1>
+          <div className='block md:hidden'>
+            <OrgSwitcher />
+          </div>
+        </div>
         <SearchBar />
+
       </div>
 
       <div className='my-3 rounded-md bg-white px-3 py-3 dark:bg-dark-1 flex flex-wrap items-center shadow-md justify-between gap-y-2'>
+
         <div className='flex text-slate-400 items-center gap-x-2'>
           <Filter fill='#94a3b8' className='w-6 h-6' />
           <span className='font-semibold'>Filter</span>
@@ -96,13 +104,14 @@ const Page = async ({ searchParams }: { searchParams?: Promise<SearchParams> }) 
           <BoardsFilter filter={DATETIME_FILTER} />
           <BoardsFilter filter={ORDER_FILTER} />
         </div>
+
       </div>
 
-      <div className='my-5 flex flex-wrap items-center w-full '>
-      <Suspense fallback={<p>Loading feed...</p>}>
-        {renderNoResult(type, noBoardsFound, search, category, datetime)}
-        {renderBoards(boards, noBoardsFound)}
-      </Suspense>
+      <div className='my-5 flex flex-wrap items-center justify-center w-full '>
+        <Suspense fallback={<p>Loading feed...</p>}>
+          {renderNoResult(type, noBoardsFound, search, category, datetime)}
+          {renderBoards(boards, noBoardsFound)}
+        </Suspense>
       </div>
     </div>
   );

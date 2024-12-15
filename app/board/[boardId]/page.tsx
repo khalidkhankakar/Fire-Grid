@@ -7,24 +7,24 @@ interface BoardPageProps {
 }
 
 const BoardPage = async ({
-  params,
+  params
 }: BoardPageProps) => {
-  
+
   const boardId = (await params).boardId
   const fetchBoard = await getBoard(boardId)
   if (!fetchBoard) return null
 
   return (
-    <Room roomId={boardId} >
-    <BoardTables
-      id={fetchBoard?.id || ""}
-      title={fetchBoard?.title || ""}
-      image={fetchBoard?.image || ""}
-      boardTables={fetchBoard?.boardTables || []}
-      // visibility={fetchBoard?.visibility || ""}
-      // category={fetchBoard?.category || ""}
-    />
-    </Room>
+  <Room roomId={boardId} >
+        <BoardTables
+          id={fetchBoard?.id || ""}
+          title={fetchBoard?.title || ""}
+          image={fetchBoard?.image || ""}
+          boardTables={fetchBoard?.boardTables || []}
+        // visibility={fetchBoard?.visibility || ""}
+        // category={fetchBoard?.category || ""}
+        />
+      </Room>
   )
 }
 

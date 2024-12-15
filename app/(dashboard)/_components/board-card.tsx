@@ -1,17 +1,15 @@
-import { cn } from '@/lib/utils'
-
-import { Star } from 'lucide-react'
-import Image from 'next/image'
+'use client';
+import {  Calendar, CassetteTape, Ellipsis, Heart } from 'lucide-react'
 import Link from 'next/link'
-import React from 'react'
-import Overlay from './overlay'
+import BoardActions from './board-actions'
+import { Card, CardContent,  CardHeader } from '@/components/ui/card';
+import Image from 'next/image';
 
 interface BoardCardProps {
     id: string,
     title: string,
     createdBy: string,
     image: string,
-    category: string,
     visibility: string,
     orgId: string,
     createdAt: string,
@@ -22,31 +20,44 @@ const BoardCard = ({
     id,
     title,
     image,
-    category,
     visibility,
     isFavorite,
 }: BoardCardProps) => {
+
     return (
-        <Link
-            href={`/board/${id}`}
-            className='group w-48 h-44 flex  flex-col justify-center items-center  mx-auto my-8 relative'
-        >
-            <Overlay />
-
-            <div style={{ backgroundImage: `url(${image})` }}
-                className="bg-gray-300 h-full w-full rounded-lg shadow-md bg-cover bg-center"></div>
-            <div className="w-2/3 bg-white -mt-10 shadow-lg rounded-lg overflow-hidden">
-                <div className="py-2 text-center font-semebold tracking-wide text-gray-800">{title}</div>
-                <div className="flex items-center justify-between py-2 px-3 bg-gray-400">
-                    <h1 className="text-gray-800 font-bold ">$129</h1>
-                </div>
+        <Card className="w-[250px] border relative bg-white dark:bg-dark-1 shadow-lg  m-2 overflow-hidden">
+            <div className="relative h-40">
+                <Image
+                    src={image}
+                    alt={title}
+                    layout="fill"
+                    objectFit="cover"
+                />
             </div>
+            <CardHeader className="p-2">
+                <div className="flex items-center justify-between">
+                    <Link href={`/board/${id}`} className=" font-semibold hover:underline">{title}</Link>
+                    <Heart className={`w-5 h-5 ${isFavorite ? 'fill-red-500 text-red-500' : 'text-gray-400'}`} />
+                </div>
+            </CardHeader>
+            <CardContent className="p-3 pt-0 flex items-center justify-between">
+                <div className="flex items-center text-sm text-gray-500">
+                    <CassetteTape className="w-4 h-4 mr-1" />
+                    <span>{visibility}</span>
+                </div>
+                <div className="flex items-center text-sm text-gray-500">
+                    <Calendar className="w-4 h-4 mr-1" />
+                    <span>12/12/2023</span>
+                </div>
+                <BoardActions
+                id={id}
+                title={title}
+                >
+                <Ellipsis className="w-6 h-6 absolute top-3 cursor-pointer right-4" />
+                </BoardActions>
+            </CardContent>
+        </Card>
+    );
+};
 
-            {/* TODO: ADD FAVORITES FUNCTIONALITY */}
-            <Star className={cn('w-6 h-6 absolute top-2 right-2  group-hover:block md:hidden block', isFavorite ? 'fill-yellow-400 text-yellow-400' : 'text-white')} />
-
-        </Link>
-    )
-}
-
-export default BoardCard
+export default BoardCard;
