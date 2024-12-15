@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -30,6 +30,8 @@
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.2",
     "@radix-ui/react-tooltip": "^1.1.4",
+    "@sentry/core": "^8.45.0",
+    "@sentry/nextjs": "8",
     "@tanstack/react-query": "^5.62.3",
     "@tanstack/react-query-devtools": "^5.62.3",
     "@uiw/react-md-editor": "^4.0.4",
