@@ -20,7 +20,6 @@ interface TaskCardPreviewProps {
 }
 
 export function TaskCardPreview({
-    
     coverImage,
     title,
     labels,

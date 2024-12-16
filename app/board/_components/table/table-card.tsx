@@ -19,7 +19,7 @@ interface TableCardProps {
   index: number;
 }
 
-const TableCard = ({ tableCards,provided: tableProvided, id, title, backgroundColor }: TableCardProps) => {
+const TableCard = ({ tableCards,provided: tableProvided, id, title, backgroundColor,boardId }: TableCardProps) => {
   return (
     <Droppable droppableId={id} type="CARD">
       {(provided) => (
@@ -49,6 +49,7 @@ const TableCard = ({ tableCards,provided: tableProvided, id, title, backgroundCo
                     {...provided.dragHandleProps}
                   >
                     <TaskCard
+                      boardId={boardId}
                       key={card.id}
                       cardId={card.id}
                       title={card.title}
@@ -65,7 +66,7 @@ const TableCard = ({ tableCards,provided: tableProvided, id, title, backgroundCo
             ))}
           </div>
           <div>
-            <CreateCardButton tableId={id} cardCount={tableCards.length || 0} />
+            <CreateCardButton boardId={boardId} tableId={id} cardCount={tableCards.length || 0} />
           </div>
           {provided.placeholder}
         </div>

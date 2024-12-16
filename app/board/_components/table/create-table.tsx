@@ -2,7 +2,7 @@
 
 import { z } from "zod"
 import { Plus, X } from 'lucide-react'
-import React, { useState, useTransition } from 'react'
+import React, { useState } from 'react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 
@@ -17,6 +17,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { createTable } from "@/actions/table.actions"
 import { useToast } from "@/hooks/use-toast"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 
 
@@ -35,9 +36,10 @@ const CreateTable = (
         tableCount,
     }: CreateTableProps
 ) => {
+    const queryClient = useQueryClient();
+
     const [isShowForm, setIsShowForm] = useState(false)
     const { toast } = useToast();
-    const [isPending, startTransition] = useTransition()
     const form = useForm<z.infer<typeof createTableSchema>>({
         resolver: zodResolver(createTableSchema),
         defaultValues: {
@@ -45,21 +47,27 @@ const CreateTable = (
         },
     })
 
+    const mutate = useMutation({
+        mutationFn: async ({ boardId, title, position }: { boardId: string, title: string, position: number }) => {
+           const data = await createTable(boardId, position, title);
+            return data
+            
+        }
+        ,onError: (err) => {
+            toast({ title: err.message, variant: 'destructive' })
+        }
+        ,
+        onSettled: async (data) => {
+            await queryClient.invalidateQueries({ queryKey: ['board', boardId] });
+            if (data?.success) toast({ title: data?.status })
+            if (!data?.success) toast({ title: data?.status, variant: 'destructive' })
+            setIsShowForm(false)
+            form.reset();
+        }
+    });
     function onSubmit(values: z.infer<typeof createTableSchema>) {
         if (!boardId || !values.title) return
-        startTransition(() => {
-            createTable(boardId, tableCount, values.title).then((res) => {
-                setIsShowForm(false)
-                form.reset()
-                if (res.success) toast({ title: res.status })
-                if (!res.success) toast({ title: res.status, variant: 'destructive' })
-            }).catch((err) => {
-                toast({ title: err.status, variant: 'destructive' })
-            }).finally(() => {
-                form.reset()
-                setIsShowForm(false)
-            })
-        })
+        mutate.mutate({ boardId, title: values.title, position: tableCount })
     }
     return (
 
@@ -82,7 +90,7 @@ const CreateTable = (
                             />
                             <div className="flex items-center gap-x-2">
 
-                                <Button className="py-1 font-normal" type="submit">{isPending ? 'Creating...' : 'Create'}</Button>
+                                <Button className="py-1 font-normal" type="submit">{mutate.isPending ? 'Creating...' : 'Create'}</Button>
                                 <Button onClick={() => setIsShowForm(false)} variant={'icon-active'} type="button" asChild>
                                     <div>
                                         <X />

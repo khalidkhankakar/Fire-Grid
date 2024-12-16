@@ -18,6 +18,7 @@ import { LabelType } from "@/lib/db/schemas/card.schema";
 
 interface TableModelProps {
     cardId: string,
+    boardId: string,
     backgroundColor: string,
     title: string,
     backgroundImage: string,
@@ -27,7 +28,7 @@ interface TableModelProps {
     children: React.ReactNode
 }
 
-export function TaskCardModel({ children, cardId, backgroundImage, deadline, description, label, backgroundColor, title }: TableModelProps) {
+export function TaskCardModel({boardId, children, cardId, backgroundImage, deadline, description, label, backgroundColor, title }: TableModelProps) {
     const [show, setShow] = useState(false);
     const sampleTask = {
         coverImage: backgroundImage,
@@ -50,6 +51,7 @@ export function TaskCardModel({ children, cardId, backgroundImage, deadline, des
                 {
                     show ?
                         <TaskCardEditForm
+                            boardId={boardId}
                             id={cardId}
                             {...sampleTask}
                             setShow={setShow} /> :

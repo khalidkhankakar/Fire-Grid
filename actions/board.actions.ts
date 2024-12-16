@@ -6,7 +6,7 @@ import { boardFormSchema } from "@/lib/utils";
 import { formResponseStatus, boardFromState } from "@/types";
 import { auth } from "@clerk/nextjs/server";
 import { eq } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { z } from "zod";
 
 export const createBoard = async (values: z.infer<typeof boardFormSchema>): Promise<boardFromState> => {
@@ -20,7 +20,7 @@ export const createBoard = async (values: z.infer<typeof boardFormSchema>): Prom
         if (!userId) return { success: false, status: formResponseStatus.USER_NOT_EXISTS };
         if (visibility === 'team' && !orgId) return { success: false, status: formResponseStatus.ORG_NOT_EXISTS };
 
-        await db.insert(board).values({
+        const newBoard = await db.insert(board).values({
             title,
             image: background,
             createdBy: userId,
@@ -28,7 +28,8 @@ export const createBoard = async (values: z.infer<typeof boardFormSchema>): Prom
             visibility,
             orgId: visibility === 'team' ? orgId : null, // Only insert orgId if visibility is 'team'
             position: 0,
-        });
+        }).returning({ id: board.id });
+        revalidateTag(`board-${newBoard[0].id}`)
         revalidatePath('/dashboard')
         return { success: true, status: formResponseStatus.BOARD_CREATED };
 
@@ -52,7 +53,7 @@ export const getBoard = async (boardId:string) =>{
 
             }
         })
-
+        
         const sortedByPosition = myBoard?.boardTables.sort((a, b) => a.position - b.position);
         return {...myBoard, boardTables:sortedByPosition};
     } catch (error) {

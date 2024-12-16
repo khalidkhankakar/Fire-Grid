@@ -74,6 +74,7 @@ const Page = async ({ searchParams }: { searchParams?: Promise<SearchParams> }) 
   const { type, search, category, datetime, page, order } = await searchParams || {};
 
   const boards = await getBoards({ type, search, category, datetime, page, order });
+  
   const noBoardsFound = boards.length <= 0;
 
 

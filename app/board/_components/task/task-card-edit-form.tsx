@@ -19,10 +19,11 @@ import { taskSchema } from "@/lib/utils"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Eye, X } from "lucide-react"
 import Image from "next/image"
-import { useState, useTransition } from "react"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 import rehypeSanitize from "rehype-sanitize";
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 interface Label {
     title: string;
@@ -30,6 +31,7 @@ interface Label {
 }
 
 interface TaskEditFormProps {
+    boardId:string;
     id: string;
     coverImage: string;
     title: string;
@@ -41,6 +43,7 @@ interface TaskEditFormProps {
 }
 
 export function TaskCardEditForm({
+    boardId,
     id,
     coverImage,
     title,
@@ -51,7 +54,21 @@ export function TaskCardEditForm({
     setShow
 }: TaskEditFormProps) {
 
-    const [isPending, startTransition] = useTransition();
+    const queryClient = useQueryClient();
+    const {isPending, mutate} = useMutation({
+        mutationFn: async (values: z.infer<typeof taskSchema>) =>{
+            return await updatedCard(values);
+        },
+        onSettled: async (data) => {
+            queryClient.invalidateQueries({ queryKey: ['board', boardId] });
+            if (data?.success) toast({ title: data?.status });
+            if (!data?.success) toast({ title: data?.status, variant: 'destructive' });
+        },
+        onError: (err) => {
+            toast({ title: err.message, variant: 'destructive' })
+        }
+    });
+
     const { toast } = useToast();
     const [selectedBackground, setSelectedBackground] = useState<string>(coverImage || '');
     const form = useForm<z.infer<typeof taskSchema>>({
@@ -69,13 +86,14 @@ export function TaskCardEditForm({
 
     function onSubmit(values: z.infer<typeof taskSchema>) {
         if (!id) return
-        console.log({ id })
-        startTransition(() => {
-            updatedCard(values).then((res) => {
-                if (res.success) toast({ title: res.status });
-                if (!res.success) toast({ title: res.status, variant: 'destructive' })
-            }).catch((err) => toast({ title: err.status, variant: 'destructive' }));
-        })
+        
+        mutate(values)
+        // startTransition(() => {
+        //     updatedCard(values).then((res) => {
+        //         if (res.success) toast({ title: res.status });
+        //         if (!res.success) toast({ title: res.status, variant: 'destructive' })
+        //     }).catch((err) => toast({ title: err.status, variant: 'destructive' }));
+        // })
 
     }
     const [labels, setLabels] = useState<Label[]>(initialLabels || []);

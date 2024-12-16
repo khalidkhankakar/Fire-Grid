@@ -7,6 +7,7 @@ import { LabelType } from '@/lib/db/schemas/card.schema'
 import Image from 'next/image'
 
 interface TaskCardProps {
+  boardId: string
   cardId: string
   title: string
   backgroundColor: string
@@ -17,7 +18,7 @@ interface TaskCardProps {
   deadline: string
 }
 
-const TaskCard = ({ title, cardId, backgroundColor, backgroundImage, label, description, deadline }: TaskCardProps) => {
+const TaskCard = ({ title,boardId, cardId, backgroundColor, backgroundImage, label, description, deadline }: TaskCardProps) => {
   return (
     <div 
     style={{ backgroundColor }} 
@@ -28,6 +29,7 @@ const TaskCard = ({ title, cardId, backgroundColor, backgroundImage, label, desc
       <div className='flex items-center justify-between'>
         <p className='text-sm'>{title}</p>
         <TaskCardModel
+          boardId={boardId}
           backgroundColor={backgroundColor}
           backgroundImage={backgroundImage}
           label={label}

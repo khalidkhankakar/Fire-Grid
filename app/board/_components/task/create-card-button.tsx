@@ -27,11 +27,12 @@ const createCardSchema = z.object({
 
 interface CreateCardButtonProps {
     tableId: string
+    boardId: string
     cardCount: number
 }
 
 const CreateCardButton = (
-    {
+    {boardId,
         tableId,
         cardCount,
     }: CreateCardButtonProps
@@ -49,12 +50,12 @@ const CreateCardButton = (
 
     const {isPending, mutate} = useMutation({
         mutationFn: createCard,
-        onSuccess: async(data) => {
-            queryClient.invalidateQueries({ queryKey: ['table', tableId]})
+        onSettled: async(data) => {
+            queryClient.invalidateQueries({ queryKey: ['board', boardId]})
             setIsShowForm(false)
             form.reset()
-            if (data.success) toast({ title: data.status })
-            if (!data.success) toast({ title: data.status, variant: 'destructive' })
+            if (data?.success) toast({ title: data?.status })
+            if (!data?.success) toast({ title: data?.status, variant: 'destructive' })
 
         },
         onError: (err) => {

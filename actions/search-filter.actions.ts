@@ -86,3 +86,26 @@ export const getBoards = async (searchParams: SearchParams) => {
         }
     })
 }
+
+
+export async function estimateTotalBooks(searchParams: SearchParams) {
+    const filters = [
+        searchFilter(searchParams?.search),
+        categoryFilter(searchParams?.category),
+        datetimeFilter(searchParams?.datetime),
+    ];
+  
+    const whereClause = filters.length > 0 ? and(...filters) : undefined;
+  
+    // Use explain to get an estimate
+    const explainResult = await db.execute(sql`
+      EXPLAIN (FORMAT JSON)
+      SELECT id FROM books
+      ${whereClause ? sql`WHERE ${whereClause}` : sql``}
+    `);
+  
+    const planRows = (explainResult.rows[0] as any)['QUERY PLAN'][0]['Plan'][
+      'Plan Rows'
+    ];
+    return planRows;
+  }
