@@ -3,7 +3,7 @@ import { SearchParams } from "@/app/(dashboard)/dashboard/page";
 import { BOARDS_PER_PAGE } from "@/contants";
 import { db } from "@/lib/db/drizzle";
 import { board } from "@/lib/db/schemas";
-import { and, asc, desc, eq } from "drizzle-orm";
+import { and, asc, desc, eq, sql } from "drizzle-orm";
 import { categoryFilter, datetimeFilter, searchFilter } from "./filter.query";
 import { auth } from "@clerk/nextjs/server";
 
@@ -87,7 +87,7 @@ export const getBoards = async (searchParams: SearchParams) => {
     })
 }
 
-
+// Todo: implement pagination
 export async function estimateTotalBooks(searchParams: SearchParams) {
     const filters = [
         searchFilter(searchParams?.search),

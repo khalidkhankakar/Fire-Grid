@@ -12,7 +12,6 @@ const favorite = pgTable(
         id: uuid("id").defaultRandom().unique().notNull(),
         boardId: uuid("board_id").references(() => board.id).notNull(),
         userId: varchar("user_id").notNull(),
-        orgId: varchar("org_id").notNull(),
     }
     , (t) => ({
         boardIdIdx: index("fav_board_id_idx").on(t.boardId),

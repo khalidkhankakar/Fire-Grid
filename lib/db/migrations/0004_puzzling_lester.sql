@@ -1,0 +1,1 @@
+ALTER TABLE "favorite" DROP COLUMN IF EXISTS "org_id";
