@@ -10,6 +10,7 @@ import { Button } from '@/components/ui/button'
 import BoardCard from '../_components/board-card'
 import OrgBoardButton from '../_components/org-board-button'
 import OrgSwitcher from '../_components/org-switcher'
+import Pagination from '@/components/shared/pagination'
 
 
 export type SearchParams = {
@@ -73,10 +74,14 @@ const renderBoards = (boards: any[], noBoardsFound: boolean) => {
 const Page = async ({ searchParams }: { searchParams?: Promise<SearchParams> }) => {
   const { type, search, category, datetime, page, order } = await searchParams || {};
 
-  const boards = await getBoards({ type, search, category, datetime, page, order });
+  const { boards, totalResult, totalPages } = await getBoards({ type, search, category, datetime, page, order });
   
   const noBoardsFound = boards.length <= 0;
 
+  console.log({
+    totalPages,
+    totalResult
+  })
 
   return (
     <div className='w-[100vw] md:w-full overflow-x-none pb-12 dashboard-section overflow-y-scroll   h-[calc(100vh-64px)] p-4'>
@@ -114,6 +119,8 @@ const Page = async ({ searchParams }: { searchParams?: Promise<SearchParams> }) 
           {renderBoards(boards, noBoardsFound)}
         </Suspense>
       </div>
+
+      <Pagination totalPages={totalPages} currentPage={Number(page) || 1} />
     </div>
   );
 }
