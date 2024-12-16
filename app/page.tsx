@@ -1,74 +1,84 @@
-'use client'
-import Image from 'next/image'
-import { Button } from "@/components/ui/button"
-import Link from 'next/link'
+import FeatureSection from "@/components/shared/feature-section";
+import Footer from "@/components/shared/footer";
+import HowWorksSection from "@/components/shared/how-works-section";
+import LandingNavbar from "@/components/shared/landing-navbar";
+import SponseredSection from "@/components/shared/sponsered-section";
+import { BackgroundBeams } from "@/components/ui/background-beams";
+import { Button } from "@/components/ui/button";
+
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="h-screen relative ">
-      {/* Navigation */}
-      <header className='  relative bg-gray-300'>
-        <nav className="bg-gray-200 fixed top-0 w-full px-4 py-3 flex justify-between items-center">
-          <Link href="/" className="flex items-center">
-            <Image
-              src="/logo.svg"
-              alt="Trello"
-              width={100}
-              height={30}
-              className="h-8 w-auto "
-            />
-          </Link>
-          <div className="flex gap-4">
-            <Button variant="ghost" asChild>
-              <Link href="/login">Iniciar sesión</Link>
-            </Button>
-            <Button variant="ghost" asChild>
-              <Link href="/register">Registrarse</Link>
-            </Button>
-          </div>
-        </nav>
-      </header>
-      {/* Hero Section */}
-      <div className="flex p-12 md:p-16 pt-20    ">
-        <div className="relative flex flex-col md:flex-row items-center justify-center  h-full w-full">
+    <main className="flex bg-slate-200 dark:bg-dark-1 min-h-screen flex-col h-full ">
+      <LandingNavbar />
 
-          {/* Content */}
-          <div className="my-first-step max-w-4xl space-y-3 z-10 ">
-            <Image
-              src="/logo.svg"
-              alt="Trello"
-              width={100}
-              height={30}
-              className="h-16 md:h-20  w-auto "
-            />
-            <h1 className="text-2xl md:text-3xl lg:text-4xl font-semibold text-[#0B3B77] leading-tight">
-              Trello es la manera gratuita, flexible y visual de organizarlo todo con cualquiera.
-            </h1>
-            <p className="text-gray-600 text-lg md:text-xl max-w-3xl">
-              Deje a un lado las largas cadenas de correos electrónicos, las hojas de cálculo sin actualizar, las notas rápidas ya no tan adhesivas y el software inadecuado para gestionar sus proyectos.
-            </p>
-            <Button size="lg" className="bg-[#0065FF] hover:bg-[#0747A6] text-white px-8">
-              ¡Regístrate gratis!
-            </Button>
-          </div>
-
-          {/* Decorative Images */}
-
-          <div className=' my-other-step'>
-            <div className="">
-              <Image
-                src="/assets/hero.svg"
-                alt="Decorative left"
-                width={300}
-                height={300}
-                className="object-contain"
-              />
-            </div>
-          </div>
+      <section className=" z-50 pb-20 flex flex-col items-center py-2 md:py10 h-[calc(100vh-80px)]">
+        <div className=" border-2 border-white rounded-full">
+          <p className="text-sm py-1 px-4 font-extralight text-indigo-500">Inspired by Trello</p>
         </div>
-      </div>
+        <div className="  ">
+          <Image
+            src='/hero2.png'
+            width={1000}
+            height={1000}
+            className="object-contain h-32 w-32 md:h-40 md:w-40"
+            alt="hero image"
+          />
+        </div>
+        <h1 className="max-w-[95%] mt-0 text-center text-[40px] font-bold leading-[3.2rem]  tracking-tight md:text-[60px] md:leading-[5rem]">
+          Transform productivity with a
+          <span className="text-indigo-500"> c</span>
+          <span className="text-yellow-500">o</span>
+          <span className="text-red-500">l</span>
+          <span className="text-pink-500">o</span>
+          <span className="text-orange-500">r</span>
+          <span className="text-cyan-500">f</span>
+          <span className="text-blue-500">u</span>
+          <span className="text-green-500">l</span> seamless task manager!
+        </h1>
+        <p className="my-2 max-w-[95%] text-center text-[14px] font-light tracking-wide  md:text-[17px]">
+          To get started sign up or log in to your account
+        </p>
+        <div className="flex items-center z-50 mt-3 gap-x-4">
+          <Button variant="link" asChild>
+            <Link
+              href="/sign-in"
+            >
+              <Image
+                src={'/github.png'}
+                width={50}
+                height={50}
+                className="w-6 h-6 object-contain"
+                alt="github"
+              />
+              <span>GitHub</span>
+            </Link>
+          </Button>
+          <Button variant="link" asChild>
+            <Link
+              href="/sign-in"
+            >
+              <Image
+                src={'/google.png'}
+                width={50}
+                height={50}
+                className="w-6 h-6 object-contain"
+                alt="google"
+              />
+              <span>Google</span>
+            </Link>
+          </Button>
+        </div>
+      </section>
+      <SponseredSection />
+      <FeatureSection />
+      <HowWorksSection />
+      <Footer />
+      <BackgroundBeams />
 
-    </div>
+    </main>
   );
 }
 
