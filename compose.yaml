@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    
+    ports:
+      - 3000:3000
+    
+    develop:
+      watch:
+        - path: ./package.json
+          action: rebuild
+        - path: ./next.config.ts
+          action: rebuild
+        - path: ./package-lock.json
+          action: rebuild
+        - path: .
+          target: /app
+          action: sync
+    
+
+    environment:
+
+      POSTGRES_URL: postgresql://neondb_owner:WdTX0L9QaCrD@ep-icy-poetry-a5tfdgwi.us-east-2.aws.neon.tech/neondb?sslmode=require
+      NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
+      NEXT_PUBLIC_CLERK_SIGN_UP_URL: /sign-up
+      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_cHJvdWQtZXdlLTU5LmNsZXJrLmFjY291bnRzLmRldiQ
+      CLERK_SECRET_KEY: sk_test_ynGfbMyuNwmP3OV3pSEgvV9EQynQgJgyBdmFt9H34j
+      WEBHOOK_SECRET: whsec_RYBgkePAiBdznf60KW4aS3mQSLj/ciY3
+      SENTRY_AUTH_TOKEN: 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
+
+    
+volumes:
+  firegrid:
