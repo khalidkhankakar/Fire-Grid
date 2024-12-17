@@ -7,87 +7,6 @@ import { and, asc, count, desc, eq } from "drizzle-orm";
 import { categoryFilter, datetimeFilter, searchFilter } from "./filter.query";
 import { auth } from "@clerk/nextjs/server";
 
-
-
-// export const getBoards = async (searchParams: SearchParams) => {
-//     const page = Math.max(1, Number(searchParams.page) || 1);
-//     const filters = [
-//         searchFilter(searchParams?.search),
-//         categoryFilter(searchParams?.category),
-//         datetimeFilter(searchParams?.datetime),
-//     ];
-//     const orderDirection = searchParams?.order === 'asc' ? asc(board.createdAt) : desc(board.createdAt);
-//     const whereClause = filters.length > 0 ? and(...filters) : undefined;
-//     const offset = (page - 1) * BOARDS_PER_PAGE;
-
-//     const { orgId, userId } = await auth();
-
-
-
-//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-//     let results:any[] = [];
-
-//     if (!searchParams?.type) {
-//         results = await db.query.board.findMany({
-//             where: and(
-//                 whereClause,
-//                 eq(board.visibility, 'personal')
-//             ),
-//             orderBy: orderDirection,
-//             limit: BOARDS_PER_PAGE,
-//             offset,
-//             with: {
-//                 boardFavorites: true,
-//             }
-//         })
-//     }
-
-//     if (searchParams?.type === 'team') {
-//         if(!orgId) return [];
-//         results = await db.query.board.findMany({
-//             where: and(
-//                 whereClause,
-//                 eq(board.visibility, 'team'),
-//                 eq(board.orgId, orgId as string)
-//             ),
-//             orderBy: orderDirection,
-//             limit: BOARDS_PER_PAGE,
-//             offset,
-//             with: {
-//                 boardFavorites: true,
-//             }
-//         })
-//     }
-
-
-//     if (searchParams?.type === 'favorite') {
-//         results = await db.query.board.findMany({
-//             where:whereClause,
-//             orderBy: orderDirection,
-//             limit: BOARDS_PER_PAGE,
-//             offset,
-//             with: {
-//                 boardFavorites: true
-//             }
-//         })
-//         return results.filter(board => board.boardFavorites.some((favorite: { userId: string | null; }) => favorite.userId === userId)).map((board)=>({
-//             ...board,
-//             isFavorite: true,
-
-//         })); 
-//     }
-
-//     return results.map((board) => {
-//         const isFavorite = board.boardFavorites.some((favorite: { userId: string | null; }) => favorite.userId === userId)
-//         return {
-//             ...board,
-//             isFavorite,
-
-//         }
-//     })
-// }
-
-
 export const getBoards = async (searchParams: SearchParams) => {
     const page = Math.max(1, Number(searchParams.page) || 1);
     const filters = [
@@ -107,8 +26,20 @@ export const getBoards = async (searchParams: SearchParams) => {
     if (!searchParams?.type) {
         const res = await db.select({ count: count() }).from(board).where(
             and(
+
                 whereClause,
-                eq(board.visibility, 'personal')
+                eq(board.visibility, 'personal'),
+                eq(board.createdBy, userId as string)
+            )
+        )
+        totalResult = res[0]?.count || 0
+    }
+
+    if (searchParams?.type === 'template') {
+        const res = await db.select({ count: count() }).from(board).where(
+            and(
+                whereClause,
+                eq(board.type, 'template')
             )
         )
         totalResult = res[0]?.count || 0
@@ -129,7 +60,7 @@ export const getBoards = async (searchParams: SearchParams) => {
     }
 
     if (searchParams?.type === 'favorite') {
-        const res = await db.select({ count: count() }).from(board).where(whereClause);
+        const res = await db.select({ count: count() }).from(board).where(and(whereClause, eq(board.createdBy, userId as string)));
         totalResult = res[0]?.count || 0;
     }
 
@@ -142,7 +73,24 @@ export const getBoards = async (searchParams: SearchParams) => {
         results = await db.query.board.findMany({
             where: and(
                 whereClause,
-                eq(board.visibility, 'personal')
+                
+                eq(board.visibility, 'personal'),
+                eq(board.createdBy, userId as string)
+            ),
+            orderBy: orderDirection,
+            limit: BOARDS_PER_PAGE,
+            offset,
+            with: {
+                boardFavorites: true,
+            }
+        });
+    }
+    if (searchParams?.type === 'template') {
+        results = await db.query.board.findMany({
+            where: and(
+                whereClause,
+                eq(board.type, 'template'),
+               
             ),
             orderBy: orderDirection,
             limit: BOARDS_PER_PAGE,
@@ -173,7 +121,7 @@ export const getBoards = async (searchParams: SearchParams) => {
 
     if (searchParams?.type === 'favorite') {
         results = await db.query.board.findMany({
-            where: whereClause,
+            where: and(whereClause,eq(board.createdBy, userId as string)),
             orderBy: orderDirection,
             limit: BOARDS_PER_PAGE,
             offset,

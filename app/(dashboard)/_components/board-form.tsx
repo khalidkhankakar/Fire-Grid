@@ -42,6 +42,7 @@ export function BoardForm() {
             orgId: "",
             visibility: searchParams?.get('type') === "team" ? "team" : "personal",
             background: selectedBackground,
+            type: "",
         },
     })
 
@@ -49,6 +50,15 @@ export function BoardForm() {
     function onSubmit(values: z.infer<typeof boardFormSchema>) {
         if (searchParams?.get('type') === "team" && !organization) {
             return toast({ title: "Please select or create an organization to create a team board" })
+        }
+        if(searchParams?.get('type') === "template"){
+            startTransition(() => {
+                createBoard({...values, type: "template",orgId: organization?.id}).then((res) => {
+                    if (res.success) toast({ title: res.status })
+                    else toast({ title: res.status, variant: "destructive" })
+                }
+                ).catch((err) => toast({ title: err.status, variant: "destructive" }))
+            })
         }
         startTransition(() => {
             createBoard({...values,orgId: organization?.id}).then((res) => {

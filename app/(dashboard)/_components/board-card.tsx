@@ -5,6 +5,12 @@ import BoardActions from './board-actions'
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import Image from 'next/image';
 import BoardFavorite from './board-favorite';
+import { useSearchParams } from 'next/navigation';
+import { Button } from '@/components/ui/button';
+import { useTransition } from 'react';
+import { useAuth } from '@clerk/nextjs';
+import { useToast } from '@/hooks/use-toast';
+import { forkedBoard } from '@/actions/board.actions';
 
 interface BoardCardProps {
     id: string,
@@ -15,6 +21,7 @@ interface BoardCardProps {
     orgId: string,
     createdAt: string,
     isFavorite: boolean
+    type?: string | null
 }
 
 const BoardCard = ({
@@ -23,7 +30,24 @@ const BoardCard = ({
     image,
     visibility,
     isFavorite,
+    type
 }: BoardCardProps) => {
+    const [isPending, startTransition] = useTransition();
+    const searchParams = useSearchParams();
+
+    const {userId} = useAuth();
+    const { toast } = useToast();
+
+    const handleForked = () => {
+        if(!userId || !id || type !== 'template' ) return toast({title: 'Missing', description: 'Something is missing to perform this action', variant: 'destructive'}) 
+        startTransition(() => {
+            forkedBoard({boardId: id, userId}).then((res) => {
+                if(res.success) toast({title: res.status});
+                if(!res.success) toast({title: res.status, variant: 'destructive'})
+            }).catch((err) => toast({title: err.status, variant: 'destructive'}))
+        })
+        
+    }
 
     return (
         <Card className="w-[250px] border relative bg-white dark:bg-dark-1 shadow-lg  m-2 overflow-hidden">
@@ -41,7 +65,9 @@ const BoardCard = ({
                     <BoardFavorite boardId={id} isFavorite={isFavorite} />
                 </div>
             </CardHeader>
-            <CardContent className="p-3 pt-0 flex items-center justify-between">
+            <CardContent className="p-3 pt-0">
+                <div className='flex items-center justify-between'>
+
                 <div className="flex items-center text-sm text-gray-500">
                     <CassetteTape className="w-4 h-4 mr-1" />
                     <span>{visibility}</span>
@@ -50,6 +76,10 @@ const BoardCard = ({
                     <Calendar className="w-4 h-4 mr-1" />
                     <span>12/12/2023</span>
                 </div>
+                </div>
+                {(searchParams.get('type')==="template" && type==="template") && <Button className='mt-2 w-full' onClick={handleForked} variant="outline">
+                    {isPending ? 'Forking...' : 'Fork Board'}
+                </Button>}
                 <BoardActions
                     id={id}
                     title={title}

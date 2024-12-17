@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
 import { getBoards } from '@/actions/search-filter.actions'
 import SearchBar from '../_components/search-bar'
-import { Filter } from 'lucide-react'
+import { Filter, Plus } from 'lucide-react'
 import BoardsFilter from '../_components/boards-filter'
 import { CATEGORY_FILTER, DATETIME_FILTER, ORDER_FILTER } from '@/contants'
 import { CreateBoardButton } from '../_components/create-board-button'
@@ -11,10 +11,11 @@ import BoardCard from '../_components/board-card'
 import OrgBoardButton from '../_components/org-board-button'
 import OrgSwitcher from '../_components/org-switcher'
 import Pagination from '@/components/shared/pagination'
+import { currentUser } from '@clerk/nextjs/server'
 
 
 export type SearchParams = {
-  type?: 'team' | 'favorite'
+  type?: 'team' | 'favorite' | 'template'
   search?: string
   category?: string
   datetime?: string
@@ -36,6 +37,16 @@ const renderNoResult = (type: string | undefined, noBoardsFound: boolean, search
       return search || category || datetime
         ? <NoResult imgSrc='/nosearch.svg' title='No searched boards in favorite' description='No favorite boards found with the applied filters' />
         : <NoResult imgSrc='/favorite.svg' title='No boards found in Favorite workspace' description='Try favoriting something' />
+    }
+
+    if (type === 'template') {
+      return search || category || datetime
+        ? <NoResult imgSrc='/nosearch.svg' title='No searched boards in templates' description='No template boards found with the applied filters' />
+        : <NoResult imgSrc='/favorite.svg' title='No boards found in Template' description='Make your own template' >
+          <CreateBoardButton>
+            <Button className='create-board'>Create template</Button>
+          </CreateBoardButton>
+        </NoResult>
     }
 
     if (!type) {
@@ -67,20 +78,23 @@ const renderBoards = (boards: any[], noBoardsFound: boolean) => {
       orgId={board.orgId || ""}
       isFavorite={board.isFavorite}
       createdBy={board.createdBy}
+      type={board.type}
     />
   ))
 }
 
 const Page = async ({ searchParams }: { searchParams?: Promise<SearchParams> }) => {
+
+
   const { type, search, category, datetime, page, order } = await searchParams || {};
 
-  const { boards, totalResult, totalPages } = await getBoards({ type, search, category, datetime, page, order });
-  
+  const { boards, totalPages } = await getBoards({ type, search, category, datetime, page, order });
+
   const noBoardsFound = boards.length <= 0;
 
+  const user = await currentUser()
   console.log({
-    totalPages,
-    totalResult
+    user
   })
 
   return (
@@ -89,7 +103,7 @@ const Page = async ({ searchParams }: { searchParams?: Promise<SearchParams> }) 
         <div className='flex items-center justify-between gap-x-2'>
 
           <h1 className='text-xl md:text-3xl'>
-            {type === "team" ? "Team Workspace" : type === "favorite" ? "Favorite Workspace" : "Personal Workspace"}
+            {type === "team" ? "Team Workspace" : type === "favorite" ? "Favorite Workspace" : type === "template" ? "Templates" : "Personal Workspace"}
           </h1>
           <div className='block md:hidden'>
             <OrgSwitcher />
@@ -114,6 +128,15 @@ const Page = async ({ searchParams }: { searchParams?: Promise<SearchParams> }) 
       </div>
 
       <div className='my-5 flex flex-wrap items-center justify-center w-full '>
+        <div className={`${noBoardsFound ? "hidden" : "block"}`}>
+
+      <CreateBoardButton >
+          <div className='w-[250px] cursor-pointer py-[5.8rem] bg-blue-500 flex items-center justify-center flex-col rounded-lg'>
+            <Plus className='text-white' />
+            <p className='text-sm'>Create Board</p>
+          </div>
+        </CreateBoardButton>
+        </div>
         <Suspense fallback={<p>Loading feed...</p>}>
           {renderNoResult(type, noBoardsFound, search, category, datetime)}
           {renderBoards(boards, noBoardsFound)}

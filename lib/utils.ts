@@ -18,7 +18,8 @@ export const boardFormSchema = z.object({
   visibility: z.string(),
   background: z.string().min(2, {
       message: "Background is required.",
-  })
+  }),
+  type: z.string().optional(),
 })
 
 

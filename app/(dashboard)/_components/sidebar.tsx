@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { CircleChevronLeft, CircleChevronRight, Plus, Star, UserRound, UserRoundPlus } from 'lucide-react';
+import { CircleChevronLeft, CircleChevronRight, LayoutTemplate, Plus, Star, UserRound, UserRoundPlus } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 // import { useTheme } from 'next-themes';
@@ -92,6 +92,13 @@ export const Sidebar = () => {
                                 </Link>
                             </Button>
                             </Tip>
+                            <Tip label='Templates' side='right' align='center'>
+                            <Button variant={type == 'template' ? 'icon-active' : 'icon'} size={'icon'} asChild>
+                                <Link href={{ pathname: '/dashboard', query: { type: 'template' } }}>
+                                    <LayoutTemplate />
+                                </Link>
+                            </Button>
+                            </Tip>
                         </div>
                     ) : (
                         <div className='sidebar  flex flex-col  gap-y-4 mt-3  '>
@@ -142,6 +149,16 @@ export const Sidebar = () => {
                                 <div className='flex items-center gap-x-2 ml-4'>
                                     <Star className='w-6 h-6' />
                                     <span className='text-lg '>Favorites</span>
+                                </div>
+                            </Link>
+                            </Tip>
+
+                            <Tip label='Templates' side='right' align='center'>
+                            <Link href={{ pathname: '/dashboard', query: { type: 'template' } }} className={cn(' fav-tab py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md', type == 'template' && 'border-blue-600 text-blue-600 ')}>
+                                <div className='flex items-center gap-x-2 ml-4'>
+                                
+                                    <LayoutTemplate className='w-6 h-6' />
+                                    <span className='text-lg '>Templates</span>
                                 </div>
                             </Link>
                             </Tip>

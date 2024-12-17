@@ -2,6 +2,8 @@ import { CardType } from "@/lib/db/schemas/card.schema";
 
 export enum formResponseStatus {
 
+    BOARD_FORKED = 'Board is forked',
+
     ADD_FAVORITE = 'Board is favorited',
     REMOVE_FAVORITE = 'You unfavorited the board',
 
@@ -32,7 +34,7 @@ export enum formResponseStatus {
 
 export interface boardFromState {
     success: boolean,
-    status: formResponseStatus.BOARD_INVALID_FIELDS | formResponseStatus.BOARD_CREATED | formResponseStatus.BOARD_UPDATED | formResponseStatus.BOARD_DELETED | formResponseStatus.BOARD_FETCHED | formResponseStatus.ERROR | formResponseStatus.USER_NOT_EXISTS | formResponseStatus.ORG_NOT_EXISTS | formResponseStatus.TABLE_INVALID_FIELDS | formResponseStatus.TABLE_CREATED | formResponseStatus.TABLE_UPDATED | formResponseStatus.TABLE_DELETED | formResponseStatus.BOARD_NOT_EXISTS | formResponseStatus.TABLE_NOT_EXISTS | formResponseStatus.CARD_CREATED | formResponseStatus.CARD_UPDATED | formResponseStatus.CARD_DELETED | formResponseStatus.CARD_NOT_EXISTS | formResponseStatus.CARD_INVALID_FIELDS | formResponseStatus.ADD_FAVORITE | formResponseStatus.REMOVE_FAVORITE
+    status: formResponseStatus.BOARD_INVALID_FIELDS | formResponseStatus.BOARD_CREATED | formResponseStatus.BOARD_UPDATED | formResponseStatus.BOARD_DELETED | formResponseStatus.BOARD_FETCHED | formResponseStatus.ERROR | formResponseStatus.USER_NOT_EXISTS | formResponseStatus.ORG_NOT_EXISTS | formResponseStatus.TABLE_INVALID_FIELDS | formResponseStatus.TABLE_CREATED | formResponseStatus.TABLE_UPDATED | formResponseStatus.TABLE_DELETED | formResponseStatus.BOARD_NOT_EXISTS | formResponseStatus.TABLE_NOT_EXISTS | formResponseStatus.CARD_CREATED | formResponseStatus.CARD_UPDATED | formResponseStatus.CARD_DELETED | formResponseStatus.CARD_NOT_EXISTS | formResponseStatus.CARD_INVALID_FIELDS | formResponseStatus.ADD_FAVORITE | formResponseStatus.REMOVE_FAVORITE | formResponseStatus.BOARD_FORKED
 }
 
 
