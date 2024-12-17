@@ -1,5 +1,5 @@
 import {  relations, sql } from "drizzle-orm";
-import { index, integer, pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import { index,  pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 
 import user from "./user.schema";
 import favorite from "./favorite.schema";
@@ -17,8 +17,8 @@ const board = pgTable(
         image: varchar("image").notNull(),
         category: varchar("category").notNull(),
         visibility: varchar("visibility").notNull(),
+        type: varchar("type"),
         orgId: varchar("org_id"),
-        position: integer("position").notNull(),
         createdAt: timestamp("created_at").defaultNow(),
         updatedAt: timestamp("updated_at").defaultNow(),
     },

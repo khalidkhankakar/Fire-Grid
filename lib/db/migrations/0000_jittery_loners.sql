@@ -2,23 +2,28 @@ CREATE TABLE IF NOT EXISTS "board" (
 	"id" uuid DEFAULT gen_random_uuid() NOT NULL,
 	"name" varchar NOT NULL,
 	"created_by" varchar NOT NULL,
-	"description" varchar NOT NULL,
+	"image" varchar NOT NULL,
+	"category" varchar NOT NULL,
+	"visibility" varchar NOT NULL,
+	"type" varchar,
+	"org_id" varchar,
 	"created_at" timestamp DEFAULT now(),
 	"updated_at" timestamp DEFAULT now(),
 	CONSTRAINT "board_id_unique" UNIQUE("id")
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "card" (
-	"id" uuid DEFAULT gen_random_uuid(),
+	"id" uuid DEFAULT gen_random_uuid() NOT NULL,
 	"name" varchar NOT NULL,
 	"description" varchar,
 	"background_image" varchar,
 	"table_id" uuid NOT NULL,
 	"label" json,
-	"card_deadline" timestamp,
+	"background_color" varchar,
+	"card_deadline" varchar,
 	"position" integer NOT NULL,
-	"created_at" timestamp DEFAULT now(),
-	"updated_at" timestamp DEFAULT now(),
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp DEFAULT now() NOT NULL,
 	CONSTRAINT "card_id_unique" UNIQUE("id")
 );
 --> statement-breakpoint
@@ -26,7 +31,6 @@ CREATE TABLE IF NOT EXISTS "favorite" (
 	"id" uuid DEFAULT gen_random_uuid() NOT NULL,
 	"board_id" uuid NOT NULL,
 	"user_id" varchar NOT NULL,
-	"org_id" varchar NOT NULL,
 	CONSTRAINT "favorite_id_unique" UNIQUE("id")
 );
 --> statement-breakpoint

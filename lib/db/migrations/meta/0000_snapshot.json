@@ -1,5 +1,5 @@
 {
-  "id": "c30f77d7-145c-4d6c-8342-6815b3fdfe65",
+  "id": "f0cfefc7-46f1-4b2e-bdf6-51ef0e6e275a",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -27,11 +27,35 @@
           "primaryKey": false,
           "notNull": true
         },
-        "description": {
-          "name": "description",
+        "image": {
+          "name": "image",
           "type": "varchar",
           "primaryKey": false,
           "notNull": true
+        },
+        "category": {
+          "name": "category",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "visibility": {
+          "name": "visibility",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "org_id": {
+          "name": "org_id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
         },
         "created_at": {
           "name": "created_at",
@@ -117,7 +141,7 @@
           "name": "id",
           "type": "uuid",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "gen_random_uuid()"
         },
         "name": {
@@ -150,9 +174,15 @@
           "primaryKey": false,
           "notNull": false
         },
+        "background_color": {
+          "name": "background_color",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
         "card_deadline": {
           "name": "card_deadline",
-          "type": "timestamp",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -166,14 +196,14 @@
           "name": "created_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "now()"
         },
         "updated_at": {
           "name": "updated_at",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "now()"
         }
       },
@@ -257,12 +287,6 @@
         },
         "user_id": {
           "name": "user_id",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "org_id": {
-          "name": "org_id",
           "type": "varchar",
           "primaryKey": false,
           "notNull": true

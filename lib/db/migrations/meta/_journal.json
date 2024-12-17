@@ -5,36 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1733730706190,
-      "tag": "0000_whole_the_phantom",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1733734065897,
-      "tag": "0001_mushy_namor",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1733848414619,
-      "tag": "0002_mute_scrambler",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1733926363235,
-      "tag": "0003_fat_wong",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1734340192439,
-      "tag": "0004_puzzling_lester",
+      "when": 1734411555709,
+      "tag": "0000_jittery_loners",
       "breakpoints": true
     }
   ]

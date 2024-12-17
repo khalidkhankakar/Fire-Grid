@@ -34,7 +34,7 @@ const Footer = () => {
   ];
 
   return (
-    <footer className="bg-slate-200 dark:bg-dark-1 body-font">
+    <footer className="bg-slate-200 dark:bg-dark-1 z-50 body-font">
       <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
         <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left md:mt-0 mt-10">
           <Link href={'/'} className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
