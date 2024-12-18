@@ -3,6 +3,7 @@ import React from 'react'
 import { Navbar } from '@/components/shared/navbar'
 import { Sidebar } from './_components/sidebar'
 import MobileBottombar from './_components/mobile-bottombar'
+import FiregridChatbot from '@/components/shared/firegrid-chatbot'
 
 
 interface DashboardLayoutProps {
@@ -19,6 +20,7 @@ const DashboardLayout = ({ children }: Readonly<DashboardLayoutProps>) => {
                     <main className='shadow-xl w-full  shadow-[#6b63631a]'>
                         {children}
                     </main>
+                    <FiregridChatbot />
                 <MobileBottombar />
                 </div>
             </div>

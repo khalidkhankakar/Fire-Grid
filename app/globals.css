@@ -74,3 +74,34 @@ html, body, :root {
   }
 }
 
+::-webkit-scrollbar {
+  width: 12px; /* Width of the scrollbar */
+  height: 12px; /* Height of the scrollbar (for horizontal scrollbars) */
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+  border-radius: 7px; /* Rounded edges */
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c0c0c0; /* Color of the scrollbar handle */
+  border-radius: 10px; /* Rounded edges */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a0a0a0; /* Darker color on hover */
+}
+
+/* Optional: Dark mode support */
+@media (prefers-color-scheme: dark) {
+  ::-webkit-scrollbar-track {
+    background: #303030; /* Dark background for the track */
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #606060; /* Darker scrollbar handle */
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #505050; /* Even darker on hover */
+  }
+}

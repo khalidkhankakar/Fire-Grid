@@ -7,6 +7,7 @@ import ReactQueryProvider from "@/providers/react-query-provider";
 
 import { Poppins, Roboto } from "next/font/google";
 import type { Metadata } from "next";
+import FiregridChatbot from "@/components/shared/firegrid-chatbot";
 
 
 export const metadata: Metadata = {
@@ -33,10 +34,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider
-
-
-    >
+    <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
           className={`${poppins.className}`}
@@ -52,6 +50,7 @@ export default function RootLayout({
             </ThemeProvider>
           </ReactQueryProvider>
           <Toaster />
+          <FiregridChatbot />
         </body>
       </html>
     </ClerkProvider>

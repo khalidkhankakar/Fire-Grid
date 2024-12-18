@@ -1,0 +1,70 @@
+{
+    "data": [
+      {
+        "id": "bcd6faf4-466b-473a-b58a-cc9e9befec5d",
+        "info": "FireGird",
+        "description": "FireGird is a task management app where you can efficiently manage your tasks with ease. You can collaborate with your team by simply creating an organization, inviting users, and starting to manage tasks in real time. You can also create template boards that other users can fork."
+      },
+      {
+        "id": "7332da24-0c06-4c8a-bb38-d86ad012d131",
+        "info": "Made by",
+        "description": "This app is created by Khalid Kakar, a Next.js developer. You can contact him through his social media accounts: GitHub: https://github.com/khalidkhankakar/ LinkedIn: https://www.linkedin.com/in/khalid-khan-kakar/"
+      },
+      {
+        "id": "562f7e29-0de6-4283-b645-d30b85ebe875",
+        "info": "Purpose",
+        "description": "The purpose of this app is to provide an easy and efficient way to contribute to your team and manage tasks effortlessly using a drag-and-drop feature."
+      },
+      {
+        "id": "aa75c3a0-36e9-421f-bd13-b29e1aa00fdf",
+        "info": "Functionalities",
+        "description": "It offers various functionalities, such as pagination, advanced filters, a fuzzy search bar, template forking, favoriting, team collaboration, personal task management without a team, and more."
+      },
+      {
+        "id": "24cdb145-1c74-49e4-a4da-94f6e3d8c04c",
+        "info": "How to use it",
+        "description": "Simply go to the homepage, create your account using GitHub or Google, and you will be redirected to the dashboard to start using it."
+      },
+      {
+        "id": "2cc58fcb-c71b-4e62-93dc-fbe267b12c73",
+        "info": "Create a board",
+        "description": "There are two types of boards: one for personal use and the other for team collaboration. For personal boards, click on the 'Personal' section in the sidebar, then click the 'Create a Board' button to create a board. The same procedure applies for team boards—select the 'Team' section and you can create a team board."
+      },
+      {
+        "id": "16d37865-fb80-4aa4-8c81-08663b50bc18",
+        "info": "Fork a template board",
+        "description": "If you want to start working on a project, you can fork a template board from the 'Templates' section. You can then customize the board according to your needs."
+      },
+      {
+        "id": "a438fbf7-bec1-457f-8a96-69c52a4fc937",
+        "info": "Invite users",
+        "description": "You can invite users to your team board by clicking on the 'Invite' button. You can also invite users to your personal board by clicking on the 'Invite' button in the sidebar."
+      },
+      {
+        "id": "55cb8f42-2d34-4f22-8f8b-7b44c1a4f834",
+        "info": "Create a table",
+        "description": "You can create a table by clicking on the 'Create a table' button in the board."
+      },
+      {
+        "id": "110ace3c-0328-4cb5-b23e-84d516c5e7e1",
+        "info": "Create a card",
+        "description": "You can create a card by clicking on the 'Add a card' button in the table."
+      },
+      {
+        "id": "61dc8570-482b-4872-a0e7-b5c36bdf50c4",
+        "info": "Drag and drop",
+        "description": "You can drag and drop cards between tables."
+      },
+      {
+        "id": "b56b91dc-fb0b-41e1-9827-2f58d97dd8b8",
+        "info": "Favoriting",
+        "description": "You can favorite a board by clicking on the 'Star' icon button on the board."
+      },
+      {
+        "id": "6a8a39e6-17e3-4bdb-91b4-9dce8041b148",
+        "info": "Collaborate",
+        "description": "You can collaborate with your team by simply creating an organization, inviting users, and starting to manage tasks in real time."
+      }
+    ]
+  }
+  

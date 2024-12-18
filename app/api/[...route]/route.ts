@@ -3,11 +3,15 @@ import { Hono } from 'hono'
 import { handle } from 'hono/vercel'
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
-import { auth, clerkClient, currentUser, WebhookEvent } from '@clerk/nextjs/server'
+import { auth, currentUser, WebhookEvent } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
+import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { DataAPIClient } from "@datastax/astra-db-ts";
+import {  streamText } from 'ai';
 
 import { eq } from 'drizzle-orm'
 
+// todo use sever action instead of this
 import { db } from '@/lib/db/drizzle'
 import { user } from '@/lib/db/schemas'
 
@@ -19,21 +23,7 @@ import { getSingleBoard } from "@/actions/board.actions";
 
 const app = new Hono().basePath('/api')
 
-// todo : remove just for testing
-app.get('/clerk', async (c) => {
-  const user = await clerkClient();
-  const { userId } = await auth()
-  if (!userId) return
-  await user.users.updateUserMetadata(userId, {
-    publicMetadata: {
-      dashboardTour: false,
-      boardTour: false
-    }
-  })
 
-  return NextResponse.json({ message: 'OK', userId })
-}
-)
 
 app.post('/webhook', async (c) => {
 
@@ -159,7 +149,7 @@ app.post('/liveblocks-auth', async (c) => {
     const userInfo = {
       id: user.id,
       name: user.firstName || 'Anonymous',
-      picture: user.imageUrl ,
+      picture: user.imageUrl,
     };
 
     // Prepare Liveblocks session
@@ -176,6 +166,80 @@ app.post('/liveblocks-auth', async (c) => {
   }
 });
 
+
+const google = createGoogleGenerativeAI({
+  apiKey: process.env.GOOGLE_API_KEY,
+});
+
+
+const client = new DataAPIClient(process.env.ASTRA_DB_APPLICATION_TOKEN);
+const datastaxDB = client.db(process.env.ASTRA_DB_API_ENDPOINT!, {
+  namespace: process.env.ASTRA_DB_NAMESPACE,
+});
+
+app.post('/chat', async (c) => {
+
+  try {
+    const { messages } = await c.req.json();
+
+    console.log({ messages });
+
+    const latestMessage = messages[messages?.length - 1]?.content;
+    let docContext = "";
+
+    const embeddingModel = google.textEmbeddingModel("text-embedding-004", {
+      outputDimensionality: 512,
+    });
+
+    const { embeddings: [embeddings] } = await embeddingModel.doEmbed({ values: [latestMessage] });
+
+    const collection = await datastaxDB.collection("firegrid");
+
+    const cursor = collection.find({}, {
+      sort: {
+        $vector: embeddings,
+      },
+      limit: 5,
+    });
+
+    const documents = await cursor.toArray();
+
+
+    docContext = `
+    START CONTEXT
+    ${documents?.map((doc) => doc.description).join("\n")}
+    END CONTEXT
+    `;
+
+    const ragPrompt = [
+      {
+        role: "system",
+        content: `
+              You are the AI assistant for the FireGird app, designed to provide precise and helpful answers based on the context provided.
+              ${docContext}
+             If the requested information is not available within the given context, the AI assistant will respond:
+             "I'm sorry, I don't have the answer to that."
+              `,
+      },
+    ];
+
+
+    // const model = google('models/gemini-1.5-pro-001');
+
+    const result = await streamText({
+      model: google('gemini-1.5-flash'),
+      messages: [...ragPrompt, ...messages],
+    });
+
+    console.log(result);
+
+    return result.toDataStreamResponse({});
+  } catch (error) {
+    console.error('Error in /liveblocks-auth:', error);
+    return new Response(JSON.stringify({ message: 'Internal Server Error' }), { status: 500 });
+  }
+
+})
 
 
 const handler = handle(app)
