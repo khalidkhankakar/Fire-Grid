@@ -1,8 +1,9 @@
 'use client';
+
 import { OrganizationSwitcher } from '@clerk/nextjs'
 import { dark } from '@clerk/themes';
 import { useTheme } from 'next-themes';
-import React from 'react'
+
 
 const OrgSwitcher = () => {
     const { theme } = useTheme();

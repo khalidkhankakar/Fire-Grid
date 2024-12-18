@@ -1,10 +1,13 @@
 'use client'
+import React from 'react'
+import Image from 'next/image'
+
 import { Button } from '@/components/ui/button'
 import { NotebookText, Pencil } from 'lucide-react'
-import React from 'react'
+
 import { TaskCardModel } from './task-card-model'
+
 import { LabelType } from '@/lib/db/schemas/card.schema'
-import Image from 'next/image'
 
 interface TaskCardProps {
   boardId: string

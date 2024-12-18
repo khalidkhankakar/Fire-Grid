@@ -1,8 +1,11 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import type { Config } from "tailwindcss";
 
+
 import defaultTheme from "tailwindcss/defaultTheme";
- 
 import colors from "tailwindcss/colors";
+ 
+
 import { default as flattenColorPalette } from "tailwindcss/lib/util/flattenColorPalette";
 
 export default {
@@ -74,6 +77,7 @@ export default {
   		}
   	}
   },
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [require("tailwindcss-animate"),  addVariablesForColors],
 } satisfies Config;
 

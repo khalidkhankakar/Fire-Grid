@@ -1,16 +1,17 @@
 'use client';
-import { ToggleMode } from '@/components/shared/toggle-mode'
-import { Button } from '@/components/ui/button'
-import { OrganizationSwitcher, useClerk, UserButton } from '@clerk/nextjs';
-import { LogOutIcon, Plus } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import Image from 'next/image'
 import Link from 'next/link'
+import { OrganizationSwitcher, useClerk, UserButton } from '@clerk/nextjs';
 import { dark } from '@clerk/themes'
 
-import React from 'react'
+import { ToggleMode } from '@/components/shared/toggle-mode'
+import { Button } from '@/components/ui/button'
+import { LogOutIcon, Plus } from 'lucide-react';
+
 import InviteUser from '@/app/(dashboard)/_components/invite-user';
 import Tip from './tip';
+
 
 interface NavbarProps {
     isShowLogo: boolean

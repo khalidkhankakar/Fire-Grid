@@ -1,11 +1,11 @@
 'use client';
-import Tip from '@/components/shared/tip';
-import { cn } from '@/lib/utils';
-import {  useOrganization, useOrganizationList } from '@clerk/nextjs'
+
 import Image from 'next/image';
-import React from 'react'
-// import CreateOrg from './create-org';
-// import { Button } from '@/components/ui/button';
+import {  useOrganization, useOrganizationList } from '@clerk/nextjs'
+
+import Tip from '@/components/shared/tip';
+
+import { cn } from '@/lib/utils';
 
 const OrgainzationList = ({show}: {show: boolean}) => {
   const {setActive, userMemberships } = useOrganizationList({

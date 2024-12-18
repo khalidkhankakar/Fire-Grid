@@ -1,7 +1,7 @@
 'use client';
 import React, { useEffect, useState } from 'react'
-import qs from 'query-string'
 import { useRouter } from 'next/navigation';
+import qs from 'query-string'
 
 interface PaginationProps {
     totalPages: number

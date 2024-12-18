@@ -1,8 +1,8 @@
 'use client';
-
 import React, { useState, useEffect } from 'react';
 import Confetti from 'react-confetti';
 import { motion } from 'framer-motion';
+
 
 const Celebration: React.FC = () => {
   const [showMessage, setShowMessage] = useState(false);

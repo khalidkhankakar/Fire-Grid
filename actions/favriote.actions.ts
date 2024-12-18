@@ -1,10 +1,13 @@
 'use server';
 
+import { revalidatePath } from "next/cache";
+
+import { and, eq } from "drizzle-orm";
+
 import { db } from "@/lib/db/drizzle";
 import { board, favorite } from "@/lib/db/schemas";
+
 import { boardFromState, formResponseStatus } from "@/types";
-import { and, eq } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
 
 
 export const addFavorite = async (values:{ boardId: string, userId: string }): Promise<boardFromState> => {

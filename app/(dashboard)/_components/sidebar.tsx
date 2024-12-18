@@ -1,17 +1,18 @@
 'use client';
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-
-import { CircleChevronLeft, CircleChevronRight, LayoutTemplate, Plus, Star, UserRound, UserRoundPlus } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 // import { useTheme } from 'next-themes';
+
+import { Button } from '@/components/ui/button';
+import { CircleChevronLeft, CircleChevronRight, LayoutTemplate, Plus, Star, UserRound, UserRoundPlus } from 'lucide-react';
+
 import { useSearchParams } from 'next/navigation';
 import OrgainzationList from './orgainzation-list';
 import InviteUser from './invite-user';
 import Tip from '@/components/shared/tip';
 
+import { cn } from '@/lib/utils';
 
 export const Sidebar = () => {
     const [toggleSidebar, setToggleSidebar] = useState<boolean>(false)

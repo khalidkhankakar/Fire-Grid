@@ -1,7 +1,7 @@
 'use client'
+import { memo } from "react";
 import { useOther } from "@liveblocks/react/suspense";
 
-import { memo } from "react";
 
 interface CursorProps {
     connectionId: number

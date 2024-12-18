@@ -1,5 +1,7 @@
 'use client';
 import * as React from "react"
+import { useRouter } from "next/navigation";
+import qs from 'query-string'
 
 import {
   Select,
@@ -9,10 +11,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import { X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import qs from 'query-string'
-import { useRouter } from "next/navigation";
+import { X } from "lucide-react";
+
+
 
 interface BoardsFilterProps {
   filter: { type:string, data: { Text: string, value: string }[] }

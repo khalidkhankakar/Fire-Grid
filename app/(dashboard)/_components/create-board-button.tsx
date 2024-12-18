@@ -5,14 +5,10 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+
 import { BoardForm } from "./board-form"
 
 
-{/* todo: add create board button */ }
-{/* <div className="bg-blue-500 hover:bg-blue-600 h-36 w-56 rounded-lg border flex items-center flex-col cursor-pointer justify-center text-white ">
-          <Plus />
-          <span>Create Board</span>
-        </div> */}
 export function CreateBoardButton({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <Dialog  >

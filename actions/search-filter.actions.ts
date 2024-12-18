@@ -1,11 +1,14 @@
 'use server';
-import { SearchParams } from "@/app/(dashboard)/dashboard/page";
-import { BOARDS_PER_PAGE } from "@/contants";
+
+import { and, asc, count, desc, eq } from "drizzle-orm";
+import { auth } from "@clerk/nextjs/server";
+
 import { db } from "@/lib/db/drizzle";
 import { board } from "@/lib/db/schemas";
-import { and, asc, count, desc, eq } from "drizzle-orm";
 import { categoryFilter, datetimeFilter, searchFilter } from "./filter.query";
-import { auth } from "@clerk/nextjs/server";
+
+import { SearchParams } from "@/types";
+import { BOARDS_PER_PAGE } from "@/contants";
 
 export const getBoards = async (searchParams: SearchParams) => {
     const page = Math.max(1, Number(searchParams.page) || 1);

@@ -141,3 +141,33 @@ export const COLORS = [
     "#F06292",
     "#7986CB",
   ];
+
+export const FOOTER_LINKS = [
+    {
+      title: 'Company',
+      links: [
+        { name: 'About Us', href: '#' },
+        { name: 'Careers', href: '#' },
+        { name: 'Privacy Policy', href: '#' },
+        { name: 'Terms of Service', href: '#' },
+      ],
+    },
+    {
+      title: 'Support',
+      links: [
+        { name: 'Contact Us', href: '#' },
+        { name: 'FAQ', href: '#' },
+        { name: 'Help Center', href: '#' },
+        { name: 'Account Settings', href: '#' },
+      ],
+    },
+    {
+      title: 'Resources',
+      links: [
+        { name: 'Blog', href: '#' },
+        { name: 'Tutorials', href: '#' },
+        { name: 'Documentation', href: '#' },
+        { name: 'API', href: '#' },
+      ],
+    },
+  ];

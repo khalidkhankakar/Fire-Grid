@@ -1,5 +1,6 @@
-import { board } from "@/lib/db/schemas";
 import { eq, sql } from "drizzle-orm";
+
+import { board } from "@/lib/db/schemas";
 
 export const searchFilter = (query?: string) => {
     if (query) {

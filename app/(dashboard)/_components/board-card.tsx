@@ -1,16 +1,22 @@
 'use client';
-import { Calendar, CassetteTape, Ellipsis } from 'lucide-react'
-import Link from 'next/link'
-import BoardActions from './board-actions'
-import { Card, CardContent, CardHeader } from '@/components/ui/card';
-import Image from 'next/image';
-import BoardFavorite from './board-favorite';
-import { useSearchParams } from 'next/navigation';
-import { Button } from '@/components/ui/button';
+
 import { useTransition } from 'react';
+import Image from 'next/image';
+import Link from 'next/link'
+import { useSearchParams } from 'next/navigation';
 import { useAuth } from '@clerk/nextjs';
+
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { Calendar, CassetteTape, Ellipsis } from 'lucide-react'
+
+import BoardActions from './board-actions'
+import BoardFavorite from './board-favorite';
+
 import { forkedBoard } from '@/actions/board.actions';
+
+
 
 interface BoardCardProps {
     id: string,

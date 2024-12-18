@@ -1,10 +1,12 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
+import { eq } from "drizzle-orm";
+
 import { db } from "@/lib/db/drizzle";
 import { board, table } from "@/lib/db/schemas";
 import { boardFromState, formResponseStatus } from "@/types";
-import { eq } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
 
 export const createTable = async (boardId: string, position: number, title: string): Promise<boardFromState> => {
 

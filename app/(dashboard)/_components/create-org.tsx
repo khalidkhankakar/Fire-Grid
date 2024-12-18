@@ -1,5 +1,6 @@
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { CreateOrganization } from '@clerk/nextjs';
+
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 
 const CreateOrg = ({children}: { children: React.ReactNode }) => {
     return (
@@ -12,7 +13,7 @@ const CreateOrg = ({children}: { children: React.ReactNode }) => {
                     <DialogTitle className="text-xl font-normal hidden">Create Board</DialogTitle>
                 </DialogHeader>
                 {/* todo: Bug here it redirects to landing page */}
-                <CreateOrganization hideSlug />
+                <CreateOrganization  hideSlug />
             </DialogContent>
         </Dialog>
     )

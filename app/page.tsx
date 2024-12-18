@@ -1,14 +1,16 @@
+import Image from "next/image";
+import Link from "next/link";
+
 import Celebration from "@/components/shared/celebration";
 import FeatureSection from "@/components/shared/feature-section";
 import Footer from "@/components/shared/footer";
 import HowWorksSection from "@/components/shared/how-works-section";
 import LandingNavbar from "@/components/shared/landing-navbar";
 import SponseredSection from "@/components/shared/sponsered-section";
+
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Button } from "@/components/ui/button";
 
-import Image from "next/image";
-import Link from "next/link";
 
 export default function Home() {
   return (

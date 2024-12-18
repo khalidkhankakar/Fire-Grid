@@ -1,37 +1,11 @@
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
+
+
+import { FOOTER_LINKS } from '@/contants';
 
 const Footer = () => {
-  const footerLinks = [
-    {
-      title: 'Company',
-      links: [
-        { name: 'About Us', href: '#' },
-        { name: 'Careers', href: '#' },
-        { name: 'Privacy Policy', href: '#' },
-        { name: 'Terms of Service', href: '#' },
-      ],
-    },
-    {
-      title: 'Support',
-      links: [
-        { name: 'Contact Us', href: '#' },
-        { name: 'FAQ', href: '#' },
-        { name: 'Help Center', href: '#' },
-        { name: 'Account Settings', href: '#' },
-      ],
-    },
-    {
-      title: 'Resources',
-      links: [
-        { name: 'Blog', href: '#' },
-        { name: 'Tutorials', href: '#' },
-        { name: 'Documentation', href: '#' },
-        { name: 'API', href: '#' },
-      ],
-    },
-  ];
 
   return (
     <footer className="bg-slate-200 dark:bg-dark-1 z-50 body-font">
@@ -39,18 +13,18 @@ const Footer = () => {
         <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left md:mt-0 mt-10">
           <Link href={'/'} className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900">
             <Image
-                           src={'/logo.svg'}
-                           width={200}
-                           height={200}
-                           className='object-contain cursor-pointer'
-                           alt='logo'
-                            />
+              src={'/logo.svg'}
+              width={200}
+              height={200}
+              className='object-contain cursor-pointer'
+              alt='logo'
+            />
           </Link>
           <p className="mt-2 text-sm text-gray-500">Your productivity partner, simplifying task management.</p>
         </div>
 
         <div className="flex-grow flex flex-wrap md:pr-20 -mb-10 md:text-left text-center order-first">
-          {footerLinks.map((section) => (
+          {FOOTER_LINKS.map((section) => (
             <div className="lg:w-1/4 md:w-1/2 w-full px-4" key={section.title}>
               <h2 className="title-font font-medium text-gray-700 tracking-widest text-sm mb-3">
                 {section.title}

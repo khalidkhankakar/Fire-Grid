@@ -1,9 +1,11 @@
 'use client';
-import { addFavorite, removeFavorite } from '@/actions/favriote.actions';
-import { useToast } from '@/hooks/use-toast';
-import { useAuth } from '@clerk/nextjs';
-import { Star } from 'lucide-react'
 import React, { startTransition, useState } from 'react'
+import { useAuth } from '@clerk/nextjs';
+import { useToast } from '@/hooks/use-toast';
+
+import { Star } from 'lucide-react'
+
+import { addFavorite, removeFavorite } from '@/actions/favriote.actions';
 
 
 interface BoardFavoriteProps {

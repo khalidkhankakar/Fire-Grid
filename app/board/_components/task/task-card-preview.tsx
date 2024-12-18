@@ -1,9 +1,12 @@
 import Image from 'next/image'
+import MDEditor from '@uiw/react-md-editor';
+
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent } from "@/components/ui/card"
-import { Calendar, Edit } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import MDEditor from '@uiw/react-md-editor';
+import { Calendar, Edit } from 'lucide-react'
+
+
 interface Label {
     title: string
     color: string

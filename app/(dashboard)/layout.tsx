@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { Sidebar } from './_components/sidebar'
 import { Navbar } from '@/components/shared/navbar'
+import { Sidebar } from './_components/sidebar'
 import MobileBottombar from './_components/mobile-bottombar'
 
 

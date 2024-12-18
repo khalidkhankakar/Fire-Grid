@@ -48,3 +48,13 @@ export type Table = {
     position: number;
     boardId: string;
 }
+
+
+export type SearchParams = {
+    type?: 'team' | 'favorite' | 'template'
+    search?: string
+    category?: string
+    datetime?: string
+    page?: string
+    order?: string
+  }

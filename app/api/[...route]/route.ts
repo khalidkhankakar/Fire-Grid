@@ -1,14 +1,16 @@
 import { Liveblocks } from "@liveblocks/node";
 import { Hono } from 'hono'
 import { handle } from 'hono/vercel'
-
 import { Webhook } from 'svix'
 import { headers } from 'next/headers'
 import { auth, clerkClient, currentUser, WebhookEvent } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
+
+import { eq } from 'drizzle-orm'
+
 import { db } from '@/lib/db/drizzle'
 import { user } from '@/lib/db/schemas'
-import { eq } from 'drizzle-orm'
+
 import { getSingleBoard } from "@/actions/board.actions";
 
 // export const runtime = 'edge'

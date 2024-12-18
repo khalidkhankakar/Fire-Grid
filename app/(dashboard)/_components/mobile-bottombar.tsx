@@ -1,14 +1,16 @@
 'use client';
 import React from 'react'
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import { useOrganization } from '@clerk/nextjs';
+import Image from 'next/image';
 
 import { Button } from '@/components/ui/button'
 import { Earth, Plus, Star, UserRound, UserRoundPlus } from 'lucide-react'
-import { useSearchParams } from 'next/navigation';
-import Link from 'next/link';
-import { useOrganization } from '@clerk/nextjs';
+
 import OrgSwticherModel from './org-switcher-model';
-import Image from 'next/image';
 import { CreateBoardButton } from './create-board-button';
+
 
 const MobileBottombar = () => {
 

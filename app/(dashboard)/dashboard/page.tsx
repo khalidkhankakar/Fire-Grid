@@ -1,27 +1,25 @@
-import React, { Suspense } from 'react'
-import { getBoards } from '@/actions/search-filter.actions'
-import SearchBar from '../_components/search-bar'
+import { Suspense } from 'react'
+import { currentUser } from '@clerk/nextjs/server'
+
+import { Button } from '@/components/ui/button'
 import { Filter, Plus } from 'lucide-react'
+
+import SearchBar from '../_components/search-bar'
 import BoardsFilter from '../_components/boards-filter'
-import { CATEGORY_FILTER, DATETIME_FILTER, ORDER_FILTER } from '@/contants'
 import { CreateBoardButton } from '../_components/create-board-button'
 import NoResult from '../_components/no-result'
-import { Button } from '@/components/ui/button'
 import BoardCard from '../_components/board-card'
 import OrgBoardButton from '../_components/org-board-button'
 import OrgSwitcher from '../_components/org-switcher'
 import Pagination from '@/components/shared/pagination'
-import { currentUser } from '@clerk/nextjs/server'
+
+import { getBoards } from '@/actions/search-filter.actions'
+
+import { CATEGORY_FILTER, DATETIME_FILTER, ORDER_FILTER } from '@/contants'
+import { SearchParams } from '@/types'
 
 
-export type SearchParams = {
-  type?: 'team' | 'favorite' | 'template'
-  search?: string
-  category?: string
-  datetime?: string
-  page?: string
-  order?: string
-}
+
 
 const renderNoResult = (type: string | undefined, noBoardsFound: boolean, search: string | undefined, category: string | undefined, datetime: string | undefined) => {
   if (noBoardsFound) {

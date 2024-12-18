@@ -1,10 +1,12 @@
 'use client';
-import React, { useEffect, useState } from 'react'
-import { Search } from 'lucide-react'
 
+import { useEffect, useState } from 'react'
 import useDebounce from '@/hooks/use-debounce';
 import { useRouter } from 'next/navigation';
 import qs from 'query-string';
+
+import { Search } from 'lucide-react'
+
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState<string>('');

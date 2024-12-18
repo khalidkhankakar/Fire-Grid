@@ -38,3 +38,15 @@ export const taskSchema = z.object({
   coverImage: z.string().min(2).max(50).optional(),
   category: z.string().min(2).max(50).optional()
 })
+
+
+export const reArrange = <T,>(
+  list: T[],
+  startIndex: number,
+  endIndex: number
+): { updatedList: T[]; changedItem: T } => {
+  const result = Array.from(list);
+  const [removed] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removed);
+  return { updatedList: result, changedItem: removed };
+};

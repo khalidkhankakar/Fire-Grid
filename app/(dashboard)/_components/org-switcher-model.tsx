@@ -1,6 +1,8 @@
 'use client';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { OrganizationList } from '@clerk/nextjs';
+
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+
 
 const OrgSwticherModel = ({ children }: { children: React.ReactNode }) => {
     return (

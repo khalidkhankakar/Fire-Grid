@@ -1,10 +1,13 @@
-import type { Metadata } from "next";
-import { Poppins, Roboto } from "next/font/google";
 import "./globals.css";
+
 import { ThemeProvider } from "@/providers/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
 import ReactQueryProvider from "@/providers/react-query-provider";
+
+import { Poppins, Roboto } from "next/font/google";
+import type { Metadata } from "next";
+
 
 export const metadata: Metadata = {
   title: "FireGrid",

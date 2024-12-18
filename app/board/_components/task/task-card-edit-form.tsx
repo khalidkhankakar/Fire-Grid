@@ -1,5 +1,15 @@
-'use client'
-import { updatedCard } from "@/actions/card.actions"
+'use client';
+
+import { useState } from "react"
+import Image from "next/image"
+import { useForm } from "react-hook-form"
+import { z } from "zod"
+import rehypeSanitize from "rehype-sanitize";
+import { useMutation, useQueryClient } from "@tanstack/react-query"
+import MDEditor from '@uiw/react-md-editor';
+import { useToast } from "@/hooks/use-toast"
+import { zodResolver } from "@hookform/resolvers/zod"
+
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -12,18 +22,14 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import MDEditor from '@uiw/react-md-editor';
-import { backgroundArray } from "@/contants"
-import { useToast } from "@/hooks/use-toast"
-import { taskSchema } from "@/lib/utils"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { Eye, X } from "lucide-react"
-import Image from "next/image"
-import { useState } from "react"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
-import rehypeSanitize from "rehype-sanitize";
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+
+import { updatedCard } from "@/actions/card.actions"
+
+import { backgroundArray } from "@/contants"
+import { taskSchema } from "@/lib/utils"
+
+
 
 interface Label {
     title: string;

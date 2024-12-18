@@ -1,8 +1,14 @@
-"use client"
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
+import { useState, useTransition } from "react"
+import { useSearchParams } from "next/navigation"
 import { useForm } from "react-hook-form"
+import Image from "next/image"
+import { useOrganization } from "@clerk/nextjs"
+import Link from "next/link"
 import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod"
+
 
 import { Button } from "@/components/ui/button"
 import {
@@ -15,16 +21,13 @@ import {
     FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import Image from "next/image"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { backgroundArray, CATEGORY_FILTER } from "@/contants"
-import Link from "next/link"
-import { useState, useTransition } from "react"
-import { useSearchParams } from "next/navigation"
-import { boardFormSchema } from "@/lib/utils"
-import { createBoard } from "@/actions/board.actions"
 import { useToast } from "@/hooks/use-toast"
-import { useOrganization } from "@clerk/nextjs"
+
+import { createBoard } from "@/actions/board.actions"
+
+import { backgroundArray, CATEGORY_FILTER } from "@/contants"
+import { boardFormSchema } from "@/lib/utils"
 
 export function BoardForm() {
     const [selectedBackground, setSelectedBackground] = useState<string>(backgroundArray[0]);
@@ -32,7 +35,7 @@ export function BoardForm() {
     const [isPending, startTransition] = useTransition()
     const { toast } = useToast()
 
-    const {organization} = useOrganization()
+    const { organization } = useOrganization()
     // TODO: Also add functionaly to edit board making value dynamic
     const form = useForm<z.infer<typeof boardFormSchema>>({
         resolver: zodResolver(boardFormSchema),
@@ -51,9 +54,9 @@ export function BoardForm() {
         if (searchParams?.get('type') === "team" && !organization) {
             return toast({ title: "Please select or create an organization to create a team board" })
         }
-        if(searchParams?.get('type') === "template"){
+        if (searchParams?.get('type') === "template") {
             startTransition(() => {
-                createBoard({...values, type: "template",orgId: organization?.id}).then((res) => {
+                createBoard({ ...values, type: "template", orgId: organization?.id }).then((res) => {
                     if (res.success) toast({ title: res.status })
                     else toast({ title: res.status, variant: "destructive" })
                 }
@@ -61,7 +64,7 @@ export function BoardForm() {
             })
         }
         startTransition(() => {
-            createBoard({...values,orgId: organization?.id}).then((res) => {
+            createBoard({ ...values, orgId: organization?.id }).then((res) => {
                 if (res.success) toast({ title: res.status })
                 else toast({ title: res.status, variant: "destructive" })
             }

@@ -1,30 +1,28 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
-import { DragDropContext, Droppable, Draggable } from '@hello-pangea/dnd';
+import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea/dnd';
+import { useMutation } from '@liveblocks/react';
+import { useQuery } from '@tanstack/react-query'
+import { useToast } from '@/hooks/use-toast';
+
+
 import CreateTable from '../table/create-table';
 import TableCard from '../table/table-card';
-import { Table } from '@/types';
-import { updateTablePosition } from '@/actions/table.actions';
-import { useToast } from '@/hooks/use-toast';
-import { updateCardPosition } from '@/actions/card.actions';
 import { CursorPresence } from '@/components/shared/cursor-presence';
-import { useMutation } from '@liveblocks/react';
-import { useQuery } from '@tanstack/react-query';
+;
+import { updateCardPosition } from '@/actions/card.actions';
+import { updateTablePosition } from '@/actions/table.actions';
 import { getBoard } from '@/actions/board.actions';
+
+import { reArrange } from '@/lib/utils';
+
+
 interface BoardTablesProps {
   id: string;
 }
 
-const reorder = <T,>(
-  list: T[],
-  startIndex: number,
-  endIndex: number
-): { updatedList: T[]; changedItem: T } => {
-  const result = Array.from(list);
-  const [removed] = result.splice(startIndex, 1);
-  result.splice(endIndex, 0, removed);
-  return { updatedList: result, changedItem: removed };
-};
+
 
 const BoardTables = ({ id }: BoardTablesProps) => {
 
@@ -48,8 +46,9 @@ const BoardTables = ({ id }: BoardTablesProps) => {
   const { toast } = useToast();
 
 
-  const handleDragEnd = async (result: any) => {
+  const handleDragEnd = async (result: DropResult) => {
     const { source, destination, type } = result;
+
     if (!destination) return;
 
     const isSamePosition =
@@ -60,7 +59,7 @@ const BoardTables = ({ id }: BoardTablesProps) => {
 
     if (type === 'TABLE') {
       // Only update the positions if they change
-      const { updatedList, changedItem } = reorder(
+      const { updatedList, changedItem } = reArrange(
         boardTables,
         source.index,
         destination.index
@@ -84,7 +83,7 @@ const BoardTables = ({ id }: BoardTablesProps) => {
       if (!sourceList || !destList) return;
 
       if (sourceList.id === destList.id) {
-        const { updatedList, changedItem } = reorder(
+        const { updatedList, changedItem } = reArrange(
           sourceList.tableCards || [],
           source.index,
           destination.index

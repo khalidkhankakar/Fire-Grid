@@ -1,5 +1,6 @@
 'use client';
-import { renameBoard } from "@/actions/board.actions";
+import { useRef, useState, useTransition } from "react";
+
 import { Button } from "@/components/ui/button";
 import {
     Dialog,
@@ -12,7 +13,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import {  useRef, useState, useTransition } from "react";
+
+import { renameBoard } from "@/actions/board.actions";
 
 interface BoardRenameProps {
     children: React.ReactNode

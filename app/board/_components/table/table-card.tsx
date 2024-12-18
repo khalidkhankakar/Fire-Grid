@@ -1,11 +1,14 @@
 'use client';
-import { Ellipsis } from 'lucide-react';
 import React from 'react';
+import { Draggable, DraggableProvided, Droppable } from '@hello-pangea/dnd';
+
+import { Ellipsis } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+
 import CreateCardButton from '../task/create-card-button';
 import TaskCard from '../task/task-card';
-import { Button } from '@/components/ui/button';
 import { TableModel } from './table-model';
-import { Draggable, DraggableProvided, Droppable } from '@hello-pangea/dnd';
+
 import { CardType } from '@/lib/db/schemas/card.schema';
 
 interface TableCardProps {

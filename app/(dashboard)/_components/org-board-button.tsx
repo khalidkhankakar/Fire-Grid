@@ -1,7 +1,8 @@
 'use client';
-import { Button } from '@/components/ui/button';
 import {  useOrganizationList } from '@clerk/nextjs';
-import React from 'react'
+
+import { Button } from '@/components/ui/button';
+
 import { CreateBoardButton } from './create-board-button';
 import CreateOrg from './create-org';
 
