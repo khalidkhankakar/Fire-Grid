@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+import React , { Suspense } from 'react'
 import { currentUser } from '@clerk/nextjs/server'
 
 import { Button } from '@/components/ui/button'
@@ -17,6 +17,7 @@ import { getBoards } from '@/actions/search-filter.actions'
 
 import { CATEGORY_FILTER, DATETIME_FILTER, ORDER_FILTER } from '@/contants'
 import { Board, SearchParams } from '@/types'
+
 
 
 
@@ -67,17 +68,19 @@ const renderBoards = (boards: Board[], noBoardsFound: boolean) => {
   if (noBoardsFound) return null;
 
   return boards.map((board) => (
-    <BoardCard key={board.id}
-      id={board.id}
-      title={board.title}
-      createdAt={board.createdAt}
-      visibility={board.visibility}
-      image={board.image}
-      orgId={board.orgId || ""}
-      isFavorite={board.isFavorite}
-      createdBy={board.createdBy}
-      type={board.type}
-    />
+    <Suspense key={board.id} fallback={<div>loading card...</div>}>
+      <BoardCard
+        id={board.id}
+        title={board.title}
+        createdAt={board.createdAt}
+        visibility={board.visibility}
+        image={board.image}
+        orgId={board.orgId || ""}
+        isFavorite={board.isFavorite}
+        createdBy={board.createdBy}
+        type={board.type}
+      />
+    </Suspense>
   ))
 }
 
@@ -128,17 +131,17 @@ const Page = async ({ searchParams }: { searchParams?: Promise<SearchParams> }) 
       <div className='my-5 flex flex-wrap items-center justify-center w-full '>
         <div className={`${noBoardsFound ? "hidden" : "block"}`}>
 
-      <CreateBoardButton >
-          <div className='w-[250px] cursor-pointer py-[5.8rem] bg-blue-500 flex items-center justify-center flex-col rounded-lg'>
-            <Plus className='text-white' />
-            <p className='text-sm'>Create Board</p>
-          </div>
-        </CreateBoardButton>
+          <CreateBoardButton >
+            <div className='w-[250px] cursor-pointer py-[5.8rem] bg-blue-500 flex items-center justify-center flex-col rounded-lg'>
+              <Plus className='text-white' />
+              <p className='text-sm'>Create Board</p>
+            </div>
+          </CreateBoardButton>
         </div>
-        <Suspense fallback={<p>Loading feed...</p>}>
-          {renderNoResult(type, noBoardsFound, search, category, datetime)}
-          {renderBoards(boards, noBoardsFound)}
-        </Suspense>
+
+        {renderNoResult(type, noBoardsFound, search, category, datetime)}
+        {renderBoards(boards, noBoardsFound)}
+
       </div>
 
       <Pagination totalPages={totalPages} currentPage={Number(page) || 1} />

@@ -1,3 +1,5 @@
+import { Suspense } from "react"
+
 import {
   Dialog,
   DialogContent,
@@ -19,9 +21,9 @@ export function CreateBoardButton({ children }: Readonly<{ children: React.React
         <DialogHeader>
           <DialogTitle className="text-xl font-normal">Create Board</DialogTitle>
         </DialogHeader>
-        <div>
+        <Suspense fallback={<div>Loading...</div>}>
           <BoardForm />
-        </div>
+        </Suspense>
       </DialogContent>
     </Dialog>
   )
