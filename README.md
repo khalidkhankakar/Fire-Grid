@@ -1,3 +1,5 @@
+![cover](https://github.com/user-attachments/assets/d567a002-b2ce-4256-bf1f-3c949ea792d9)
+
 # FireGrid 🔥📋  
 **A Real-Time Collaborative Task Management App**  
 
