@@ -44,4 +44,6 @@ export const boardRelations = relations(board, ({ many,one }) => ({
 }))
 
 
+
+
 export default board;

@@ -9,7 +9,6 @@ import { Poppins, Roboto } from "next/font/google";
 import type { Metadata } from "next";
 import FiregridChatbot from "@/components/shared/firegrid-chatbot";
 
-
 export const metadata: Metadata = {
   title: "FireGrid",
   description: "FireGrid is task management and collaboration tool inspired by Trello. It offers an intuitive Kanban board interface for organizing and tracking tasks eed and scalability, FireGrid leverages the latest features of Next.js 15 RC efficiently.",
@@ -34,7 +33,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+    <ClerkProvider 
+    >
       <html lang="en" suppressHydrationWarning>
         <body
           className={`${poppins.className}`}

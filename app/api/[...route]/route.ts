@@ -7,15 +7,11 @@ import { auth, currentUser, WebhookEvent } from '@clerk/nextjs/server'
 import { NextResponse } from 'next/server'
 import { createGoogleGenerativeAI } from "@ai-sdk/google";
 import { DataAPIClient } from "@datastax/astra-db-ts";
-import {  streamText } from 'ai';
+import { streamText } from 'ai';
 
-import { eq } from 'drizzle-orm'
-
-// todo use sever action instead of this
-import { db } from '@/lib/db/drizzle'
-import { user } from '@/lib/db/schemas'
 
 import { getSingleBoard } from "@/actions/board.actions";
+import { createUser, deleteUser, updateUser } from "@/actions/user.actions";
 
 // export const runtime = 'edge'
 
@@ -73,30 +69,36 @@ app.post('/webhook', async (c) => {
 
   if (eventType === 'user.created') {
     const { id, email_addresses, image_url, first_name, last_name } = evt.data;
-    const userId = db.insert(user).values({
+
+    const userId = await createUser({
       clerkId: id,
       name: `${first_name}${last_name ? ` ${last_name}` : ''}`,
       email: email_addresses[0].email_address,
       image: image_url
     })
+
     return NextResponse.json({ message: 'OK', userId })
   }
 
   if (eventType === 'user.updated') {
     const { id, email_addresses, image_url, first_name, last_name } = evt.data;
-    const [userId] = await db.update(user)
-      .set({
+
+    const userId = await updateUser({
+        clerkId: id,
         name: `${first_name}${last_name ? ` ${last_name}` : ''}`,
         email: email_addresses[0].email_address,
         image: image_url
-      }).where(eq(user.clerkId, id)).returning({ id: user.clerkId });
+      })
 
     return NextResponse.json({ message: 'OK', userId })
   }
 
   if (eventType === 'user.deleted') {
     const { id } = evt.data;
-    const [userId] = await db.delete(user).where(eq(user.clerkId, id as string)).returning({ id: user.clerkId });
+    if (!id) {
+      return NextResponse.json({ message: 'Something went wrong' })
+    }
+    const userId = deleteUser({ clerkId: id })
     return NextResponse.json({ message: 'OK', userId: userId })
   }
 

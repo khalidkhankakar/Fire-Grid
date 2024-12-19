@@ -36,20 +36,20 @@ export const Sidebar = () => {
                         />
                     </Link>
                     <Tip label={toggleSidebar ? 'Expand' : 'Collapse'} side='right' align='center'>
-                    <Button
-                        size={'icon'}
-                        variant='icon'
-                        className={cn('absolute cursor-pointer  ', toggleSidebar ? 'right-[50%] translate-x-[50%]' : 'translate-x-0 translate-y-[-50%] right-0 top-[50%]')}
-                        onClick={() => setToggleSidebar((prev) => !prev)}
+                        <Button
+                            size={'icon'}
+                            variant='icon'
+                            className={cn('absolute cursor-pointer  ', toggleSidebar ? 'right-[50%] translate-x-[50%]' : 'translate-x-0 translate-y-[-50%] right-0 top-[50%]')}
+                            onClick={() => setToggleSidebar((prev) => !prev)}
 
-                        asChild
-                    >
-                        <div>
-                            {
-                                !toggleSidebar ? <CircleChevronLeft className='w-12 h-12' /> : <CircleChevronRight className='w-12 h-12' />
-                            }
-                        </div>
-                    </Button>
+                            asChild
+                        >
+                            <div>
+                                {
+                                    !toggleSidebar ? <CircleChevronLeft className='w-12 h-12' /> : <CircleChevronRight className='w-12 h-12' />
+                                }
+                            </div>
+                        </Button>
                     </Tip>
                 </div>
 
@@ -65,80 +65,76 @@ export const Sidebar = () => {
                             </Tip>
 
                             <Tip label='Team' side='right' align='center'>
-                            <Button variant={type == 'team' ? 'icon-active' : 'icon'} size={'icon'} asChild>
-                                <Link href={{ pathname: '/dashboard', query: { type: 'team' } }}>
-                                    <UserRoundPlus />
-                                </Link>
-                            </Button>
+                                <Button variant={type == 'team' ? 'icon-active' : 'icon'} size={'icon'} asChild>
+                                    <Link href={{ pathname: '/dashboard', query: { type: 'team' } }}>
+                                        <UserRoundPlus />
+                                    </Link>
+                                </Button>
                             </Tip>
                             {
                                 type == 'team' && (
                                     <>
 
                                         <InviteUser>
-                                        <Tip label='Invite User' side='right' align='center'>
-                                            <Button size={'icon'} variant={'icon-active'}  >
-                                                <Plus className='w-6 h-6' />
-                                            </Button>
-                                        </Tip>
+                                          
+                                                <Button size={'icon'} variant={'icon-active'}  >
+                                                    <Plus className='w-6 h-6' />
+                                                </Button>
+                                           
                                         </InviteUser>
                                         <OrgainzationList show={false} />
                                     </>
                                 )
                             }
                             <Tip label='Favorite' side='right' align='center'>
-                            <Button variant={type == 'favorite' ? 'icon-active' : 'icon'} size={'icon'} asChild>
-                                <Link href={{ pathname: '/dashboard', query: { type: 'favorite' } }}>
-                                    <Star />
-                                </Link>
-                            </Button>
+                                <Button variant={type == 'favorite' ? 'icon-active' : 'icon'} size={'icon'} asChild>
+                                    <Link href={{ pathname: '/dashboard', query: { type: 'favorite' } }}>
+                                        <Star />
+                                    </Link>
+                                </Button>
                             </Tip>
                             <Tip label='Templates' side='right' align='center'>
-                            <Button variant={type == 'template' ? 'icon-active' : 'icon'} size={'icon'} asChild>
-                                <Link href={{ pathname: '/dashboard', query: { type: 'template' } }}>
-                                    <LayoutTemplate />
-                                </Link>
-                            </Button>
+                                <Button variant={type == 'template' ? 'icon-active' : 'icon'} size={'icon'} asChild>
+                                    <Link href={{ pathname: '/dashboard', query: { type: 'template' } }}>
+                                        <LayoutTemplate />
+                                    </Link>
+                                </Button>
                             </Tip>
                         </div>
                     ) : (
                         <div className='sidebar  flex flex-col  gap-y-4 mt-3  '>
                             <div className='flex  flex-col py-1 cursor-pointer   w-full'>
                                 <p className='text-lg px-5 mb-2'>Menu</p>
-                                {/* Todo: Add gradient line refactor this */}
-                                {/* {
-                                    theme == 'light' ? <div className="h-[2px] bg-gradient-to-r from-white  via-blue-600 to-white  z-50" /> : <div className="h-[2px] bg-gradient-to-r from-dark-1 dark:to via-blue-600  to-dark-1 z-50" />
-                                } */}
                             </div>
                             <Tip label='Personnel' side='right' align='center'>
-                            <Link href={'/dashboard'} className={cn('py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md', type == null && 'border-blue-600 text-blue-600 ')}>
-                                <div className='flex items-center gap-x-3 ml-4 '>
-                                    <UserRound className='w-6 h-6' />
-                                    <span className='text-lg '>Personnel</span>
-                                </div>
-                            </Link>
-                                </Tip>
+                                <Link href={'/dashboard'} className={cn('py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md', type == null && 'border-blue-600 text-blue-600 ')}>
+                                    <div className='flex items-center gap-x-3 ml-4 '>
+                                        <UserRound className='w-6 h-6' />
+                                        <span className='text-lg '>Personnel</span>
+                                    </div>
+                                </Link>
+                            </Tip>
 
                             <Tip label='Team' side='right' align='center'>
-                            <Link href={{ pathname: '/dashboard', query: { type: 'team' } }} className={cn('team-tab py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md', type == 'team' && 'border-blue-600 text-blue-600 ')}>
-                                <div className='flex items-center gap-x-2 ml-4'>
-                                    <UserRoundPlus className='w-6 h-6' />
-                                    <span className='text-lg '>Teammates</span>
-                                </div>
-                            </Link>
+                                <Link href={{ pathname: '/dashboard', query: { type: 'team' } }} className={cn('team-tab py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md', type == 'team' && 'border-blue-600 text-blue-600 ')}>
+                                    <div className='flex items-center gap-x-2 ml-4'>
+                                        <UserRoundPlus className='w-6 h-6' />
+                                        <span className='text-lg '>Teammates</span>
+                                    </div>
+                                </Link>
                             </Tip>
 
                             {
                                 type == 'team' && (
                                     <div className='flex flex-col gap-y-2'>
                                         <InviteUser>
-                                            <Tip label='Invite User' side='right' align='center'>
+                                            {/* <Tip label='Invite User' side='right' align='center'> */}
 
-                                            <div className='flex items-center gap-x-2 ml-9 text-white bg-blue-500/80 py-1 px-2 rounded-md hover:bg-blue-600 cursor-pointer '>
-                                                <Plus className='w-6 h-6' />
-                                                <span className='text-sm '>Invite User</span>
-                                            </div>
-                                            </Tip>
+                                                <div className='flex items-center gap-x-2 ml-9 text-white bg-blue-500/80 py-1 px-2 rounded-md hover:bg-blue-600 cursor-pointer '>
+                                                    <Plus className='w-6 h-6' />
+                                                    <span className='text-sm '>Invite User</span>
+                                                </div>
+                                            {/* </Tip> */}
                                         </InviteUser>
                                         <OrgainzationList show={true} />
                                     </div>
@@ -146,22 +142,22 @@ export const Sidebar = () => {
                             }
 
                             <Tip label='Favorite' side='right' align='center'>
-                            <Link href={{ pathname: '/dashboard', query: { type: 'favorite' } }} className={cn(' fav-tab py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md', type == 'favorite' && 'border-blue-600 text-blue-600 ')}>
-                                <div className='flex items-center gap-x-2 ml-4'>
-                                    <Star className='w-6 h-6' />
-                                    <span className='text-lg '>Favorites</span>
-                                </div>
-                            </Link>
+                                <Link href={{ pathname: '/dashboard', query: { type: 'favorite' } }} className={cn(' fav-tab py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md', type == 'favorite' && 'border-blue-600 text-blue-600 ')}>
+                                    <div className='flex items-center gap-x-2 ml-4'>
+                                        <Star className='w-6 h-6' />
+                                        <span className='text-lg '>Favorites</span>
+                                    </div>
+                                </Link>
                             </Tip>
 
                             <Tip label='Templates' side='right' align='center'>
-                            <Link href={{ pathname: '/dashboard', query: { type: 'template' } }} className={cn(' fav-tab py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md', type == 'template' && 'border-blue-600 text-blue-600 ')}>
-                                <div className='flex items-center gap-x-2 ml-4'>
-                                
-                                    <LayoutTemplate className='w-6 h-6' />
-                                    <span className='text-lg '>Templates</span>
-                                </div>
-                            </Link>
+                                <Link href={{ pathname: '/dashboard', query: { type: 'template' } }} className={cn(' fav-tab py-1 cursor-pointer   border-l-[6px]  w-full  rounded-md', type == 'template' && 'border-blue-600 text-blue-600 ')}>
+                                    <div className='flex items-center gap-x-2 ml-4'>
+
+                                        <LayoutTemplate className='w-6 h-6' />
+                                        <span className='text-lg '>Templates</span>
+                                    </div>
+                                </Link>
                             </Tip>
                         </div>
                     )

@@ -16,7 +16,7 @@ import Pagination from '@/components/shared/pagination'
 import { getBoards } from '@/actions/search-filter.actions'
 
 import { CATEGORY_FILTER, DATETIME_FILTER, ORDER_FILTER } from '@/contants'
-import { SearchParams } from '@/types'
+import { Board, SearchParams } from '@/types'
 
 
 
@@ -63,7 +63,7 @@ const renderNoResult = (type: string | undefined, noBoardsFound: boolean, search
   return null
 }
 
-const renderBoards = (boards: any[], noBoardsFound: boolean) => {
+const renderBoards = (boards: Board[], noBoardsFound: boolean) => {
   if (noBoardsFound) return null;
 
   return boards.map((board) => (

@@ -86,7 +86,7 @@ export const backgroundArray = [
 ];
 
 
-export const BOARDS_PER_PAGE = 2
+export const BOARDS_PER_PAGE = 5
 
 
 

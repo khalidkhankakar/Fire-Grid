@@ -50,6 +50,19 @@ export type Table = {
 }
 
 
+export type Board = {
+    id: string;
+title: string;
+image: string;
+createdAt: string;
+createdBy: string;
+category: string;
+visibility: string;
+type: string | null;
+orgId: string | null;
+isFavorite: boolean;
+}
+
 export type SearchParams = {
     type?: 'team' | 'favorite' | 'template'
     search?: string

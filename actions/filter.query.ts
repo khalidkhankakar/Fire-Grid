@@ -22,7 +22,7 @@ export const datetimeFilter = (datetime?: string) => {
             return sql`${board.createdAt} < now() AT TIME ZONE 'UTC' - interval '1 hour'`;
         case 'a_day':
             return sql`${board.createdAt} < now() AT TIME ZONE 'UTC' - interval '1 day'`;
-        case '3_days': // Handle 3 days ago
+        case '3_days': 
             return sql`${board.createdAt} < now() AT TIME ZONE 'UTC' - interval '3 days'`;
         case 'a_week':
             return sql`${board.createdAt} < now() AT TIME ZONE 'UTC' - interval '1 week'`;

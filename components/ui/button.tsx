@@ -21,6 +21,7 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         icon:"border-2 rounded-xl border-blue-600 text-blue-600 hover:bg-blue-600/30 hover:text-white hover:text-blue-600",
         "icon-active":"border-2 rounded-xl border-blue-600 text-white bg-blue-600",
+        "icon-normal":"border-2 rounded-xl border-blue-600 text-blue-600 hover:bg-blue-600/30 hover:text-white hover:text-blue-600",
       },
       size: {
         default: "h-9 px-4 py-2",

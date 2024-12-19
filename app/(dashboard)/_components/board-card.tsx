@@ -15,6 +15,7 @@ import BoardActions from './board-actions'
 import BoardFavorite from './board-favorite';
 
 import { forkedBoard } from '@/actions/board.actions';
+import { formatDate } from '@/lib/utils';
 
 
 
@@ -36,6 +37,7 @@ const BoardCard = ({
     image,
     visibility,
     isFavorite,
+    createdAt,
     type
 }: BoardCardProps) => {
     const [isPending, startTransition] = useTransition();
@@ -80,7 +82,7 @@ const BoardCard = ({
                 </div>
                 <div className="flex items-center text-sm text-gray-500">
                     <Calendar className="w-4 h-4 mr-1" />
-                    <span>12/12/2023</span>
+                    <span>{formatDate(String(createdAt))}</span>
                 </div>
                 </div>
                 {(searchParams.get('type')==="template" && type==="template") && <Button className='mt-2 w-full' onClick={handleForked} variant="outline">
