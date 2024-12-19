@@ -9,9 +9,18 @@ const LandingNavbar = () => {
   return (
     <header className='z-50'>
       <nav className='flex py-4 px-5 justify-between '>
-        <Link href={'/'} className='logo'>
+        <Link href={'/'} className='logo block dark:hidden'>
           <Image
             src={'/logo.svg'}
+            width={200}
+            height={200}
+            className='object-contain cursor-pointer'
+            alt='logo'
+          />
+        </Link>
+        <Link href={'/'} className='logo hidden dark:block'>
+          <Image
+            src={'/light-logo.svg'}
             width={200}
             height={200}
             className='object-contain cursor-pointer'

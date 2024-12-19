@@ -23,16 +23,23 @@ export const Navbar = ({ isShowLogo }: Readonly<NavbarProps>) => {
     const { user } = useClerk();
     return (
         <header className='navbar flex items-center justify-between bg-white dark:bg-dark-1 z-50 h-16  px-6 ' style={{ boxShadow: "0 4px 2px -2px #3b82f6" }}>
-            {isShowLogo ? (<Link href="/" >
+            {isShowLogo ? (<Link href="/dashboard" >
                 <Image
                     src="/logo.svg"
                     alt="FireGrid"
                     width={180}
                     height={30}
-                    className='object-contain  '
+                    className='object-contain block dark:hidden '
                 />
+                <Image
+                            src={'/light-logo.svg'}
+                            width={200}
+                            height={200}
+                            className='object-contain hidden dark:block '
+                            alt='logo'
+                    />
             </Link>) : (<div >
-                <Link href="/" >
+                <Link href="/dashboard" >
                     <Image
                         src="/logo.svg"
                         alt="FireGrid"

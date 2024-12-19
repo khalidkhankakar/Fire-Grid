@@ -59,3 +59,7 @@ export function formatDate(inputDate:string):string {
   return `${day}/${month}/${year}`;
 }
 
+export function generateRandomFromArray (arr: string[]): string {
+  const randomIndex = Math.floor(Math.random() * arr.length);
+  return arr[randomIndex];
+}

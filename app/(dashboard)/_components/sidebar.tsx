@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-// import { useTheme } from 'next-themes';
 
 import { Button } from '@/components/ui/button';
 import { CircleChevronLeft, CircleChevronRight, LayoutTemplate, Plus, Star, UserRound, UserRoundPlus } from 'lucide-react';
@@ -17,7 +16,6 @@ import { cn } from '@/lib/utils';
 export const Sidebar = () => {
     const [toggleSidebar, setToggleSidebar] = useState<boolean>(false)
 
-    // const { theme } = useTheme()
     const searchParams = useSearchParams()
     const type = searchParams.get('type')
 
@@ -32,7 +30,14 @@ export const Sidebar = () => {
                             alt="FireGrid"
                             width={180}
                             height={30}
-                            className='object-contain '
+                            className='object-contain block dark:hidden '
+                        />
+                        <Image
+                            src="/light-logo.svg"
+                            alt="FireGrid"
+                            width={180}
+                            height={30}
+                            className='object-contain hidden dark:block '
                         />
                     </Link>
                     <Tip label={toggleSidebar ? 'Expand' : 'Collapse'} side='right' align='center'>

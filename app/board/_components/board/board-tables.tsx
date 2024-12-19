@@ -141,10 +141,17 @@ const BoardTables = ({ id }: BoardTablesProps) => {
     setMyPresence({ cursor: current })
   }, [])
 
+  const onPointerLeave = useMutation((
+    { setMyPresence },
+  ) => {
+    setMyPresence({ cursor: null })
+  }, [])
+
   if(isLoading) return <div>Loading...</div>
   return (
 
     <div
+      onPointerLeave={onPointerLeave}
       onPointerMove={onPointerMove}
       style={{
         backgroundImage: `url(${data?.image})`,

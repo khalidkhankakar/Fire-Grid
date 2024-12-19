@@ -156,6 +156,48 @@ Follow these steps to run the project locally:
 
 ---
 
+## 📚 **Resources**
+
+Learn more about the technologies and tools used to build FireGrid:  
+
+### Frontend  
+- [Next.js](https://nextjs.org/) – React-based framework for building server-rendered apps.  
+- [React.js](https://reactjs.org/) – A JavaScript library for building user interfaces.  
+- [Tailwind CSS](https://tailwindcss.com/) – Utility-first CSS framework for styling.  
+- [ShadCN UI](https://ui.shadcn.com/) – Component library for building modern UI designs.  
+
+### Real-Time Collaboration  
+- [Liveblocks](https://liveblocks.io/) – Real-time presence and collaboration for web apps.  
+
+### Backend  
+- [Hono](https://hono.dev/) – Ultrafast web framework for building APIs.  
+- [Vercel AI SDK](https://sdk.vercel.ai/) – Toolkit for integrating AI models into apps.  
+
+### State Management and Fetching  
+- [TanStack Query](https://tanstack.com/query/v4) – Powerful data-fetching library for React.  
+
+### Database  
+- [Neon](https://neon.tech/) – Serverless PostgreSQL platform.  
+- [Drizzle ORM](https://orm.drizzle.team/) – TypeScript ORM for type-safe SQL queries.  
+
+### AI and Machine Learning  
+- [LangChain](https://www.langchain.com/) – Framework for building AI-powered applications.  
+- [Gemini AI](https://ai.google.dev/) – Advanced AI language models by Google.  
+- [Datastax](https://www.datastax.com/) – NoSQL database and tools for AI applications.  
+
+### DevOps and Monitoring  
+- [Docker](https://www.docker.com/) – Containerization platform for scalable deployments.  
+- [Sentry](https://sentry.io/) – Application monitoring and error tracking.  
+
+### Authentication  
+- [Clerk](https://clerk.dev/) – Authentication service with social login support.  
+
+### Deployment  
+- [Vercel](https://vercel.com/) – Hosting platform for web applications.  
+
+These resources will help you understand the stack powering FireGrid and guide you in extending its functionality!
+
+---
 ## 🎯 **Why Choose FireGrid?**  
 
 Whether you're a solo professional or managing a large team, FireGrid empowers you to stay organized, productive, and connected. Experience task management that's:  
@@ -180,5 +222,7 @@ Whether you're a solo professional or managing a large team, FireGrid empowers y
   💬 Have questions or feedback? Open an issue.
   ⭐ Enjoyed the project? Give us a star!
 
-## 📌 Note
+## 📌 Note 
 This project is under active development. Stay tuned for updates! 🚧✨
+
+I have created **FireGrid** specifically for the **JavaScript Mastery Hackathon** as a showcase of real-time collaborative task management capabilities. It demonstrates advanced features like AI integration, real-time collaboration, and seamless user experiences tailored for productivity apps.  

@@ -23,7 +23,7 @@ services:
     
 
     environment:
-
+    
       POSTGRES_URL: postgresql://neondb_owner:WdTX0L9QaCrD@ep-icy-poetry-a5tfdgwi.us-east-2.aws.neon.tech/neondb?sslmode=require
       NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
       NEXT_PUBLIC_CLERK_SIGN_UP_URL: /sign-up
@@ -31,6 +31,10 @@ services:
       CLERK_SECRET_KEY: sk_test_ynGfbMyuNwmP3OV3pSEgvV9EQynQgJgyBdmFt9H34j
       WEBHOOK_SECRET: whsec_RYBgkePAiBdznf60KW4aS3mQSLj/ciY3
       SENTRY_AUTH_TOKEN: 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
+      GOOGLE_API_KEY: AIzaSyAW3NcBy5JQ5SMO4G0vPQtu0qxJotzqZHY
+      ASTRA_DB_APPLICATION_TOKEN: AstraCS:fMnkoGjLiYeGJTdsnleNsJpj:91121f8525edb2d290034cc9a15d9359f93a416f2b4ffa7b986358e5cf5b29b9
+      ASTRA_DB_API_ENDPOINT: https://924d1178-6fc5-417a-a188-f3da5cfe4c79-us-east-2.apps.astra.datastax.com
+      ASTRA_DB_NAMESPACE: default_keyspace
 
     
 volumes:

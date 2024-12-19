@@ -91,11 +91,7 @@ export const BOARDS_PER_PAGE = 5
 
 
 
-
-
 export const CURSOR_COLORS:string[] = [
-    "#000000", // Black
-    "#ffffff", // White
     "#FF5733", // Vibrant Orange-Red
     "#33C3FF", // Bright Sky Blue
     "#FFC300", // Bold Yellow
@@ -131,16 +127,6 @@ export const JOYRIDE_STEPS_DASHBOARD = [
     }
   ]
 
-export const COLORS = [
-    "#E57373",
-    "#9575CD",
-    "#4FC3F7",
-    "#81C784",
-    "#FFF176",
-    "#FF8A65",
-    "#F06292",
-    "#7986CB",
-  ];
 
 export const FOOTER_LINKS = [
     {
