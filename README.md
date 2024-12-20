@@ -62,7 +62,7 @@ FireGrid is a powerful, real-time task management application designed for both 
 - **AI Bot**: LangChain and Gemini, integrated with Datastax for efficient query processing.  
 - **Database**: Neon PostgreSQL with Drizzle ORM for structured and scalable data management.  
 - **State Management**: TanStack Query for efficient data fetching and caching.  
-- **DevOps and Monitoring**: Docker for containerization, Sentry for error tracking.  
+- **DevOps and Monitoring**: Docker for containerization [Docker repo link](https://hub.docker.com/r/khalidkhankakar/fire-grid), Sentry for error tracking.  
 - **Deployment**: Vercel for seamless CI/CD and hosting.
 
 ---
@@ -88,6 +88,7 @@ FireGrid is a powerful, real-time task management application designed for both 
 - **Analytics**: Insights into task progress, team productivity, and deadlines.  
 - **Integrations**: Connect with tools like Google Calendar, Slack, and Trello. 
 - **Stripe**: Implementing the stripe to pay bills of FireGrid. 
+- **Uploadthing and Unsplash**: Uploading your own custom image and integrating the unsplash.
 
 ---
 
@@ -116,26 +117,26 @@ Follow these steps to run the project locally:
    ```bash
     # Postgress database key
     # https://neon.tech/
-    POSTGRES_URL=postgresql://neondb_owner:***********************
+    POSTGRES_URL=postgresql://neondb_owner:*********************
 
     # Clerk Env Keys
     # https://clerk.com/
-    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_****************
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_*********************
     WEBHOOK_SECRET=*********************
     NEXT_PUBLIC_CLERK_SIGN_IN_URL=/sign-in
     NEXT_PUBLIC_CLERK_SIGN_UP_URL=/sign-up
-    CLERK_SECRET_KEY=sk_test_ynGfbMyuNwmP3OV3pSEgvV9EQynQgJgyBdmFt9H34j
+    CLERK_SECRET_KEY==*********************
     
     # https://sentry.io/welcome/
-    SENTRY_AUTH_TOKEN=****
+    SENTRY_AUTH_TOKEN=*********************
     
     # https://aistudio.google.com/app/apikey
-    GOOGLE_API_KEY=*****
+    GOOGLE_API_KEY=*********************
     
     # https://www.datastax.com/
-    ASTRA_DB_APPLICATION_TOKEN=******
-    ASTRA_DB_API_ENDPOINT=*****
-    ASTRA_DB_NAMESPACE=*****
+    ASTRA_DB_APPLICATION_TOKEN=*********************
+    ASTRA_DB_API_ENDPOINT=*********************
+    ASTRA_DB_NAMESPACE=*********************
    
    # Also add your own liveblocks key and project
    # https://liveblocks.io/

@@ -92,12 +92,10 @@ export const Navbar = ({ isShowLogo }: Readonly<NavbarProps>) => {
                 </Button>
                 </Tip>
 
-                <InviteUser>
-                <Tip label={'Invite user'} side='bottom' align='center'>
+                <InviteUser>     
                     <Button size={'icon'} variant={'icon-active'}  >
                         <Plus className='w-6 h-6' />
                     </Button>
-                </Tip>
                 </InviteUser>
                 <Tip label={'Logout'} side='bottom' align='center'>
                 <Button

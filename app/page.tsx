@@ -10,6 +10,7 @@ import SponseredSection from "@/components/shared/sponsered-section";
 
 import { BackgroundBeams } from "@/components/ui/background-beams";
 import { Button } from "@/components/ui/button";
+import WhyChoose from "@/components/shared/why-choose";
 
 
 export default function Home() {
@@ -19,7 +20,7 @@ export default function Home() {
       <main className="flex bg-slate-200 dark:bg-dark-1 min-h-screen flex-col h-full ">
         <LandingNavbar />
 
-        <section className=" z-50 pb-20 flex flex-col items-center py-2 md:py10 h-[calc(100vh-80px)]">
+        <section className="relative z-50 pb-20 flex flex-col items-center py-2 md:py10 h-[calc(100vh-80px)]">
           <div className=" border-2 border-white rounded-full">
             <p className="text-sm py-1 px-4 font-extralight text-indigo-500">Inspired by Trello</p>
           </div>
@@ -76,10 +77,12 @@ export default function Home() {
               </Link>
             </Button>
           </div>
+          {/* <Image src={'/hand.png'} width={500} height={500} className="object-contain absolute top-3 left-4 h-32 w-32 md:h-40 md:w-40" alt="hero image"  /> */}
         </section>
         <SponseredSection />
         <FeatureSection />
         <HowWorksSection />
+        <WhyChoose />
         <Footer />
         <BackgroundBeams />
 

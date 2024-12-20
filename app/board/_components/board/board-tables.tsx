@@ -16,7 +16,7 @@ import { updateCardPosition } from '@/actions/card.actions';
 import { updateTablePosition } from '@/actions/table.actions';
 import { getBoard } from '@/actions/board.actions';
 
-import { reArrange } from '@/lib/utils';
+import { cn, reArrange } from '@/lib/utils';
 import BoardHeader from './board-header';
 
 
@@ -60,7 +60,7 @@ const BoardTables = ({ id }: BoardTablesProps) => {
 
 
     if (type === 'TABLE') {
-      // Only update the positions if they change
+      
       const { updatedList, changedItem } = reArrange(
         boardTables,
         source.index,
@@ -102,7 +102,7 @@ const BoardTables = ({ id }: BoardTablesProps) => {
 
         toast({ title: 'Card position updated successfully.' });
       } else {
-        // Moving between lists
+    
         const [removed] = sourceList.tableCards.splice(source.index, 1);
         removed.tableId = destination.droppableId;
 
@@ -170,16 +170,17 @@ const BoardTables = ({ id }: BoardTablesProps) => {
       <CursorPresence />
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="tables" direction="horizontal" type="TABLE">
-          {(provided) => (
+          {(provided,snapshot) => (
             <div
               {...provided.droppableProps}
               ref={provided.innerRef}
-              className="w-full gap-3 flex h-[calc(100vh-64px)] p-4 overflow-x-auto"
+              className={cn('w-full gap-3 flex h-[calc(100vh-64px)] p-4 overflow-x-auto',
+                snapshot.isDraggingOver && 'bg-slate-200 dark:bg-dark-1')}
             >
               {boardTables.map((table, index) => (
                 <Draggable key={table.id} draggableId={table.id} index={index}>
                   {(provided) => (
-                    <div ref={provided.innerRef} {...provided.draggableProps}>
+                    <div  ref={provided.innerRef} {...provided.draggableProps}>
                       <TableCard
                         tableCards={table.tableCards}
                         provided={provided}
