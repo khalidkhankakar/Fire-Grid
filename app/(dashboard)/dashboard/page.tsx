@@ -1,4 +1,4 @@
-import React , { Suspense } from 'react'
+import React, { Suspense } from 'react'
 import { currentUser } from '@clerk/nextjs/server'
 
 import { Button } from '@/components/ui/button'
@@ -132,9 +132,9 @@ const Page = async ({ searchParams }: { searchParams?: Promise<SearchParams> }) 
         <div className={`${noBoardsFound ? "hidden" : "block"}`}>
 
           <CreateBoardButton >
-            <div className='w-[250px] cursor-pointer py-[5.8rem] bg-blue-500 flex items-center justify-center flex-col rounded-lg'>
-              <Plus className='text-white' />
-              <p className='text-sm'>Create Board</p>
+            <div className={`w-[250px] cursor-pointer ${type === 'template' ? 'h-[278px]': 'h-[230px]'} bg-blue-500 shadow-lg flex items-center justify-center flex-col gap-y-2 text-white rounded-lg`}>
+              <Plus size={30} />
+              <p className='text-sm '>Create Board</p>
             </div>
           </CreateBoardButton>
         </div>

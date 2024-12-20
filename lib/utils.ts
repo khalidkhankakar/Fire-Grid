@@ -1,3 +1,4 @@
+import { CURSOR_COLORS } from "@/contants"
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 import { z } from "zod"
@@ -59,7 +60,7 @@ export function formatDate(inputDate:string):string {
   return `${day}/${month}/${year}`;
 }
 
-export function generateRandomFromArray (arr: string[]): string {
-  const randomIndex = Math.floor(Math.random() * arr.length);
-  return arr[randomIndex];
+
+export function getCursorColor(id: number): string {
+  return CURSOR_COLORS[id % CURSOR_COLORS.length]
 }

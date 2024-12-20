@@ -5,6 +5,7 @@ import { DragDropContext, Droppable, Draggable, DropResult } from '@hello-pangea
 import { useMutation } from '@liveblocks/react';
 import { useQuery } from '@tanstack/react-query'
 import { useToast } from '@/hooks/use-toast';
+import Loading from '../../[boardId]/loading';
 
 
 import CreateTable from '../table/create-table';
@@ -16,6 +17,7 @@ import { updateTablePosition } from '@/actions/table.actions';
 import { getBoard } from '@/actions/board.actions';
 
 import { reArrange } from '@/lib/utils';
+import BoardHeader from './board-header';
 
 
 interface BoardTablesProps {
@@ -26,7 +28,7 @@ interface BoardTablesProps {
 
 const BoardTables = ({ id }: BoardTablesProps) => {
 
-  const {data, isLoading} = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['board', id],
     queryFn: async () => {
       const board = await getBoard(id);
@@ -39,7 +41,7 @@ const BoardTables = ({ id }: BoardTablesProps) => {
     if (data?.boardTables) {
       setBoardTables(data?.boardTables);
     }
-  },[data?.boardTables])
+  }, [data?.boardTables])
 
 
   const [boardTables, setBoardTables] = useState(data?.boardTables || []);
@@ -147,7 +149,11 @@ const BoardTables = ({ id }: BoardTablesProps) => {
     setMyPresence({ cursor: null })
   }, [])
 
-  if(isLoading) return <div>Loading...</div>
+  if (isLoading) {
+    return (
+      <Loading />
+    )
+  }
   return (
 
     <div
@@ -160,9 +166,7 @@ const BoardTables = ({ id }: BoardTablesProps) => {
       }}
       className="w-[100vw] overflow-x-auto h-[calc(100vh-64px)] flex flex-col items-center"
     >
-      <header className="py-3 px-4 bg-slate-900/15 w-full flex-wrap flex items-center">
-        <h1 className="text-sm font-bold">{data?.title}</h1>
-      </header>
+      <BoardHeader title={data?.title || ''} />
       <CursorPresence />
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="tables" direction="horizontal" type="TABLE">

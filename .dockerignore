@@ -6,7 +6,7 @@
 
 **/.classpath
 **/.dockerignore
-**/.env
+.env
 **/.git
 **/.gitignore
 **/.project
@@ -14,7 +14,7 @@
 **/.toolstarget
 **/.vs
 **/.vscode
-**/.next
+.next
 **/.cache
 **/*.*proj.user
 **/*.dbmdl
@@ -23,7 +23,7 @@
 **/docker-compose*
 **/compose.y*ml
 **/Dockerfile*
-**/node_modules
+node_modules
 **/npm-debug.log
 **/obj
 **/secrets.dev.yaml
