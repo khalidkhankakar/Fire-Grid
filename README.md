@@ -1,6 +1,6 @@
 ### Note:
 While working in the local environment, I used ngrok to set up an HTTPS domain for testing the Clerk webhook. It worked perfectly during testing. However, after deploying the project and replacing the dummy ngrok HTTPS domain with the actual domain, the Clerk webhook stopped triggering. Unfortunately, the issue arose near the end of the JS Hackathon, leaving me without enough time to debug it.
-To showcase the project’s functionality, I recorded a video demonstrating its features. If you'd like to test it locally, you can do so effortlessly. The application is also Docker-compatible, making it straightforward to set up and run. [click here docker repo](https://hub.docker.com/r/khalidkhankakar/fire-grid)
+To showcase the project’s functionality, I recorded a video demonstrating its features. If you'd like to test it locally, you can do so effortlessly.
 so then i have just updated the readme file
 [video link](https://drive.google.com/file/d/1omRbyoMDmXH26hds0k-mKFBz8tyu1VCM/view?usp=drive_link)
 
